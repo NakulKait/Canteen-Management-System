@@ -1,9 +1,13 @@
 const express = require("express");
 const router = express.Router();
+const cryptojs = require("crypto-js");
+const jwt = require("jsonwebtoken");
+
 //user defined
 
 const pool = require("../db/mysql");
 const result = require("../utils/result");
+const config = require("../utils/config");
 
 router.get("/", (request, response) => {
   const sql = `SELECT * FROM users`;
@@ -22,7 +26,16 @@ router.post("/SignIn", (request, response) => {
       if (data.length == 0) {
         response.send(result.createErrorResult(error));
       } else {
-        response.send(result.createSuccessResult(data));
+        const payload = {
+          id: data[0].user_id,
+        };
+        const token = jwt.sign(payload, config.secret);
+        const body = {
+          token: token,
+          name: data[0].name,
+          email: data[0].email,
+        };
+        response.send(result.createSuccessResult(body));
       }
     } else {
       response.send(result.createErrorResult(error));
@@ -32,9 +45,13 @@ router.post("/SignIn", (request, response) => {
 
 router.post("/SignUp", (request, response) => {
   const { name, email, password, Role } = request.body;
-  const sql = `INSERT INTO users (name,email,password,Role)
-  Values ("${name}","${email}","${password}","${Role}")`;
-  pool.query(sql, (error, data) => {
+
+  const encryptedPassword = cryptojs.SHA256(password).toString();
+
+  const sql = `INSERT INTO users (name, email, password, Role) VALUES (?, ?, ?, ?)`;
+  const values = [name, email, encryptedPassword, Role];
+
+  pool.query(sql, values, (error, data) => {
     response.send(result.createResult(error, data));
   });
 });
