@@ -18,7 +18,7 @@ router.get("/", (request, response) => {
 
 router.post("/Signin", (request, response) => {
   const { email, password } = request.body;
-   const encryptedPassword = cryptoJs.SHA256(password).toString();
+
   const sql = `SELECT * FROM USERS WHERE email = ? AND PASSWORD = ?`;
 
   pool.query(sql, [email, encryptedPassword], (error, data) => {
