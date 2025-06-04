@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const cryptojs = require("crypto-js");
+const cryptoJs = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
 //user defined
@@ -19,7 +19,6 @@ router.get("/", (request, response) => {
 router.post("/Signin", (request, response) => {
   const { email, password } = request.body;
 
-  const encryptedPassword = cryptojs.SHA256(password).toString();
   const sql = `SELECT * FROM USERS WHERE email = ? AND PASSWORD = ?`;
 
   pool.query(sql, [email, encryptedPassword], (error, data) => {
@@ -47,7 +46,7 @@ router.post("/Signin", (request, response) => {
 router.post("/Signup", (request, response) => {
   const { name, email, password, Role } = request.body;
 
-  const encryptedPassword = cryptojs.SHA256(password).toString();
+  const encryptedPassword = cryptoJs.SHA256(password).toString();
 
   const sql = `INSERT INTO users (name, email, password, Role) VALUES (?, ?, ?, ?)`;
   const values = [name, email, encryptedPassword, Role];
