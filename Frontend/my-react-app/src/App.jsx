@@ -17,7 +17,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/hello" element={<Hello />} />
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />

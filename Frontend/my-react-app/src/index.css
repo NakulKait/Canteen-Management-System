@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 /* index.css */
-@import "tailwindcss";
+/*@import "tailwindcss";*/
 
 /* index.css */
 * {
@@ -22,9 +22,9 @@ body {
 }
 /* Common logo style */
 .logo-img {
-  width: 70px;        /* fixed width */
-  height: auto;        /* keep aspect ratio */
-  display: block;      /* remove inline spacing */
-  margin: 0 auto;      /* center horizontally */
+  width: 70px; /* fixed width */
+  height: auto; /* keep aspect ratio */
+  display: block; /* remove inline spacing */
+  margin: 0 auto; /* center horizontally */
   object-fit: contain; /* no distortion */
 }
