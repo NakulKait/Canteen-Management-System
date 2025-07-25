@@ -1,4 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "aos/dist/aos.css";
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Registration from "./Pages/Registration";
 import Login from "./Pages/Login";
@@ -9,11 +11,13 @@ import AdminDashboard from "./Pages/AdminDashboard";
 
 import CartList from "./Components/CartList";
 import Dashboard from "./Pages/Dashboard";
+import Hello from "./Pages/Hello";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/hello" element={<Hello />} />
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
