@@ -11,6 +11,7 @@ import AdminDashboard from "./Pages/AdminDashboard";
 
 import CartList from "./Components/CartList";
 import Dashboard from "./Pages/Dashboard";
+import AddMenuItem from "./Pages/AddMenuItem";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/cart" element={<CartList />} />
+        <Route path="/addMenuItem" element={<AddMenuItem />} />
       </Routes>
     </Router>
   );

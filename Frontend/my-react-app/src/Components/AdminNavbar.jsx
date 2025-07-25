@@ -13,7 +13,7 @@ function AdminNavbar() {
           style={{ color: "#f97316" }} // Tailwind's orange-500
         >
           <span role="img" aria-label="canteen">
-            🍽
+            🛡️
           </span>
           <span>Admin Dashboard</span>
         </a>
