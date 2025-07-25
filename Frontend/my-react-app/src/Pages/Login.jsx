@@ -42,7 +42,7 @@ const Login = () => {
           <strong>Back to Home</strong>
         </Link>
         <div className="text-center mb-4">
-          <img src="/logo.png" alt="Logo" height="40" />
+         <img src="/logo.png" alt="Logo" className="logo-img" />
           <h4 className="mt-3 text-orange fw-bold">Student Login</h4>
           <p className="text-muted">Please sign in to continue </p>
         </div>

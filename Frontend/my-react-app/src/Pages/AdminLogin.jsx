@@ -42,7 +42,7 @@ const AdminLogin = () => {
           <strong>Back to Home</strong>
         </Link>
         <div className="text-center mb-4">
-          <img src="/logo.png" alt="Logo" height="40" />
+          <img src="/logo.png" alt="Logo" className="logo-img" />
           <h4 className="mt-3 text-orange fw-bold">Admin Login</h4>
           <p className="text-muted">Please sign in to continue</p>
         </div>
@@ -83,3 +83,43 @@ const AdminLogin = () => {
 };
 
 export default AdminLogin;
+
+
+//  {/* Hero Section */}
+//       <div className="hero-section text-center text-white">
+//         <div className="container my-5 px-4 px-md-5">
+//           <div className="row align-items-center">
+//             <div className="col-md-6 text-center text-md-start">
+//               <h1 className="fw-bold mb-3 text-dark">
+//                 Smart Canteen Management
+//               </h1>
+//               <p className="lead text-muted">
+//                 Streamline your campus dining experience with digital ordering,
+//                 QR code validation, and real-time management.
+//               </p>
+//               <div className="mt-4 d-flex gap-3 justify-content-center justify-content-md-start">
+//                 <Link
+//                   to="/student-dashboard"
+//                   className="btn btn-warning text-white px-4"
+//                 >
+//                   Student Dashboard
+//                 </Link>
+//                 <Link
+//                   to="/admin-dashboard"
+//                   className="btn btn-outline-warning px-4"
+//                 >
+//                   Admin Dashboard
+//                 </Link>
+//               </div>
+//             </div>
+//             {/* <div className="col-md-6 text-center mt-4 mt-md-0">
+//               <img
+//                 src="/images/canteen-hero.jpg"
+//                 alt="Canteen Hero"
+//                 className="img-fluid"
+//                 style={{ maxWidth: "400px" }}
+//               />
+//             </div> */}
+//           </div>
+//         </div>
+//       </div>
