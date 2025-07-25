@@ -11,13 +11,11 @@ import AdminDashboard from "./Pages/AdminDashboard";
 
 import CartList from "./Components/CartList";
 import Dashboard from "./Pages/Dashboard";
-import Hello from "./Pages/Hello";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/hello" element={<Hello />} />
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
