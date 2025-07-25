@@ -1,8 +1,34 @@
 import React from "react";
-import { Edit, Trash, Plus } from "lucide-react";
+import {
+  Edit,
+  Trash,
+  Plus,
+  User,
+  ShoppingBag,
+  DollarSign,
+  TrendingUp,
+} from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminNavbar from "../Components/AdminNavbar";
 import Footer from "../Components/Footer";
+import { Link } from "react-router-dom";
+
+const stats = [
+  { label: "Total Users", value: "150", icon: <User />, color: "orange" },
+  {
+    label: "Total Orders",
+    value: "342",
+    icon: <ShoppingBag />,
+    color: "orange",
+  },
+  {
+    label: "Total Revenue",
+    value: "₹45,680",
+    icon: <DollarSign />,
+    color: "red",
+  },
+  { label: "Growth", value: "+12.5%", icon: <TrendingUp />, color: "yellow" },
+];
 
 const menuItems = [
   {
@@ -41,25 +67,54 @@ function AdminDashboard() {
   return (
     <div className="bg-light min-vh-100">
       <AdminNavbar />
+      <br className="my-3" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {stats.map((item, idx) => (
+          <div
+            key={idx}
+            className="bg-white p-4 rounded-xl shadow flex items-center gap-4"
+          >
+            <div
+              className={`p-2 rounded-full ${
+                item.color === "orange"
+                  ? "bg-orange-100 text-orange-600"
+                  : item.color === "red"
+                  ? "bg-red-100 text-red-600"
+                  : item.color === "yellow"
+                  ? "bg-yellow-100 text-yellow-600"
+                  : ""
+              }`}
+            >
+              {item.icon}
+            </div>
+            <div>
+              <div className="text-gray-500 text-sm">{item.label}</div>
+              <div className="text-xl font-bold text-orange-600">
+                {item.value}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
 
-      {/* Navigation Tabs */}
-      <ul className="nav nav-tabs my-4">
-        <li className="nav-item">
-          <a className="nav-link disabled">Analytics</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link disabled">Orders</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link active">Menu</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link disabled">Users</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link disabled">QR Scanner</a>
-        </li>
-      </ul>
+      {/* Tabs */}
+      <div className="flex gap-6 border rounded-xl mb-6 overflow-hidden text-sm text-gray-600">
+        <button className="flex-1 py-2 text-center hover:bg-gray-100">
+          Analytics
+        </button>
+        <button className="flex-1 py-2 text-center hover:bg-gray-100">
+          Orders
+        </button>
+        <button className="flex-1 py-2 text-center bg-white font-semibold border-x">
+          Menu
+        </button>
+        <button className="flex-1 py-2 text-center hover:bg-gray-100">
+          Users
+        </button>
+        <button className="flex-1 py-2 text-center hover:bg-gray-100">
+          QR Scanner
+        </button>
+      </div>
 
       {/* Menu Management */}
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -69,9 +124,11 @@ function AdminDashboard() {
             Manage food items and categories
           </p>
         </div>
-        <button className="btn btn-warning d-flex align-items-center">
-          <Plus size={18} className="me-1" /> Add Item
-        </button>
+        <Link to="/addMenuItem" className="text-decoration-none">
+          <button className="btn btn-warning d-flex align-items-center">
+            <Plus size={18} className="me-1" /> Add Item
+          </button>
+        </Link>
       </div>
 
       {/* Menu Cards */}
