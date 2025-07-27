@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { loginUser } from "../Services/authservice";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({
@@ -16,10 +20,25 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login submitted:", form);
-    // TODO: Add login logic (API call, auth, etc.)
+
+    try {
+      const response = await loginUser({
+        email: form.email,
+        password: form.password,
+      });
+
+      toast.success("Login successful!");
+
+      // Optionally save token or user info:
+      // localStorage.setItem("token", response.token);
+
+      // Redirect to dashboard or home page
+      navigate("/student-dashboard");
+    } catch (error) {
+      toast.error("Login failed: " + error);
+    }
   };
 
   return (
@@ -42,7 +61,7 @@ const Login = () => {
           <strong>Back to Home</strong>
         </Link>
         <div className="text-center mb-4">
-         <img src="/logo.png" alt="Logo" className="logo-img" />
+          <img src="/logo.png" alt="Logo" className="logo-img" />
           <h4 className="mt-3 text-orange fw-bold">Student Login</h4>
           <p className="text-muted">Please sign in to continue </p>
         </div>
