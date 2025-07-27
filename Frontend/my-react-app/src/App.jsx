@@ -16,6 +16,7 @@ import AddMenuItem from "./Pages/AddMenuItem";
 import CartList from "./Components/CartList";
 
 import "./App.css";
+import TodaysSpecial from "./Pages/TodaysSpecial";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/cart" element={<CartList />} />
         <Route path="/addMenuItem" element={<AddMenuItem />} />
+        <Route path="/student-todaysSpecial" element={<TodaysSpecial />} />
       </Routes>
     </Router>
   );
