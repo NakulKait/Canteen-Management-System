@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+
+import { registerUser } from "../Services/authservice";
 
 const Registration = () => {
   const [form, setForm] = useState({
@@ -11,6 +15,7 @@ const Registration = () => {
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({
@@ -19,15 +24,27 @@ const Registration = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
 
-    console.log("Form submitted", form);
-    // TODO: Connect with backend
+    try {
+      const response = await registerUser({
+        fullName: form.fullName,
+        email: form.email,
+        role: form.role,
+        password: form.password,
+      });
+
+      toast.success("Registration successful!");
+      navigate("/login");
+    } catch (error) {
+      toast.error("Registration failed: " + error);
+    }
   };
 
   return (
@@ -50,7 +67,7 @@ const Registration = () => {
           <strong>Back to Home</strong>
         </Link>
         <div className="text-center mb-4">
-         <img src="/logo.png" alt="Logo" className="logo-img" />
+          <img src="/logo.png" alt="Logo" className="logo-img" />
           <h4 className="mt-3 text-orange fw-bold">Registration</h4>
           <p className="text-muted">Join our canteen management system</p>
         </div>

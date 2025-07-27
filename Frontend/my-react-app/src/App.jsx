@@ -1,21 +1,26 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "aos/dist/aos.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
 import Registration from "./Pages/Registration";
 import Login from "./Pages/Login";
-import "./App.css";
 import AdminLogin from "./Pages/AdminLogin";
 import StudentDashboard from "./Pages/StudentDashboard";
 import AdminDashboard from "./Pages/AdminDashboard";
-
-import CartList from "./Components/CartList";
 import Dashboard from "./Pages/Dashboard";
 import AddMenuItem from "./Pages/AddMenuItem";
+
+import CartList from "./Components/CartList";
+
+import "./App.css";
 
 function App() {
   return (
     <Router>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
