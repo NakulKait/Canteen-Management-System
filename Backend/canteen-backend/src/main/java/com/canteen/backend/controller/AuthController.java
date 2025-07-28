@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.canteen.backend.model.User;
 import com.canteen.backend.service.IUserService;
+import com.canteen.backend.service.MailService;
 
 @RestController
 @RequestMapping("/")
@@ -24,15 +25,25 @@ public class AuthController {
 
     @Autowired
     private IUserService userService;  
+    @Autowired
+    private MailService mailService;
 
     
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
-        userService.registerUser(user);
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Registration successful");
-        return ResponseEntity.ok(response);
+        try {
+            userService.registerUser(user);
+            mailService.sendRegistrationEmail(user);
+            response.put("message", "Registration successful");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            response.put("message", e.getMessage()); // returns "Email already exists" etc.
+            return ResponseEntity.status(400).body(response);
+        }
     }
+
+
     
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> loginData) {
