@@ -38,8 +38,8 @@ const Registration = () => {
         password: form.password,
       });
 
-      toast.success("Registration successful!");
-      navigate("/login");
+      toast.success("OTP sent to your email.");
+      navigate("/verify-otp", { state: { email: form.email } });
     } catch (error) {
       toast.error("Registration failed: " + error);
     }
