@@ -55,7 +55,7 @@ const AddMenuItem = ({ onAdd }) => {
 
     try {
       // Replace this with your backend endpoint
-      const response = await fetch("http://localhost:8080/menu-items", {
+      const response = await fetch("http://localhost:8080/MenuItems/add", {
         method: "POST",
         body: data,
       });
