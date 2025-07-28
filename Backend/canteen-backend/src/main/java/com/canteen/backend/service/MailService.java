@@ -26,4 +26,13 @@ public class MailService {
 
 	        mailSender.send(message);
 	    }
+	    
+	    public void sendOTPEmail(String to, String otp) {
+	        SimpleMailMessage message = new SimpleMailMessage();
+	        message.setTo(to);
+	        message.setSubject("Your OTP Code");
+	        message.setText("Your OTP is: " + otp + "\nPlease do not share it with anyone.");
+	        mailSender.send(message);
+	    }
+
 }
