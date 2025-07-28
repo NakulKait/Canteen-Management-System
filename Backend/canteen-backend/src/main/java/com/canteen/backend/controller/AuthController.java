@@ -32,16 +32,25 @@ public class AuthController {
 
 	@PostMapping("/register")
 	public ResponseEntity<?> register(@RequestBody User user) {
-		Optional<User> existingUser = userService.findByEmail(user.getEmail());
-		if (existingUser.isPresent()) {
-			return ResponseEntity.status(400).body(Map.of("message", "Email already exists"));
-		}
+	    if (user.getEmail() == null || user.getEmail().isEmpty()) {
+	        return ResponseEntity.status(400).body(Map.of("message", "Email is required"));
+	    }
 
-		String otp = otpService.generateOTP(user.getEmail());
-		mailService.sendOTPEmail(user.getEmail(), otp);
-		pendingUsers.put(user.getEmail(), user);
-		return ResponseEntity.ok(Map.of("message", "OTP sent to email"));
+	    Optional<User> existingUser = userService.findByEmail(user.getEmail());
+	    if (existingUser.isPresent()) {
+	        return ResponseEntity.status(400).body(Map.of("message", "Email already exists"));
+	    }
+
+	    try {
+	        String otp = otpService.generateOTP(user.getEmail());
+	        mailService.sendOTPEmail(user.getEmail(), otp);
+	        pendingUsers.put(user.getEmail(), user);
+	        return ResponseEntity.ok(Map.of("message", "OTP sent to email"));
+	    } catch (Exception e) {
+	        return ResponseEntity.status(500).body(Map.of("message", "Failed to send OTP", "error", e.getMessage()));
+	    }
 	}
+
 
 	@PostMapping("/verify-otp")
 	public ResponseEntity<?> verifyOtp(@RequestBody OTPRequest payload) {

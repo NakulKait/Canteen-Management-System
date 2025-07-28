@@ -12,7 +12,7 @@ import StudentDashboard from "./Pages/StudentDashboard";
 import AdminDashboard from "./Pages/AdminDashboard";
 import Dashboard from "./Pages/Dashboard";
 import AddMenuItem from "./Pages/AddMenuItem";
-
+import VerifyOtp from "./Components/VerifyOtp";
 import CartList from "./Components/CartList";
 
 import "./App.css";
@@ -32,6 +32,7 @@ function App() {
         <Route path="/cart" element={<CartList />} />
         <Route path="/addMenuItem" element={<AddMenuItem />} />
         <Route path="/student-todaysSpecial" element={<TodaysSpecial />} />
+        <Route path="/verify-otp" element={<VerifyOtp />} />
       </Routes>
     </Router>
   );
