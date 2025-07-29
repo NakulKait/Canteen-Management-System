@@ -1,5 +1,7 @@
 package com.canteen.backend.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,11 +25,18 @@ public class MenuItemServiceImpl implements MenuItemService{
 		item.setCategory(dto.getCategory());
 		item.setPrice(dto.getPrice());
 		item.setSpecial(dto.isSpecial());
+		item.setAvailable(dto.isAvailable());
 		item.setImageUrl(dto.getImageUrl());
 		
 		menuItemRepository.save(item);
 		
 		return "Food Item Added Successfully";
+	}
+	@Override
+	public List<MenuItem> getMenuItems() {
+		// TODO Auto-generated method stub
+		
+		return menuItemRepository.findAll();
 	}
 
 }

@@ -17,4 +17,5 @@ public class MenuItem {
     private String category;       // "Veg", "Non-Veg", "Breakfast"
     private boolean isSpecial;
     private String imageUrl;
+    private boolean available;
 }

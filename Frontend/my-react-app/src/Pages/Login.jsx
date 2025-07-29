@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate, Link } from "react-router-dom";
-import { loginUser } from "../Services/authservice";
+import { loginUser } from "../Services/authService";
 import { toast } from "react-toastify";
 
 const Login = () => {
