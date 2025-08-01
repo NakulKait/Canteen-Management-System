@@ -1,10 +1,12 @@
 import React from "react";
 
 const FoodCard = ({ name, description, price, imageUrl, isSpecial }) => {
+  console.log("Rendering:", name, "| isSpecial:", isSpecial);
+
   return (
     <div className="card h-100 shadow-sm border-0 rounded-4">
       <img
-        src={imageUrl}
+        src={`http://localhost:8080${imageUrl}`}
         alt={name}
         className="card-img-top rounded-top"
         style={{

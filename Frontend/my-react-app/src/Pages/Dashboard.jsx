@@ -119,7 +119,6 @@ function Dashboard() {
       <hr className="divider" />
 
       {/* Why Choose Our System Section */}
-      
 
       <section className="py-5 bg-light">
         <div className="container text-center">
@@ -219,7 +218,7 @@ function Dashboard() {
             everything—right from your device.
           </p>
           <Link
-            to="/student-dashboard"
+            to="/student-todaysSpecial"
             className="btn"
             style={{
               background: "linear-gradient(to right, #fbbf24, #f97316)",
