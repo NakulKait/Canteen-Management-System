@@ -63,9 +63,9 @@ public class AuthController {
 	            return ResponseEntity.status(400).body(Map.of("message", "User not found for email"));
 	        }
 
-	        user.setVerified(true); // Optional: mark user verified before saving
+	        user.setVerified(true); 
 	        userService.registerUser(user);
-	        mailService.sendRegistrationEmail(user); // ✅ Send confirmation email
+	        mailService.sendRegistrationEmail(user); 
 
 	        otpService.clearOTP(email);
 	        pendingUsers.remove(email);
