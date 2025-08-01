@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import { registerUser } from "../Services/authservice";
+import { registerUser } from "../Services/authService";
 
 const Registration = () => {
   const [form, setForm] = useState({

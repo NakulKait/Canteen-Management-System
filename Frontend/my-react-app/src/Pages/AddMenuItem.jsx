@@ -10,6 +10,7 @@ const AddMenuItem = ({ onAdd }) => {
     category: "",
     image: null,
     available: true,
+    isSpecial: false, // Added
   });
 
   const [imagePreview, setImagePreview] = useState(null); // Preview URL
@@ -48,14 +49,15 @@ const AddMenuItem = ({ onAdd }) => {
     data.append("description", formData.description);
     data.append("price", formData.price);
     data.append("category", formData.category);
-    data.append("available", formData.available);
+    data.append("available", formData.available.toString());
+    data.append("isSpecial", formData.isSpecial.toString());
+    // Added
     if (formData.image) {
       data.append("image", formData.image);
     }
 
     try {
-      // Replace this with your backend endpoint
-      const response = await fetch("http://localhost:8080/menu-items", {
+      const response = await fetch("http://localhost:8080/MenuItems/add", {
         method: "POST",
         body: data,
       });
@@ -72,8 +74,11 @@ const AddMenuItem = ({ onAdd }) => {
         category: "",
         image: null,
         available: true,
+        isSpecial: false, // reset
       });
       setImagePreview(null);
+
+      if (onAdd) onAdd(); // optional callback
     } catch (err) {
       toast.error("Failed to add item");
     }
@@ -169,7 +174,7 @@ const AddMenuItem = ({ onAdd }) => {
             )}
           </div>
 
-          <div className="form-check mb-3">
+          <div className="form-check mb-2">
             <input
               type="checkbox"
               name="available"
@@ -180,6 +185,20 @@ const AddMenuItem = ({ onAdd }) => {
             />
             <label className="form-check-label" htmlFor="available">
               Available
+            </label>
+          </div>
+
+          <div className="form-check mb-3">
+            <input
+              type="checkbox"
+              name="isSpecial"
+              className="form-check-input"
+              id="isSpecial"
+              checked={formData.isSpecial}
+              onChange={handleChange}
+            />
+            <label className="form-check-label" htmlFor="isSpecial">
+              Special Item
             </label>
           </div>
 
