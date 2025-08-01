@@ -45,7 +45,9 @@ public class MenuItemController {
         String imageUrl = "";
         if (image != null && !image.isEmpty()) {
             try {
+
                 String uploadDir = "C:/Users/91932/Desktop/BackendImages";
+
                 String filename = image.getOriginalFilename();
                 Path uploadPath = Paths.get(uploadDir);
 
