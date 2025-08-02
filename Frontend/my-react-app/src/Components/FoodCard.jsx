@@ -1,6 +1,13 @@
 import React from "react";
 
-const FoodCard = ({ name, description, price, imageUrl, isSpecial }) => {
+const FoodCard = ({
+  name,
+  description,
+  price,
+  imageUrl,
+  isSpecial,
+  onAddToCart,
+}) => {
   console.log("Rendering:", name, "| isSpecial:", isSpecial);
 
   // If the imageUrl is a relative path (like /images/...), it will work with Vite/public
@@ -45,7 +52,10 @@ const FoodCard = ({ name, description, price, imageUrl, isSpecial }) => {
           <span className="fw-bold" style={{ color: "#f97316" }}>
             ₹{price}
           </span>
-          <button className="btn btn-warning text-white fw-semibold shadow-sm">
+          <button
+            className="btn btn-warning text-white fw-semibold shadow-sm"
+            onClick={onAddToCart}
+          >
             + Add to Cart
           </button>
         </div>

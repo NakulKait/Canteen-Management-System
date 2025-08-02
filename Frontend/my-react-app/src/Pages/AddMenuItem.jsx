@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/AddMenuItem.css";
-import { toast } from "react-toastify";
+import { addMenuItem } from "../Services/addMenuItemService";
 
 const AddMenuItem = ({ onAdd }) => {
   const [formData, setFormData] = useState({
@@ -10,10 +10,10 @@ const AddMenuItem = ({ onAdd }) => {
     category: "",
     image: null,
     available: true,
-    isSpecial: false, // Added
+    isSpecial: false,
   });
 
-  const [imagePreview, setImagePreview] = useState(null); // Preview URL
+  const [imagePreview, setImagePreview] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -26,11 +26,7 @@ const AddMenuItem = ({ onAdd }) => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData({
-        ...formData,
-        image: file,
-      });
-
+      setFormData({ ...formData, image: file });
       const previewUrl = URL.createObjectURL(file);
       setImagePreview(previewUrl);
     }
@@ -40,33 +36,10 @@ const AddMenuItem = ({ onAdd }) => {
     e.preventDefault();
 
     if (!formData.name || !formData.price || !formData.category) {
-      toast.error("Please fill in all required fields.");
-      return;
+      return toast.error("Please fill in all required fields.");
     }
 
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append("description", formData.description);
-    data.append("price", formData.price);
-    data.append("category", formData.category);
-    data.append("available", formData.available.toString());
-    data.append("isSpecial", formData.isSpecial.toString());
-    // Added
-    if (formData.image) {
-      data.append("image", formData.image);
-    }
-
-    try {
-      const response = await fetch("http://localhost:8080/MenuItems/add", {
-        method: "POST",
-        body: data,
-      });
-
-      if (!response.ok) throw new Error("Upload failed");
-
-      toast.success("Item added successfully!");
-
-      // Reset form
+    await addMenuItem(formData, () => {
       setFormData({
         name: "",
         description: "",
@@ -74,14 +47,11 @@ const AddMenuItem = ({ onAdd }) => {
         category: "",
         image: null,
         available: true,
-        isSpecial: false, // reset
+        isSpecial: false,
       });
       setImagePreview(null);
-
-      if (onAdd) onAdd(); // optional callback
-    } catch (err) {
-      toast.error("Failed to add item");
-    }
+      if (onAdd) onAdd();
+    });
   };
 
   return (
