@@ -115,7 +115,9 @@ function StudentDashboard() {
         ) : error ? (
           <p className="text-danger text-center">{error}</p>
         ) : filteredItems.length === 0 ? (
-          <p className="text-muted text-center">No items found for this filter.</p>
+          <p className="text-muted text-center">
+            No items found for this filter.
+          </p>
         ) : (
           <div className="row g-4">
             {filteredItems.map((item) => (
