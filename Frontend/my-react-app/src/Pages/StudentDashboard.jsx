@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
 import FoodCard from "../Components/FoodCard";
 import { getAllMenuItems } from "../Services/menuItemService";
+import { useCart } from "../Context/CartContext";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import "../styles/StudentDashboard.css";
 
 function StudentDashboard() {
   const [menuItems, setMenuItems] = useState([]);
@@ -11,6 +13,9 @@ function StudentDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const { addToCart } = useCart();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const categoryOrder = [
     "All",
@@ -20,8 +25,6 @@ function StudentDashboard() {
     "Non-Veg",
     "Desserts",
   ];
-
-  const user = JSON.parse(localStorage.getItem("user")); // assuming user is stored
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -62,6 +65,8 @@ function StudentDashboard() {
           Ready to order some delicious food today?
         </p>
       </div>
+
+      <hr />
 
       <div className="container pb-3">
         <h3 className="h3 fw-semibold mb-4 d-flex align-items-center">
@@ -123,13 +128,22 @@ function StudentDashboard() {
                   price={item.price}
                   imageUrl={item.imageUrl}
                   isSpecial={item.isSpecial}
+                  onAddToCart={() =>
+                    addToCart({
+                      id: item.id,
+                      name: item.name,
+                      description: item.description,
+                      price: item.price,
+                      image: item.imageUrl,
+                      tag: item.isSpecial ? "Special" : "",
+                    })
+                  }
                 />
               </div>
             ))}
           </div>
         )}
 
-        {/* Feedback section */}
         <div className="container mt-5 mb-5 text-center">
           <h4 className="mb-3">Got Feedback?</h4>
           <p className="text-muted mb-4">
