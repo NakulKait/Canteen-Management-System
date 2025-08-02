@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
 import FoodCard from "../Components/FoodCard";
+import MealCard from "../Components/MealCard";
 import { getAllMenuItems } from "../Services/menuItemService";
 import { useCart } from "../Context/CartContext";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+
 import "../styles/StudentDashboard.css";
 
 function StudentDashboard() {
@@ -13,6 +15,7 @@ function StudentDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showMealCard, setShowMealCard] = useState(false);
 
   const { addToCart } = useCart();
   const user = JSON.parse(localStorage.getItem("user"));
@@ -46,11 +49,19 @@ function StudentDashboard() {
   const filteredItems = menuItems.filter((item) => {
     let matchCategory = false;
     if (selectedCategory === "All") {
-      matchCategory = true;
+      matchCategory = item.category !== "Today's Menu";
     } else if (selectedCategory === "Veg") {
-      matchCategory = item.itemType === "veg";
+      matchCategory =
+        item.itemType === "veg" && item.category !== "Today's Menu";
     } else if (selectedCategory === "Non-Veg") {
-      matchCategory = item.itemType === "nonveg";
+      matchCategory =
+        item.itemType === "nonveg" && item.category !== "Today's Menu";
+    } else if (selectedCategory === "VegMeal") {
+      matchCategory =
+        item.category === "Today's Menu" && item.itemType === "veg";
+    } else if (selectedCategory === "NonVegMeal") {
+      matchCategory =
+        item.category === "Today's Menu" && item.itemType === "nonveg";
     } else {
       matchCategory = item.category === selectedCategory;
     }
@@ -81,43 +92,98 @@ function StudentDashboard() {
           🌟 Today's Menu
         </h3>
 
-        <div className="d-flex justify-content-center mb-4">
-          <div
-            className="d-flex rounded-pill border overflow-hidden"
-            style={{ backgroundColor: "#f8f9fa" }}
-          >
-            {categoryOrder.map((category, index) => (
-              <button
-                key={index}
-                className={`btn px-4 py-2 ${
-                  selectedCategory === category
-                    ? "bg-white fw-semibold border"
-                    : "bg-transparent text-secondary"
+        <div className="row mb-4 text-center">
+          <div className="col-6">
+            <div
+              className={`meal-option-card ${
+                selectedCategory === "VegMeal" ? "selected-meal veg" : "veg"
+              }`}
+              onClick={() => {
+                setSelectedCategory("VegMeal");
+                setShowMealCard(true);
+              }}
+            >
+              <h5
+                className={`fw-bold ${
+                  selectedCategory === "VegMeal" ? "active-text" : ""
                 }`}
-                onClick={() => setSelectedCategory(category)}
-                style={{
-                  borderRadius: 0,
-                  borderRight: "1px solid #dee2e6",
-                  borderColor:
-                    selectedCategory === category ? "#dee2e6" : "transparent",
-                }}
               >
-                {category}
-              </button>
-            ))}
+                🥗 Veg Meal
+              </h5>
+              <p className="text-muted small mb-0">
+                A wholesome vegetarian combo
+              </p>
+            </div>
+          </div>
+          <div className="col-6">
+            <div
+              className={`meal-option-card ${
+                selectedCategory === "NonVegMeal"
+                  ? "selected-meal nonveg"
+                  : "nonveg"
+              }`}
+              onClick={() => {
+                setSelectedCategory("NonVegMeal");
+                setShowMealCard(true);
+              }}
+            >
+              <h5
+                className={`fw-bold ${
+                  selectedCategory === "NonVegMeal" ? "active-text" : ""
+                }`}
+              >
+                🍗 Non-Veg Meal
+              </h5>
+              <p className="text-muted small mb-0">
+                Protein-rich non-veg combo
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="mb-4 text-center">
-          <input
-            type="text"
-            placeholder="Search food..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="form-control w-50 mx-auto"
-          />
-        </div>
+        {selectedCategory !== "VegMeal" &&
+          selectedCategory !== "NonVegMeal" && (
+            <>
+              <div className="d-flex justify-content-center mb-4">
+                <div
+                  className="d-flex rounded-pill border overflow-hidden"
+                  style={{ backgroundColor: "#f8f9fa" }}
+                >
+                  {categoryOrder.map((category, index) => (
+                    <button
+                      key={index}
+                      className={`btn px-4 py-2 ${
+                        selectedCategory === category
+                          ? "bg-white fw-semibold border"
+                          : "bg-transparent text-secondary"
+                      }`}
+                      onClick={() => setSelectedCategory(category)}
+                      style={{
+                        borderRadius: 0,
+                        borderRight: "1px solid #dee2e6",
+                        borderColor:
+                          selectedCategory === category
+                            ? "#dee2e6"
+                            : "transparent",
+                      }}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
+              <div className="mb-4 text-center">
+                <input
+                  type="text"
+                  placeholder="Search food..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="form-control w-50 mx-auto"
+                />
+              </div>
+            </>
+          )}
         {loading ? (
           <p className="text-center text-muted">Loading menu...</p>
         ) : error ? (
@@ -126,6 +192,31 @@ function StudentDashboard() {
           <p className="text-muted text-center">
             No items found for this filter.
           </p>
+        ) : selectedCategory === "VegMeal" ||
+          selectedCategory === "NonVegMeal" ? (
+          <div>
+            {filteredItems.map((item) => (
+              <MealCard
+                key={item.id}
+                name={item.name}
+                description={item.description}
+                price={item.price}
+                imageUrl={item.imageUrl}
+                onAddToCart={() => {
+                  addToCart({
+                    id: item.id,
+                    name: item.name,
+                    description: item.description,
+                    price: item.price,
+                    image: item.imageUrl,
+                    tag: item.isSpecial ? "Special" : "",
+                  });
+                  setShowMealCard(false);
+                  setSelectedCategory("All");
+                }}
+              />
+            ))}
+          </div>
         ) : (
           <div className="row g-4">
             {filteredItems.map((item) => (
@@ -152,7 +243,7 @@ function StudentDashboard() {
           </div>
         )}
 
-        <div className="container mt-5 mb-5 text-center">
+        <div className="container mt-5 mb-5 text-center feedback-section">
           <h4 className="mb-3">Got Feedback?</h4>
           <p className="text-muted mb-4">
             Let us know how we can improve your experience!

@@ -21,3 +21,48 @@
     background-position: center center;
   }
 }
+.meal-option-card {
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+/* Default background */
+.veg {
+  background-color: #e6ffe6;
+}
+
+.nonveg {
+  background-color: #ffe6e6;
+}
+
+/* Selected state */
+.selected-meal {
+  border: 2px solid #444;
+  transform: scale(1.05);
+  padding: 2rem;
+}
+
+/* Highlight selected colors */
+.selected-meal.veg {
+  background-color: #ccffcc;
+  border-color: #28a745;
+}
+
+.selected-meal.nonveg {
+  background-color: #ffcccc;
+  border-color: #dc3545;
+}
+
+/* Bigger text when selected */
+.active-text {
+  font-size: 1.4rem;
+}
+
+.feedback-section {
+  background-color: rgb(218, 213, 213); /* Light grey */
+  padding: 2rem;
+  border-radius: 8px;
+}

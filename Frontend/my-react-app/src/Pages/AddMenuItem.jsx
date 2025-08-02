@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../styles/AddMenuItem.css";
 import { addMenuItem } from "../Services/addMenuItemService";
+import { Link } from "react-router-dom";
+import { ArrowLeftIcon } from "lucide-react";
 
 const AddMenuItem = ({ onAdd }) => {
   const [formData, setFormData] = useState({
@@ -62,13 +64,31 @@ const AddMenuItem = ({ onAdd }) => {
     });
   };
 
+  const handleRemoveImage = () => {
+    setFormData({ ...formData, image: null });
+    setImagePreview(null);
+  };
+
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
       <div
         className="p-4 rounded bg-white shadow"
         style={{ width: "100%", maxWidth: "500px" }}
       >
-        <h4 className="text-center mb-3 text-orange fw-bold">
+        <Link
+          to="/admin-dashboard"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            color: "black",
+            marginBottom: "1rem",
+          }}
+        >
+          <ArrowLeftIcon style={{ height: "20px", marginRight: "8px" }} />
+          <strong>Back to Home</strong>
+        </Link>
+        <h4 className="text-center mb-3 text-warning fw-bold">
           Add New Menu Item
         </h4>
         <form onSubmit={handleSubmit}>
@@ -137,16 +157,14 @@ const AddMenuItem = ({ onAdd }) => {
               onChange={handleImageChange}
             />
             {imagePreview && (
-              <div className="mt-3 text-center">
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  style={{
-                    maxHeight: "200px",
-                    maxWidth: "100%",
-                    borderRadius: "10px",
-                  }}
-                />
+              <div className="image-preview position-relative">
+                <img src={imagePreview} alt="Preview" className="w-100 h-100" />
+                <button
+                  type="button"
+                  className="btn-close remove-image-btn"
+                  aria-label="Remove"
+                  onClick={handleRemoveImage}
+                ></button>
               </div>
             )}
           </div>
