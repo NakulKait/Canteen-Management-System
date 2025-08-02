@@ -18,6 +18,7 @@ import {
 } from "../Services/menuItemService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const stats = [
   { label: "Total Users", value: "150", icon: <User />, color: "orange" },
@@ -57,6 +58,8 @@ function AdminDashboard() {
 
     fetchMenu();
   }, []);
+
+  const navigate = useNavigate();
 
   const handleDelete = async (id) => {
     const confirm = window.confirm(
@@ -159,7 +162,12 @@ function AdminDashboard() {
                 <div className="d-flex justify-content-between align-items-start mb-2">
                   <h5 className="fw-bold mb-0">{item.name}</h5>
                   <div>
-                    <Edit size={16} className="me-2 text-muted" role="button" />
+                    <Edit
+                      size={16}
+                      className="me-2 text-muted"
+                      role="button"
+                      onClick={() => navigate(`/editMenuItem/${item.id}`)}
+                    />
                     <Trash
                       size={16}
                       className="text-danger"

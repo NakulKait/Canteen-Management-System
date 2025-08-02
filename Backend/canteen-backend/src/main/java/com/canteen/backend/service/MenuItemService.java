@@ -13,6 +13,11 @@ public interface MenuItemService {
 	List<MenuItem> getMenuItems();
 	String updateMenuItem(String id, MenuItemDto menuItemDto);
 	String deleteMenuItem(String id);
+	MenuItem getMenuItemById(String id);
+	List<MenuItem> getItemsByCategory(String category);
+	List<MenuItem> getAvailableMenuItems();
+
+
 
 	
 }
