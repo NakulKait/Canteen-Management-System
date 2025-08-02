@@ -10,10 +10,9 @@ import com.canteen.backend.model.MenuItem;
 public interface MenuItemService {
 
 	String addFoodItem(MenuItemDto dto);
-
-	
-
 	List<MenuItem> getMenuItems();
-	
+	String updateMenuItem(String id, MenuItemDto menuItemDto);
+	String deleteMenuItem(String id);
+
 	
 }

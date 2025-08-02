@@ -1,6 +1,7 @@
 package com.canteen.backend.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,35 @@ public class MenuItemServiceImpl implements MenuItemService{
 		// TODO Auto-generated method stub
 		
 		return menuItemRepository.findAll();
+	}
+	
+	@Override
+	public String updateMenuItem(String id, MenuItemDto dto) {
+	    Optional<MenuItem> optional = menuItemRepository.findById(id);
+	    if (!optional.isPresent()) {
+	        return "Item not found!";
+	    }
+
+	    MenuItem item = optional.get();
+	    item.setName(dto.getName());
+	    item.setDescription(dto.getDescription());
+	    item.setPrice(dto.getPrice());
+	    item.setCategory(dto.getCategory());
+	    item.setAvailable(dto.isAvailable());
+	    item.setSpecial(dto.isSpecial());
+	    item.setImageUrl(dto.getImageUrl());
+
+	    menuItemRepository.save(item);
+	    return "Item updated successfully!";
+	}
+
+	@Override
+	public String deleteMenuItem(String id) {
+	    if (!menuItemRepository.existsById(id)) {
+	        return "Item not found!";
+	    }
+	    menuItemRepository.deleteById(id);
+	    return "Item deleted successfully!";
 	}
 
 }
