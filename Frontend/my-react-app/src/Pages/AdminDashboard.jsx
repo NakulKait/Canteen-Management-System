@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Edit,
   Trash,
@@ -12,6 +12,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AdminNavbar from "../Components/AdminNavbar";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
+import {
+  getAllMenuItems,
+  deleteMenuItemById,
+} from "../Services/menuItemService";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const stats = [
   { label: "Total Users", value: "150", icon: <User />, color: "orange" },
@@ -30,44 +37,54 @@ const stats = [
   { label: "Growth", value: "+12.5%", icon: <TrendingUp />, color: "yellow" },
 ];
 
-const menuItems = [
-  {
-    name: "Chicken Biryani",
-    desc: "Aromatic basmati rice with tender chicken pieces, cooked with traditional spices",
-    price: "₹180",
-  },
-  {
-    name: "Veg Thali",
-    desc: "Complete vegetarian meal with dal, sabzi, roti, rice, and pickle",
-    price: "₹120",
-  },
-  {
-    name: "Samosa",
-    desc: "Crispy triangular pastry filled with spiced potatoes and peas",
-    price: "₹25",
-  },
-  {
-    name: "Fresh Lime Soda",
-    desc: "Refreshing lime soda with mint and black salt",
-    price: "₹40",
-  },
-  {
-    name: "Masala Chai",
-    desc: "Traditional Indian tea with aromatic spices",
-    price: "₹15",
-  },
-  {
-    name: "Gulab Jamun",
-    desc: "Soft and spongy milk dumplings in sugar syrup",
-    price: "₹50",
-  },
-];
-
 function AdminDashboard() {
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const response = await getAllMenuItems();
+        console.log("Menu API Response:", response); // 👈 Add this line
+        setMenuItems(response);
+      } catch (err) {
+        console.error("Failed to fetch menu items", err);
+        setError("Unable to fetch menu items.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMenu();
+  }, []);
+
+  const navigate = useNavigate();
+
+  const handleDelete = async (id) => {
+    const confirm = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (!confirm) return;
+
+    try {
+      await deleteMenuItemById(id);
+      toast.success("Item deleted successfully");
+
+      // Refresh menu after deletion
+      const updatedItems = await getAllMenuItems();
+      setMenuItems(updatedItems);
+    } catch (error) {
+      toast.error("Failed to delete item");
+    }
+  };
+
   return (
     <div className="bg-light min-vh-100">
       <AdminNavbar />
       <br className="my-3" />
+
+      {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {stats.map((item, idx) => (
           <div
@@ -131,24 +148,49 @@ function AdminDashboard() {
         </Link>
       </div>
 
+      {/* Feedback / Error */}
+      {loading && <p className="text-center">Loading menu...</p>}
+      {error && <p className="text-danger text-center">{error}</p>}
+
       {/* Menu Cards */}
       <div className="row g-4">
         {menuItems.map((item, idx) => (
           <div className="col-md-4" key={idx}>
             <div className="card shadow-sm border-0 h-100">
-              <div className="card-body">
-                <div className="d-flex justify-content-between align-items-start">
-                  <h6 className="fw-bold">{item.name}</h6>
+              <div className="card-body d-flex flex-column justify-content-between">
+                {/* Header: Name + Icons */}
+                <div className="d-flex justify-content-between align-items-start mb-2">
+                  <h5 className="fw-bold mb-0">{item.name}</h5>
                   <div>
-                    <Edit size={16} className="me-2 text-muted" />
-                    <Trash size={16} className="text-danger" />
+                    <Edit
+                      size={16}
+                      className="me-2 text-muted"
+                      role="button"
+                      onClick={() => navigate(`/editMenuItem/${item.id}`)}
+                    />
+                    <Trash
+                      size={16}
+                      className="text-danger"
+                      role="button"
+                      onClick={() => handleDelete(item.id)}
+                    />
                   </div>
                 </div>
-                <p className="text-muted small">{item.desc}</p>
-                <div className="d-flex justify-content-between align-items-center">
-                  <span className="fw-bold text-orange">{item.price}</span>
-                  <span className="badge bg-success bg-opacity-10 text-success">
-                    Available
+
+                {/* Description */}
+                <p className="text-muted small mb-3">{item.description}</p>
+
+                {/* Footer: Price + Availability */}
+                <div className="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                  <span className="fw-semibold text-primary">
+                    ₹{item.price}
+                  </span>
+                  <span
+                    className={`badge ${
+                      item.available ? "bg-success text-light" : "bg-secondary"
+                    }`}
+                  >
+                    {item.available ? "Available" : "Out of Stock"}
                   </span>
                 </div>
               </div>
@@ -156,6 +198,7 @@ function AdminDashboard() {
           </div>
         ))}
       </div>
+
       <hr className="my-3" />
       <Footer />
     </div>

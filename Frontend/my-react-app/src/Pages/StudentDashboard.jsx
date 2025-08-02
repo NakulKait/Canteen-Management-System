@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import "../styles/StudentDashboard.css";
+import Footer from "../Components/Footer";
 
 function StudentDashboard() {
   const [menuItems, setMenuItems] = useState([]);
@@ -253,6 +254,7 @@ function StudentDashboard() {
           </Link>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
