@@ -26,7 +26,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/MenuItems")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
+
 public class MenuItemController {
 
     @Autowired
@@ -46,7 +47,8 @@ public class MenuItemController {
         if (image != null && !image.isEmpty()) {
             try {
 
-                String uploadDir = "C:/Users/91932/Desktop/BackendImages";
+            	String uploadDir = "C:/Users/ASUS/OneDrive/Desktop/BackendImages";
+
 
                 String filename = image.getOriginalFilename();
                 Path uploadPath = Paths.get(uploadDir);
