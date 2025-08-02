@@ -56,10 +56,7 @@ function StudentDashboard() {
       <div className="container py-5">
         <h2 className="display-5 fw-bold text-dark mb-2">
           Welcome back,{" "}
-          <span className="text-warning">
-            {user?.name || "Guest"}
-          </span>
-          ! 👋
+          <span className="text-warning">{user?.name || "Guest"}</span>! 👋
         </h2>
         <p className="text-secondary fs-5">
           Ready to order some delicious food today?
@@ -113,7 +110,9 @@ function StudentDashboard() {
         ) : error ? (
           <p className="text-danger text-center">{error}</p>
         ) : filteredItems.length === 0 ? (
-          <p className="text-muted text-center">No items found for this filter.</p>
+          <p className="text-muted text-center">
+            No items found for this filter.
+          </p>
         ) : (
           <div className="row g-4">
             {filteredItems.map((item) => (
