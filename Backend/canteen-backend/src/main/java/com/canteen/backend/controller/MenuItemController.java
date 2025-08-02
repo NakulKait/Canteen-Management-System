@@ -41,13 +41,14 @@ public class MenuItemController {
         @RequestParam("category") String category,
         @RequestParam("available") boolean available,
         @RequestParam("isSpecial") boolean isSpecial, 
-        @RequestParam(value = "image", required = false) MultipartFile image
+        @RequestParam(value = "image", required = false) MultipartFile image,
+        @RequestParam("itemType") String itemType
     ) {
         String imageUrl = "";
         if (image != null && !image.isEmpty()) {
             try {
 
-            	String uploadDir = "C:/Users/ASUS/OneDrive/Desktop/BackendImages";
+            	String uploadDir = "C:\\Users\\91932\\Desktop\\BackendImages";
 
 
                 String filename = image.getOriginalFilename();
@@ -74,6 +75,7 @@ public class MenuItemController {
         dto.setImageUrl(imageUrl);
         dto.setSpecial(isSpecial);
         dto.setAvailable(available);
+        dto.setItemType(itemType);
 
         return ResponseEntity.ok(menuItemService.addFoodItem(dto));
     }

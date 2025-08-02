@@ -27,6 +27,7 @@ public class MenuItemServiceImpl implements MenuItemService{
 		item.setSpecial(dto.isSpecial());
 		item.setAvailable(dto.isAvailable());
 		item.setImageUrl(dto.getImageUrl());
+		item.setItemType(dto.getItemType());
 		
 		menuItemRepository.save(item);
 		

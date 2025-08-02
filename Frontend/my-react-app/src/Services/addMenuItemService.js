@@ -8,6 +8,7 @@ export const addMenuItem = async (formData, onSuccess) => {
   data.append("category", formData.category);
   data.append("available", formData.available.toString());
   data.append("isSpecial", formData.isSpecial.toString());
+  data.append("itemType", formData.itemType.toString());
 
   if (formData.image) {
     data.append("image", formData.image);

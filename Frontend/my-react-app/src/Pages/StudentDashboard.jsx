@@ -44,8 +44,16 @@ function StudentDashboard() {
   }, []);
 
   const filteredItems = menuItems.filter((item) => {
-    const matchCategory =
-      selectedCategory === "All" || item.category === selectedCategory;
+    let matchCategory = false;
+    if (selectedCategory === "All") {
+      matchCategory = true;
+    } else if (selectedCategory === "Veg") {
+      matchCategory = item.itemType === "veg";
+    } else if (selectedCategory === "Non-Veg") {
+      matchCategory = item.itemType === "nonveg";
+    } else {
+      matchCategory = item.category === selectedCategory;
+    }
     const matchSearch = item.name
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
@@ -115,7 +123,9 @@ function StudentDashboard() {
         ) : error ? (
           <p className="text-danger text-center">{error}</p>
         ) : filteredItems.length === 0 ? (
-          <p className="text-muted text-center">No items found for this filter.</p>
+          <p className="text-muted text-center">
+            No items found for this filter.
+          </p>
         ) : (
           <div className="row g-4">
             {filteredItems.map((item) => (

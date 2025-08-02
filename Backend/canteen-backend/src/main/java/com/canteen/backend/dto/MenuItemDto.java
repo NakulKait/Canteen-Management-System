@@ -11,4 +11,5 @@ public class MenuItemDto {
     private boolean isSpecial;
     private String imageUrl;
     private boolean isAvailable;
+    private String itemType;
 }

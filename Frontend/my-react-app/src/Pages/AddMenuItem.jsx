@@ -11,12 +11,14 @@ const AddMenuItem = ({ onAdd }) => {
     image: null,
     available: true,
     isSpecial: false,
+    itemType: "",
   });
 
   const [imagePreview, setImagePreview] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value,
@@ -35,7 +37,12 @@ const AddMenuItem = ({ onAdd }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.price || !formData.category) {
+    if (
+      !formData.name ||
+      !formData.price ||
+      !formData.category ||
+      !formData.itemType
+    ) {
       return toast.error("Please fill in all required fields.");
     }
 
@@ -48,6 +55,7 @@ const AddMenuItem = ({ onAdd }) => {
         image: null,
         available: true,
         isSpecial: false,
+        itemType: "",
       });
       setImagePreview(null);
       if (onAdd) onAdd();
@@ -111,8 +119,7 @@ const AddMenuItem = ({ onAdd }) => {
               required
             >
               <option value="">-- Select Category --</option>
-              <option value="Veg">Veg</option>
-              <option value="Non-Veg">Non-Veg</option>
+
               <option value="Breakfast">Breakfast</option>
               <option value="Beverages">Beverages</option>
               <option value="Desserts">Desserts</option>
@@ -142,6 +149,37 @@ const AddMenuItem = ({ onAdd }) => {
                 />
               </div>
             )}
+          </div>
+          <div className="mb-3">
+            <label className="form-label d-block">Type</label>
+            <div className="form-check form-check-inline">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="itemType"
+                value="veg"
+                id="veg"
+                checked={formData.itemType === "veg"}
+                onChange={handleChange}
+              />
+              <label className="form-check-label" htmlFor="veg">
+                Veg
+              </label>
+            </div>
+            <div className="form-check form-check-inline">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="itemType"
+                value="nonveg"
+                id="nonveg"
+                checked={formData.itemType === "nonveg"}
+                onChange={handleChange}
+              />
+              <label className="form-check-label" htmlFor="nonveg">
+                Non-Veg
+              </label>
+            </div>
           </div>
 
           <div className="form-check mb-2">
