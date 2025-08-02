@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.canteen.backend.dto.ApiResponse;
 import com.canteen.backend.dto.MenuItemDto;
 import com.canteen.backend.model.MenuItem;
 import com.canteen.backend.repository.MenuItemRepository;
@@ -19,7 +20,7 @@ public class MenuItemServiceImpl implements MenuItemService{
 	@Autowired
 	private MenuItemRepository menuItemRepository;
 	@Override
-	public String addFoodItem(MenuItemDto dto) {
+	public ApiResponse addFoodItem(MenuItemDto dto) {
 		MenuItem item = new MenuItem();
 		item.setName(dto.getName());
 		item.setDescription(dto.getDescription());
@@ -32,7 +33,7 @@ public class MenuItemServiceImpl implements MenuItemService{
 		
 		menuItemRepository.save(item);
 		
-		return "Food Item Added Successfully";
+		return new ApiResponse("Food Item Added Successfully");
 	}
 	@Override
 	public List<MenuItem> getMenuItems() {
@@ -42,10 +43,10 @@ public class MenuItemServiceImpl implements MenuItemService{
 	}
 	
 	@Override
-	public String updateMenuItem(String id, MenuItemDto dto) {
+	public ApiResponse updateMenuItem(String id, MenuItemDto dto) {
 	    Optional<MenuItem> optional = menuItemRepository.findById(id);
 	    if (!optional.isPresent()) {
-	        return "Item not found!";
+	        return new ApiResponse("Item not found!");
 	    }
 
 	    MenuItem item = optional.get();
@@ -58,16 +59,16 @@ public class MenuItemServiceImpl implements MenuItemService{
 	    item.setImageUrl(dto.getImageUrl());
 
 	    menuItemRepository.save(item);
-	    return "Item updated successfully!";
+	    return new ApiResponse("Item updated successfully!");
 	}
 
 	@Override
-	public String deleteMenuItem(String id) {
+	public ApiResponse deleteMenuItem(String id) {
 	    if (!menuItemRepository.existsById(id)) {
-	        return "Item not found!";
+	        return new ApiResponse("Item not found!");
 	    }
 	    menuItemRepository.deleteById(id);
-	    return "Item deleted successfully!";
+	    return new ApiResponse("Item deleted successfully!");
 	}
 
 }

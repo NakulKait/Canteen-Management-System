@@ -37,7 +37,7 @@ public class MenuItemController {
     private MenuItemService menuItemService;
 
     @PostMapping(value = "/add", consumes = "multipart/form-data")
-    public ResponseEntity<String> addFoodItem(
+    public ResponseEntity<?> addFoodItem(
         @RequestParam("name") String name,
         @RequestParam("description") String description,
         @RequestParam("price") double price,
@@ -84,11 +84,11 @@ public class MenuItemController {
     }
     
     @GetMapping("/getItems")
-    public ResponseEntity<List<MenuItem>> getAllItems() {
+    public ResponseEntity<?> getAllItems() {
         return ResponseEntity.ok(menuItemService.getMenuItems());
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateMenuItem(
+    public ResponseEntity<?> updateMenuItem(
             @PathVariable String id,
             @RequestParam("name") String name,
             @RequestParam("description") String description,
@@ -128,7 +128,7 @@ public class MenuItemController {
     }
     
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteMenuItem(@PathVariable String id) {
+    public ResponseEntity<?> deleteMenuItem(@PathVariable String id) {
         return ResponseEntity.ok(menuItemService.deleteMenuItem(id));
     }
 
