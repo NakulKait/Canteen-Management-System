@@ -71,4 +71,20 @@ public class MenuItemServiceImpl implements MenuItemService{
 	    return new ApiResponse("Item deleted successfully!");
 	}
 
+	@Override
+	public MenuItem getMenuItemById(String id) {
+	    return menuItemRepository.findById(id)
+	        .orElseThrow(() -> new RuntimeException("Menu item not found with ID: " + id));
+	}
+
+	@Override
+	public List<MenuItem> getItemsByCategory(String category) {
+	    return menuItemRepository.findByCategoryIgnoreCase(category);
+	}
+	
+	@Override
+	public List<MenuItem> getAvailableMenuItems() {
+	    return menuItemRepository.findByAvailableTrue();
+	}
+
 }

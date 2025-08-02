@@ -15,6 +15,7 @@ import AddMenuItem from "./Pages/AddMenuItem";
 import VerifyOtp from "./Components/VerifyOtp";
 import CartList from "./Components/CartList";
 import Feedback from "./Pages/FeedbackPage";
+import EditMenuItem from "./Pages/EditMenuItem";
 
 import "./App.css";
 import TodaysSpecial from "./Pages/TodaysSpecial";
@@ -35,6 +36,7 @@ function App() {
         <Route path="/student-todaysSpecial" element={<TodaysSpecial />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
         <Route path="/student/feedback" element={<Feedback />} />
+        <Route path="/editMenuItem/:id" element={<EditMenuItem />} />
       </Routes>
     </Router>
   );
