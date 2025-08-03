@@ -12,8 +12,8 @@ public interface MenuItemService {
 
 	ApiResponse addFoodItem(MenuItemDto dto);
 	List<MenuItem> getMenuItems();
-	ApiResponse updateMenuItem(String id, MenuItemDto menuItemDto);
-	ApiResponse deleteMenuItem(String id);
+	ApiResponse updateMenuItem(Long id, MenuItemDto menuItemDto);
+	ApiResponse deleteMenuItem(Long id);
 
 	
 }

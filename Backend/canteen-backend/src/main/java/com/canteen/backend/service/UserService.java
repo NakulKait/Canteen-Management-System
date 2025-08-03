@@ -10,12 +10,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.canteen.backend.model.User;
 import com.canteen.backend.repository.UserRepository;
 
+import com.canteen.backend.service.*;
+
+import lombok.AllArgsConstructor;
+
 @Service
 @Transactional
+@AllArgsConstructor
 public class UserService implements IUserService {
 
-    @Autowired
+    
     private UserRepository userRepository;
+    private SequenceGeneratorService sequenceGenerator;
 
 //    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -26,8 +32,14 @@ public class UserService implements IUserService {
 
 //        String encodedPassword = passwordEncoder.encode(user.getPassword());
 //        user.setPassword(encodedPassword);
-
-        return userRepository.save(user);
+        User userTemp=new User();
+        userTemp.setId(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
+        userTemp.setFullName(user.getFullName());
+        userTemp.setEmail(user.getEmail());
+        userTemp.setRole(user.getRole());
+        userTemp.setPassword(user.getPassword());
+    return userRepository.save(userTemp);
+        
     }
 
     @Override
