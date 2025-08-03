@@ -228,7 +228,7 @@ function StudentDashboard() {
                   price={item.price}
                   imageUrl={item.imageUrl}
                   isSpecial={item.isSpecial}
-                  onAddToCart={() =>
+                  onAddToCart={() => {
                     addToCart({
                       id: item.id,
                       name: item.name,
@@ -236,8 +236,9 @@ function StudentDashboard() {
                       price: item.price,
                       image: item.imageUrl,
                       tag: item.isSpecial ? "Special" : "",
-                    })
-                  }
+                    });
+                    toast.success(`${item.name} added to cart!`);
+                  }}
                 />
               </div>
             ))}
