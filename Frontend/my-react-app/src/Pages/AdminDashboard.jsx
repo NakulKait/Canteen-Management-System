@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  Edit,
-  Trash,
-  Plus,
-  User,
-  ShoppingBag,
-  DollarSign,
-  TrendingUp,
-} from "lucide-react";
+import {Edit,Trash,Plus,User,ShoppingBag,DollarSign,TrendingUp} from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminNavbar from "../Components/AdminNavbar";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
-import {
-  getAllMenuItems,
-  deleteMenuItemById,
-} from "../Services/menuItemService";
+import {getAllMenuItems,deleteMenuItemById} from "../Services/menuItemService";
 import { fetchTotalUsers } from "../Services/adminDashboard";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -31,6 +20,7 @@ function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const[userCount,setUserCount]=useState(0);
+  const[orderCount,setOrderCount]=useState(0);
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -51,17 +41,22 @@ function AdminDashboard() {
       setUserCount(count);
     };
 
+    const fetchOrders=async()=>{
+      const count=await fetchTotalOrders();
+      setOrderCount(count);
+    }
+
     fetchMenu();
     fetchUsers();
+    fetchOrders();
   }, []);
 
-<<<<<<< HEAD
 
 const stats = [
   { label: "Total Users", value: userCount, icon: <User />, color: "orange" },
   {
     label: "Total Orders",
-    value: "342",
+    value: orderCount,
     icon: <ShoppingBag />,
     color: "orange",
   },
@@ -74,10 +69,8 @@ const stats = [
   { label: "Growth", value: "+12.5%", icon: <TrendingUp />, color: "yellow" },
 ];
 
-=======
-  const navigate = useNavigate();
->>>>>>> 14ef449c48b12c65e748330365ce209e161703dc
 
+  const navigate = useNavigate();
   const handleDelete = async (id) => {
     const confirm = window.confirm(
       "Are you sure you want to delete this item?"

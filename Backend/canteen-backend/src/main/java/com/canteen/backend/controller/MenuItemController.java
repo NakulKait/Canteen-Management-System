@@ -37,7 +37,7 @@ public class MenuItemController {
         if (image != null && !image.isEmpty()) {
             try {
 
-            	String uploadDir = "C:\\Users\\devip\\Downloads\\BackgroundImages";
+            	String uploadDir = "C:\\Users\\devip\\OneDrive\\Desktop\\BackGroundImages";
 
 
 
@@ -55,6 +55,7 @@ public class MenuItemController {
         }
 
         MenuItemDto dto = new MenuItemDto();
+        
         dto.setName(name);
         dto.setDescription(description);
         dto.setPrice(price);
