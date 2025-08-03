@@ -41,9 +41,11 @@ export const CartProvider = ({ children }) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, increment, decrement, remove }}
+      value={{ cartItems, addToCart, increment, decrement, remove, cartCount }}
     >
       {children}
     </CartContext.Provider>

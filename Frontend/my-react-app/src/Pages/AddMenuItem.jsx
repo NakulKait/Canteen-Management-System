@@ -3,6 +3,7 @@ import "../styles/AddMenuItem.css";
 import { addMenuItem } from "../Services/addMenuItemService";
 import { Link } from "react-router-dom";
 import { ArrowLeftIcon } from "lucide-react";
+import { toast } from "react-toastify";
 
 const AddMenuItem = ({ onAdd }) => {
   const [formData, setFormData] = useState({
@@ -60,6 +61,7 @@ const AddMenuItem = ({ onAdd }) => {
         itemType: "",
       });
       setImagePreview(null);
+
       if (onAdd) onAdd();
     });
   };
