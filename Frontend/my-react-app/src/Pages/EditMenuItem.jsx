@@ -49,7 +49,7 @@ const EditMenuItem = () => {
         price: parseFloat(formData.price),
       });
       toast.success("Item updated successfully");
-      navigate("/adminDashboard");
+      navigate("/admin-Dashboard");
     } catch (err) {
       toast.error("Update failed");
       console.error(err);
