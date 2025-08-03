@@ -11,6 +11,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // Serve files under /images/** from the Desktop folder
         registry.addResourceHandler("/images/**")
-                .addResourceLocations("file:C:\\Users\\devip\\Downloads\\BackgroundImages");
+                .addResourceLocations("file:C:\\Users\\devip\\OneDrive\\Desktop\\BackGroundImages");
     }
 }

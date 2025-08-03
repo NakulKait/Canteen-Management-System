@@ -30,7 +30,15 @@ public class AdminController {
 	    response.put("totalUsers", adminService.getNoOfUsers());
 	    return ResponseEntity.ok(response);
 	}
-
+  
+	
+	@GetMapping("/orders")
+	public ResponseEntity<?> getTotalOrders()
+	{
+		Map<String,Integer> response=new HashMap<>();
+		response.put("totalOrders",adminService.getTotalOrders());
+		return ResponseEntity.ok(response);
+	}
 
 	
 	
