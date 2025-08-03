@@ -12,16 +12,21 @@ import com.canteen.backend.dto.MenuItemDto;
 import com.canteen.backend.model.MenuItem;
 import com.canteen.backend.repository.MenuItemRepository;
 
+import lombok.AllArgsConstructor;
+
 @Service
 @Transactional
-
+@AllArgsConstructor
 public class MenuItemServiceImpl implements MenuItemService{
 	
-	@Autowired
+	
 	private MenuItemRepository menuItemRepository;
+	private SequenceGeneratorService sequenceGenerator;
+	
 	@Override
 	public ApiResponse addFoodItem(MenuItemDto dto) {
 		MenuItem item = new MenuItem();
+		item.setId(sequenceGenerator.generateSequence(MenuItem.SEQUENCE_NAME));
 		item.setName(dto.getName());
 		item.setDescription(dto.getDescription());
 		item.setCategory(dto.getCategory());
@@ -43,7 +48,7 @@ public class MenuItemServiceImpl implements MenuItemService{
 	}
 	
 	@Override
-	public ApiResponse updateMenuItem(String id, MenuItemDto dto) {
+	public ApiResponse updateMenuItem(Long id, MenuItemDto dto) {
 	    Optional<MenuItem> optional = menuItemRepository.findById(id);
 	    if (!optional.isPresent()) {
 	        return new ApiResponse("Item not found!");
@@ -63,7 +68,7 @@ public class MenuItemServiceImpl implements MenuItemService{
 	}
 
 	@Override
-	public ApiResponse deleteMenuItem(String id) {
+	public ApiResponse deleteMenuItem(Long id) {
 	    if (!menuItemRepository.existsById(id)) {
 	        return new ApiResponse("Item not found!");
 	    }
@@ -72,7 +77,7 @@ public class MenuItemServiceImpl implements MenuItemService{
 	}
 
 	@Override
-	public MenuItem getMenuItemById(String id) {
+	public MenuItem getMenuItemById(Long id) {
 	    return menuItemRepository.findById(id)
 	        .orElseThrow(() -> new RuntimeException("Menu item not found with ID: " + id));
 	}

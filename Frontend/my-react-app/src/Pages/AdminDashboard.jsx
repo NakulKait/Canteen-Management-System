@@ -16,31 +16,21 @@ import {
   getAllMenuItems,
   deleteMenuItemById,
 } from "../Services/menuItemService";
+import { fetchTotalUsers } from "../Services/adminDashboard";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
-const stats = [
-  { label: "Total Users", value: "150", icon: <User />, color: "orange" },
-  {
-    label: "Total Orders",
-    value: "342",
-    icon: <ShoppingBag />,
-    color: "orange",
-  },
-  {
-    label: "Total Revenue",
-    value: "₹45,680",
-    icon: <DollarSign />,
-    color: "red",
-  },
-  { label: "Growth", value: "+12.5%", icon: <TrendingUp />, color: "yellow" },
-];
+
+
+
+
 
 function AdminDashboard() {
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const[userCount,setUserCount]=useState(0);
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -56,10 +46,37 @@ function AdminDashboard() {
       }
     };
 
+    const fetchUsers =async ()=>{
+      const count =await fetchTotalUsers();
+      setUserCount(count);
+    };
+
     fetchMenu();
+    fetchUsers();
   }, []);
 
+<<<<<<< HEAD
+
+const stats = [
+  { label: "Total Users", value: userCount, icon: <User />, color: "orange" },
+  {
+    label: "Total Orders",
+    value: "342",
+    icon: <ShoppingBag />,
+    color: "orange",
+  },
+  {
+    label: "Total Revenue",
+    value: "₹45,680",
+    icon: <DollarSign />,
+    color: "red",
+  },
+  { label: "Growth", value: "+12.5%", icon: <TrendingUp />, color: "yellow" },
+];
+
+=======
   const navigate = useNavigate();
+>>>>>>> 14ef449c48b12c65e748330365ce209e161703dc
 
   const handleDelete = async (id) => {
     const confirm = window.confirm(

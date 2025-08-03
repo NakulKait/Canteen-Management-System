@@ -23,7 +23,7 @@ public class MenuItemController {
     private MenuItemService menuItemService;
 
     @PostMapping(value = "/add", consumes = "multipart/form-data")
-    public ResponseEntity<ApiResponse> addFoodItem(
+    public ResponseEntity<?> addFoodItem(
             @RequestParam("name") String name,
             @RequestParam("description") String description,
             @RequestParam("price") double price,
@@ -36,7 +36,11 @@ public class MenuItemController {
         String imageUrl = "";
         if (image != null && !image.isEmpty()) {
             try {
-                String uploadDir = "C:\\Users\\91932\\Desktop\\BackendImages";
+
+            	String uploadDir = "C:\\Users\\devip\\Downloads\\BackgroundImages";
+
+
+
                 String filename = image.getOriginalFilename();
                 Path uploadPath = Paths.get(uploadDir);
                 if (!Files.exists(uploadPath)) {
@@ -60,12 +64,12 @@ public class MenuItemController {
         dto.setAvailable(available);
         dto.setItemType(itemType);
 
-        return ResponseEntity.ok(menuItemService.addFoodItem(dto));
+        return ResponseEntity.status(200).body(menuItemService.addFoodItem(dto));
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<ApiResponse> updateMenuItem(
-            @PathVariable String id,
+            @PathVariable Long id,
             @RequestBody MenuItemDto dto) {
         return ResponseEntity.ok(menuItemService.updateMenuItem(id, dto));
     }
@@ -76,12 +80,12 @@ public class MenuItemController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<MenuItem> getMenuItemById(@PathVariable String id) {
+    public ResponseEntity<MenuItem> getMenuItemById(@PathVariable Long id) {
         return ResponseEntity.ok(menuItemService.getMenuItemById(id));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResponse> deleteMenuItem(@PathVariable String id) {
+    public ResponseEntity<ApiResponse> deleteMenuItem(@PathVariable Long id) {
         return ResponseEntity.ok(menuItemService.deleteMenuItem(id));
     }
 
