@@ -11,7 +11,11 @@ const FoodCard = ({
   console.log("Rendering:", name, "| isSpecial:", isSpecial);
 
   // If the imageUrl is a relative path (like /images/...), it will work with Vite/public
-  const fullImageUrl = imageUrl.startsWith("http") ? imageUrl : `${imageUrl}`; // You can also use `${window.location.origin}${imageUrl}` for full absolute path
+  const fullImageUrl = imageUrl
+    ? imageUrl.startsWith("http") || imageUrl.startsWith("/")
+      ? imageUrl
+      : `/${imageUrl}`
+    : "https://via.placeholder.com/300x200?text=No+Image";
 
   return (
     <div className="card h-100 shadow-sm border-0 rounded-4">
