@@ -10,10 +10,13 @@ import lombok.ToString;
 
 public class ApiResponse {
   
-private String msg;
-	
-	public ApiResponse(String msg)
-	{
-		this.msg=msg;
-	}
+	 private String message;
+	   
+
+	    public ApiResponse() {}
+
+	    public ApiResponse(String message) {
+	        this.message = message;
+	       
+	    }
 }

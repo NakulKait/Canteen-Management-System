@@ -32,29 +32,39 @@ export const deleteMenuItemById = async (id) => {
 };
 
 // 3. UPDATE menu item by ID
-export const updateMenuItemById = async (id, updatedData) => {
+export const updateMenuItem = async (id, updatedData) => {
   try {
-    const formData = new FormData();
-    formData.append("name", updatedData.name);
-    formData.append("description", updatedData.description);
-    formData.append("price", updatedData.price);
-    formData.append("category", updatedData.category);
-    formData.append("available", updatedData.available);
-    formData.append("isSpecial", updatedData.isSpecial);
-    if (updatedData.image) {
-      formData.append("image", updatedData.image);
-    }
-
     const response = await fetch(`${BASE_URL}/update/${id}`, {
       method: "PUT",
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      const errMsg = await response.text();
+      throw new Error(`HTTP error! Status: ${response.status} - ${errMsg}`);
     }
+
+    return await response.json();
   } catch (error) {
     console.error("Failed to update menu item:", error);
+    throw error;
+  }
+};
+
+// 4. GET menu item by ID
+// ✅ Corrected
+export const getMenuItemById = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}/get/${id}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(`Failed to fetch menu item with id ${id}:`, error);
     throw error;
   }
 };

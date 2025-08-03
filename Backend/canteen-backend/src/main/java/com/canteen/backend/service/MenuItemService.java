@@ -1,7 +1,5 @@
 package com.canteen.backend.service;
 
-
-
 import java.util.List;
 
 import com.canteen.backend.dto.ApiResponse;
@@ -14,6 +12,8 @@ public interface MenuItemService {
 	List<MenuItem> getMenuItems();
 	ApiResponse updateMenuItem(Long id, MenuItemDto menuItemDto);
 	ApiResponse deleteMenuItem(Long id);
+    MenuItem getMenuItemById(Long id);
+    List<MenuItem> getItemsByCategory(String category);
+    List<MenuItem> getAvailableMenuItems();
 
-	
 }

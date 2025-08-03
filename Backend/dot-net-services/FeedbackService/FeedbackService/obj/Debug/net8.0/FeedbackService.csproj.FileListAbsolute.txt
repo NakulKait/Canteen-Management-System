@@ -107,3 +107,6 @@ D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackSe
 D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\91932\Desktop\CDAC_Project\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\FeedbackService.dll
+C:\Users\91932\Desktop\CDAC_Project\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\refint\FeedbackService.dll
+C:\Users\91932\Desktop\CDAC_Project\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\FeedbackService.pdb

@@ -19,6 +19,7 @@ import {
 import { fetchTotalUsers } from "../Services/adminDashboard";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -54,6 +55,7 @@ function AdminDashboard() {
     fetchUsers();
   }, []);
 
+<<<<<<< HEAD
 
 const stats = [
   { label: "Total Users", value: userCount, icon: <User />, color: "orange" },
@@ -72,6 +74,9 @@ const stats = [
   { label: "Growth", value: "+12.5%", icon: <TrendingUp />, color: "yellow" },
 ];
 
+=======
+  const navigate = useNavigate();
+>>>>>>> 14ef449c48b12c65e748330365ce209e161703dc
 
   const handleDelete = async (id) => {
     const confirm = window.confirm(
@@ -174,7 +179,12 @@ const stats = [
                 <div className="d-flex justify-content-between align-items-start mb-2">
                   <h5 className="fw-bold mb-0">{item.name}</h5>
                   <div>
-                    <Edit size={16} className="me-2 text-muted" role="button" />
+                    <Edit
+                      size={16}
+                      className="me-2 text-muted"
+                      role="button"
+                      onClick={() => navigate(`/editMenuItem/${item.id}`)}
+                    />
                     <Trash
                       size={16}
                       className="text-danger"
