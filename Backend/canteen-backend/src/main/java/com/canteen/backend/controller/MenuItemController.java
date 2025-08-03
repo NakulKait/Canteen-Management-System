@@ -3,6 +3,7 @@ package com.canteen.backend.controller;
 import com.canteen.backend.dto.MenuItemDto;
 import com.canteen.backend.model.MenuItem;
 import com.canteen.backend.service.MenuItemService;
+import com.canteen.backend.dto.ApiResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,8 @@ public class MenuItemController {
     @Autowired
     private MenuItemService menuItemService;
 
-    // ✅ Add menu item with image
     @PostMapping(value = "/add", consumes = "multipart/form-data")
-    public ResponseEntity<String> addFoodItem(
+    public ResponseEntity<ApiResponse> addFoodItem(
             @RequestParam("name") String name,
             @RequestParam("description") String description,
             @RequestParam("price") double price,
@@ -46,7 +46,7 @@ public class MenuItemController {
                 Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
                 imageUrl = "/images/" + filename;
             } catch (IOException e) {
-                return ResponseEntity.status(500).body("Image upload failed");
+                return ResponseEntity.status(500).body(new ApiResponse("Image upload failed"));
             }
         }
 
@@ -63,9 +63,8 @@ public class MenuItemController {
         return ResponseEntity.ok(menuItemService.addFoodItem(dto));
     }
 
-    // ✅ Update menu item by ID using JSON body (no image here)
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateMenuItem(
+    public ResponseEntity<ApiResponse> updateMenuItem(
             @PathVariable String id,
             @RequestBody MenuItemDto dto) {
         return ResponseEntity.ok(menuItemService.updateMenuItem(id, dto));
@@ -82,7 +81,7 @@ public class MenuItemController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteMenuItem(@PathVariable String id) {
+    public ResponseEntity<ApiResponse> deleteMenuItem(@PathVariable String id) {
         return ResponseEntity.ok(menuItemService.deleteMenuItem(id));
     }
 
