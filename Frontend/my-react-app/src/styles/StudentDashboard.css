@@ -4,7 +4,7 @@
   z-index: 0;
   overflow: hidden;
   background: url("/images/bg-imgstddash.jpg") no-repeat center center;
-  background-size: cover; /* ← this makes the image fill the entire div */
+  background-size: cover;
   min-height: 250px;
   animation: slideRightFadeIn 1s ease-out forwards;
   animation-delay: 0.5s;

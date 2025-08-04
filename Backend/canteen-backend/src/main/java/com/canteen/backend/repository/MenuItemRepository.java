@@ -6,12 +6,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.canteen.backend.model.MenuItem;
 
+public interface MenuItemRepository extends MongoRepository<MenuItem, String> {
 
-public interface MenuItemRepository extends MongoRepository<MenuItem, Long> {
-	
-
-	List<MenuItem> findByCategoryIgnoreCase(String category);
-	List<MenuItem> findByAvailableTrue();
-
+    List<MenuItem> findByCategoryIgnoreCase(String category);
+    List<MenuItem> findByAvailableTrue();
 
 }
