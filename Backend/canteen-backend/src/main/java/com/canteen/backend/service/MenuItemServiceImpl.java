@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.canteen.backend.custom_exception.ResourceNotFoundException;
 import com.canteen.backend.dto.ApiResponse;
 import com.canteen.backend.dto.MenuItemDto;
 import com.canteen.backend.model.MenuItem;
@@ -72,7 +73,9 @@ public class MenuItemServiceImpl implements MenuItemService{
 	    if (!menuItemRepository.existsById(id)) {
 	        return new ApiResponse("Item not found!");
 	    }
-	    menuItemRepository.deleteById(id);
+	    MenuItem item=menuItemRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Invalid Id"));
+	    item.setAvailable(false); // soft delete of food item
+	    menuItemRepository.save(item);
 	    return new ApiResponse("Item deleted successfully!");
 	}
 

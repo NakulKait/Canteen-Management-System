@@ -10,14 +10,14 @@
         "projectUniqueName": "D:\\Canteen-Management-System\\Backend\\dot-net-services\\FeedbackService\\FeedbackService\\FeedbackService.csproj",
         "projectName": "FeedbackService",
         "projectPath": "D:\\Canteen-Management-System\\Backend\\dot-net-services\\FeedbackService\\FeedbackService\\FeedbackService.csproj",
-        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\devip\\.nuget\\packages\\",
         "outputPath": "D:\\Canteen-Management-System\\Backend\\dot-net-services\\FeedbackService\\FeedbackService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\devip\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -52,23 +52,23 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.1, )"
+              "version": "[8.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[8.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[8.0.11, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[8.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -94,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

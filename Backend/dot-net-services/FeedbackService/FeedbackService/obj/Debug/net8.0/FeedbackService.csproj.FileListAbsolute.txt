@@ -22,12 +22,6 @@ D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackSe
 D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\staticwebassets.build.json
 D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\staticwebassets.development.json
 D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\staticwebassets\msbuild.FeedbackService.Microsoft.AspNetCore.StaticWebAssets.props
-D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\staticwebassets\msbuild.FeedbackService.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\staticwebassets\msbuild.build.FeedbackService.props
-D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.FeedbackService.props
-D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.FeedbackService.props
-D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\staticwebassets.pack.json
 D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\Feedback.9B9457FB.Up2Date
 D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\FeedbackService.dll
@@ -110,3 +104,14 @@ D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackSe
 C:\Users\91932\Desktop\CDAC_Project\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\FeedbackService.dll
 C:\Users\91932\Desktop\CDAC_Project\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\refint\FeedbackService.dll
 C:\Users\91932\Desktop\CDAC_Project\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\FeedbackService.pdb
+D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\rjimswa.dswa.cache.json
+D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+D:\Canteen-Management-System\Backend\dot-net-services\FeedbackService\FeedbackService\obj\Debug\net8.0\staticwebassets.build.json.cache

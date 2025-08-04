@@ -23,12 +23,26 @@ export async function fetchTotalOrders()
   }
   catch(error)
   {
-    console.error("error in fetchToatalOrders",error)
+    console.error("error in fetchTotalOrders",error)
     return 0;
   }
 
+}
 
+export async function fetchAllUsers()
+{
+  try{
+    const response=await axios.get(`${BASE_URL}/users-list`)
+    console.log(response);
+    return response.data;
+    
+  }
 
+  catch(error)
+  {
+    console.error("error in fetching users",error)
+    return [];
+  }
 }
 
 

@@ -5,10 +5,12 @@ import AdminNavbar from "../Components/AdminNavbar";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
 import {getAllMenuItems,deleteMenuItemById} from "../Services/menuItemService";
+import UsersPage from "../Pages/UsersPage"
 import { fetchTotalUsers } from "../Services/adminDashboard";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -21,6 +23,7 @@ function AdminDashboard() {
   const [error, setError] = useState(null);
   const[userCount,setUserCount]=useState(0);
   const[orderCount,setOrderCount]=useState(0);
+  const[activeTab,setActiveTab] =useState("Menu");
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -126,23 +129,20 @@ const stats = [
 
       {/* Tabs */}
       <div className="flex gap-6 border rounded-xl mb-6 overflow-hidden text-sm text-gray-600">
-        <button className="flex-1 py-2 text-center hover:bg-gray-100">
-          Analytics
-        </button>
-        <button className="flex-1 py-2 text-center hover:bg-gray-100">
-          Orders
-        </button>
-        <button className="flex-1 py-2 text-center bg-white font-semibold border-x">
-          Menu
-        </button>
-        <button className="flex-1 py-2 text-center hover:bg-gray-100">
-          Users
-        </button>
-        <button className="flex-1 py-2 text-center hover:bg-gray-100">
-          QR Scanner
-        </button>
-      </div>
-
+  {["Analytics", "Orders", "Menu", "Users", "QR Scanner"].map((tab) => (
+    <button
+      key={tab}
+      className={`flex-1 py-2 text-center ${
+        activeTab === tab ? "bg-white font-semibold border-x" : "hover:bg-gray-100"
+      }`}
+      onClick={() => setActiveTab(tab)}
+    >
+      {tab}
+    </button>
+  ))}
+</div>
+   
+{activeTab === "Users" && <UsersPage />}
       {/* Menu Management */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <div>

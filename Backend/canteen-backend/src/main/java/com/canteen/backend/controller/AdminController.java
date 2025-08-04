@@ -30,7 +30,12 @@ public class AdminController {
 	    response.put("totalUsers", adminService.getNoOfUsers());
 	    return ResponseEntity.ok(response);
 	}
-  
+    
+	@GetMapping("/users-list")
+	public ResponseEntity<?> getAllUsers()
+	{
+	  return ResponseEntity.ok(adminService.getAllUsers());
+	}
 	
 	@GetMapping("/orders")
 	public ResponseEntity<?> getTotalOrders()
