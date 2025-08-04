@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080"; // or /api if your backend uses a prefix
+const BASE_URL = "https://canteen-management-system-pidg.onrender.com";
 
 export const registerUser = async (userData) => {
   try {
