@@ -8,11 +8,11 @@ import com.canteen.backend.model.MenuItem;
 
 public interface MenuItemService {
 
-	ApiResponse addFoodItem(MenuItemDto dto);
-	List<MenuItem> getMenuItems();
-	ApiResponse updateMenuItem(Long id, MenuItemDto menuItemDto);
-	ApiResponse deleteMenuItem(Long id);
-    MenuItem getMenuItemById(Long id);
+    ApiResponse addFoodItem(MenuItemDto dto);
+    List<MenuItem> getMenuItems();
+    ApiResponse updateMenuItem(String id, MenuItemDto menuItemDto);  // changed to String
+    ApiResponse deleteMenuItem(String id);                           // changed to String
+    MenuItem getMenuItemById(String id);                             // changed to String
     List<MenuItem> getItemsByCategory(String category);
     List<MenuItem> getAvailableMenuItems();
 
