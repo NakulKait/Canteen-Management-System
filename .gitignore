@@ -1,2 +1,15 @@
-Frontend/node_modules
+# Ignore frontend dependencies
+Frontend/node_modules/
+node_modules/
+
+# Ignore .vs directory from Visual Studio
 .vs/
+
+# Ignore all target directories (from Maven)
+**/target/
+
+# Optional: Ignore IntelliJ and Eclipse settings (if using)
+.idea/
+*.iml
+.project
+.classpath
