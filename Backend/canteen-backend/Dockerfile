@@ -14,4 +14,4 @@ COPY --from=build /app/target/canteen-backend-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
 
 # ✅ Add TLS protocol explicitly for MongoDB Atlas
-ENTRYPOINT ["java", "-Djdk.tls.client.protocols=TLSv1.2", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Djdk.tls.client.protocols=TLSv1.2", "-jar", "app.jar"]
