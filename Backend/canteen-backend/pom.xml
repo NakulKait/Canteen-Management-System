@@ -53,6 +53,21 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        
+        
+
+   
+
+
+
+    <!-- Spring Boot Redis starter -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
+
+
+
 
         <!-- Spring Boot DevTools (Optional) -->
         <dependency>
@@ -77,6 +92,8 @@
         </dependency>
 
     </dependencies>
+    
+    
 
     <build>
         <plugins>
