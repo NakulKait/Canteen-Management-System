@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
 
+
+
 @RestController
 @RequestMapping("/MenuItems")
 @CrossOrigin(origins = "*")
@@ -32,6 +34,7 @@ public class MenuItemController {
 	        @RequestParam(value = "image", required = false) MultipartFile image,
 	        @RequestParam("itemType") String itemType
 	) {
+		String backendBaseUrl = "https://canteen-management-system-pidg.onrender.com";
 	    String imageUrl = "";
 	    if (image != null && !image.isEmpty()) {
 	        try {
@@ -50,7 +53,7 @@ public class MenuItemController {
 	            Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
 	            // Public URL to access image (ensure your server serves this path)
-	            imageUrl = "/uploads/" + filename;
+	            imageUrl = backendBaseUrl +"/uploads/" + filename;
 
 	        } catch (IOException e) {
 	            e.printStackTrace();
