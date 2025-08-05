@@ -1,2 +1,15 @@
-Frontend/node_modules
+# .NET build artifacts
+**/bin/
+**/obj/
+
+# Vite and frontend build/deps
+**/.vite/
+**/.vercel/
+**/node_modules/
+
+# General
+*.log
+*.tmp
+*.cache
+.DS_Store
 .vs/
