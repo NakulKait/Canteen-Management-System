@@ -2582,6 +2582,11 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.EntityFrameworkCore >= 8.0.11",
+<<<<<<< HEAD
+=======
+      "Microsoft.EntityFrameworkCore.Abstractions >= 8.0.11",
+      "Microsoft.EntityFrameworkCore.Analyzers >= 8.0.11",
+>>>>>>> 1dbdf9082b527ada736e765afde3491688c12677
       "Microsoft.EntityFrameworkCore.Design >= 8.0.11",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.11",
       "Pomelo.EntityFrameworkCore.MySql >= 8.0.1",
@@ -2589,23 +2594,37 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\devip\\.nuget\\packages\\": {},
+=======
+    "C:\\Users\\91932\\.nuget\\packages\\": {},
+>>>>>>> 1dbdf9082b527ada736e765afde3491688c12677
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Canteen-Management-System\\Backend\\dot-net-services\\FeedbackService\\FeedbackService\\FeedbackService.csproj",
+      "projectUniqueName": "C:\\Users\\91932\\Desktop\\CDAC_Project\\Canteen-Management-System\\Backend\\dot-net-services\\FeedbackService\\FeedbackService\\FeedbackService.csproj",
       "projectName": "FeedbackService",
+<<<<<<< HEAD
       "projectPath": "D:\\Canteen-Management-System\\Backend\\dot-net-services\\FeedbackService\\FeedbackService\\FeedbackService.csproj",
       "packagesPath": "C:\\Users\\devip\\.nuget\\packages\\",
       "outputPath": "D:\\Canteen-Management-System\\Backend\\dot-net-services\\FeedbackService\\FeedbackService\\obj\\",
+=======
+      "projectPath": "C:\\Users\\91932\\Desktop\\CDAC_Project\\Canteen-Management-System\\Backend\\dot-net-services\\FeedbackService\\FeedbackService\\FeedbackService.csproj",
+      "packagesPath": "C:\\Users\\91932\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\91932\\Desktop\\CDAC_Project\\Canteen-Management-System\\Backend\\dot-net-services\\FeedbackService\\FeedbackService\\obj\\",
+>>>>>>> 1dbdf9082b527ada736e765afde3491688c12677
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\devip\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\91932\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 1dbdf9082b527ada736e765afde3491688c12677
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2641,6 +2660,17 @@
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[8.0.11, )"
+<<<<<<< HEAD
+=======
+          },
+          "Microsoft.EntityFrameworkCore.Abstractions": {
+            "target": "Package",
+            "version": "[8.0.11, )"
+          },
+          "Microsoft.EntityFrameworkCore.Analyzers": {
+            "target": "Package",
+            "version": "[8.0.11, )"
+>>>>>>> 1dbdf9082b527ada736e765afde3491688c12677
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

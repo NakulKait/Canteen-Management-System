@@ -17,8 +17,9 @@ export const getAllMenuItems = async () => {
 };
 
 // 2. DELETE menu item by ID
-export const deleteMenuItemById = async (id) => {
+export async function deleteMenuItemById(id)  {
   try {
+    console.log(id);
     const response = await fetch(`${BASE_URL}/delete/${id}`, {
       method: "DELETE",
     });

@@ -9,6 +9,11 @@
       "FeedbackService/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "8.0.11",
+<<<<<<< HEAD
+=======
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.11",
+          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.11",
+>>>>>>> 1dbdf9082b527ada736e765afde3491688c12677
           "Microsoft.EntityFrameworkCore.Design": "8.0.11",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.11",
           "Pomelo.EntityFrameworkCore.MySql": "8.0.1",

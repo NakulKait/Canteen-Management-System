@@ -4,12 +4,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AdminNavbar from "../Components/AdminNavbar";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
-import {getAllMenuItems,deleteMenuItemById} from "../Services/menuItemService";
+
 import UsersPage from "../Pages/UsersPage"
+//import MenuPage from "../Pages/MenuPage";
 import { fetchTotalUsers } from "../Services/adminDashboard";
-import { toast } from "react-toastify";
+import { fetchTotalOrders } from "../Services/adminDashboard";
+
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import MenuPage from "./MenuPage";
 
 
 
@@ -18,26 +20,13 @@ import { useNavigate } from "react-router-dom";
 
 
 function AdminDashboard() {
-  const [menuItems, setMenuItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+
   const[userCount,setUserCount]=useState(0);
   const[orderCount,setOrderCount]=useState(0);
   const[activeTab,setActiveTab] =useState("Menu");
 
   useEffect(() => {
-    const fetchMenu = async () => {
-      try {
-        const response = await getAllMenuItems();
-        console.log("Menu API Response:", response); // 👈 Add this line
-        setMenuItems(response);
-      } catch (err) {
-        console.error("Failed to fetch menu items", err);
-        setError("Unable to fetch menu items.");
-      } finally {
-        setLoading(false);
-      }
-    };
+    
 
     const fetchUsers =async ()=>{
       const count =await fetchTotalUsers();
@@ -49,7 +38,7 @@ function AdminDashboard() {
       setOrderCount(count);
     }
 
-    fetchMenu();
+    
     fetchUsers();
     fetchOrders();
   }, []);
@@ -73,24 +62,7 @@ const stats = [
 ];
 
 
-  const navigate = useNavigate();
-  const handleDelete = async (id) => {
-    const confirm = window.confirm(
-      "Are you sure you want to delete this item?"
-    );
-    if (!confirm) return;
-
-    try {
-      await deleteMenuItemById(id);
-      toast.success("Item deleted successfully");
-
-      // Refresh menu after deletion
-      const updatedItems = await getAllMenuItems();
-      setMenuItems(updatedItems);
-    } catch (error) {
-      toast.error("Failed to delete item");
-    }
-  };
+  
 
   return (
     <div className="bg-light min-vh-100">
@@ -129,7 +101,7 @@ const stats = [
 
       {/* Tabs */}
       <div className="flex gap-6 border rounded-xl mb-6 overflow-hidden text-sm text-gray-600">
-  {["Analytics", "Orders", "Menu", "Users", "QR Scanner"].map((tab) => (
+  {["Analytics", "Orders", "Menu", "Users", "Feedback"].map((tab) => (
     <button
       key={tab}
       className={`flex-1 py-2 text-center ${
@@ -143,71 +115,7 @@ const stats = [
 </div>
    
 {activeTab === "Users" && <UsersPage />}
-      {/* Menu Management */}
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <div>
-          <h5 className="fw-bold">Menu Management</h5>
-          <p className="text-muted small mb-0">
-            Manage food items and categories
-          </p>
-        </div>
-        <Link to="/addMenuItem" className="text-decoration-none">
-          <button className="btn btn-warning d-flex align-items-center">
-            <Plus size={18} className="me-1" /> Add Item
-          </button>
-        </Link>
-      </div>
-
-      {/* Feedback / Error */}
-      {loading && <p className="text-center">Loading menu...</p>}
-      {error && <p className="text-danger text-center">{error}</p>}
-
-      {/* Menu Cards */}
-      <div className="row g-4">
-        {menuItems.map((item, idx) => (
-          <div className="col-md-4" key={idx}>
-            <div className="card shadow-sm border-0 h-100">
-              <div className="card-body d-flex flex-column justify-content-between">
-                {/* Header: Name + Icons */}
-                <div className="d-flex justify-content-between align-items-start mb-2">
-                  <h5 className="fw-bold mb-0">{item.name}</h5>
-                  <div>
-                    <Edit
-                      size={16}
-                      className="me-2 text-muted"
-                      role="button"
-                      onClick={() => navigate(`/editMenuItem/${item.id}`)}
-                    />
-                    <Trash
-                      size={16}
-                      className="text-danger"
-                      role="button"
-                      onClick={() => handleDelete(item.id)}
-                    />
-                  </div>
-                </div>
-
-                {/* Description */}
-                <p className="text-muted small mb-3">{item.description}</p>
-
-                {/* Footer: Price + Availability */}
-                <div className="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
-                  <span className="fw-semibold text-primary">
-                    ₹{item.price}
-                  </span>
-                  <span
-                    className={`badge ${
-                      item.available ? "bg-success text-light" : "bg-secondary"
-                    }`}
-                  >
-                    {item.available ? "Available" : "Out of Stock"}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+{activeTab==="Menu" && <MenuPage/>}    
 
       <hr className="my-3" />
       <Footer />
