@@ -17,3 +17,9 @@ target/
 # OS-specific files
 .DS_Store
 Thumbs.db
+
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
