@@ -53,7 +53,7 @@ function Footer() {
         <div>
           <p style={{ fontSize: "0.9rem", margin: 0 }}>
             <strong>Team Members:</strong> Om Bongulwar, Nakul Kait, Piyusha
-            Desai, Deviprasad Nallaboina
+            Desai, Deviprasad Nallaboyina
           </p>
         </div>
       </div>

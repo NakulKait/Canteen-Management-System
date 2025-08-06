@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @Document(collection = "MenuItem")
 public class MenuItem {
-
+	
     @Id
     private String id; // ✅ Changed to String for MongoDB
 
