@@ -83,6 +83,18 @@ public class AuthController {
 	public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> loginData) {
 		String email = loginData.get("email");
 		String password = loginData.get("password");
+		
+		//Hardcoded values for admin
+		
+		if ("admin@gmail.com".equalsIgnoreCase(email) && "admin123".equals(password)) {
+	        Map<String, Object> adminResponse = new HashMap<>();
+	        adminResponse.put("fullName", "Admin");
+	        adminResponse.put("email", "admin@gmail.com");
+	        adminResponse.put("role", "ADMIN");
+	        adminResponse.put("message", "Admin login successful");
+	        return ResponseEntity.ok(adminResponse);
+	    }
+		
 
 		Optional<User> optionalUser = userService.findByEmail(email);
 		if (optionalUser.isEmpty()) {

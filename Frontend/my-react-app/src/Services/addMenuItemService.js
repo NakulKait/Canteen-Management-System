@@ -1,6 +1,8 @@
 import { toast } from "react-toastify";
-const BASE_URL =
-  "https://canteen-management-system-pidg.onrender.com/MenuItems";
+// const BASE_URL =
+//   "https://canteen-management-system-pidg.onrender.com/MenuItems";
+
+const BASE_URL = "http://localhost:8080/MenuItems";
 
 export const addMenuItem = async (formData, onSuccess) => {
   const data = new FormData();

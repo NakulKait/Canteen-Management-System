@@ -13,6 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
+import java.util.Map;
+
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+
 
 
 
@@ -22,6 +27,9 @@ import java.util.List;
 public class MenuItemController {
 	 @Autowired
 	    private MenuItemService menuItemService;
+	 @Autowired
+	 private Cloudinary cloudinary;
+
 
 	@PostMapping(value = "/add", consumes = "multipart/form-data")
 	public ResponseEntity<?> addFoodItem(
@@ -34,32 +42,17 @@ public class MenuItemController {
 	        @RequestParam(value = "image", required = false) MultipartFile image,
 	        @RequestParam("itemType") String itemType
 	) {
-		String backendBaseUrl = "https://canteen-management-system-pidg.onrender.com";
 	    String imageUrl = "";
 	    if (image != null && !image.isEmpty()) {
 	        try {
-	            // Use a deployment-safe path (uploads folder in project root)
-	            String uploadDir = System.getProperty("user.dir") + "/uploads";
-
-	            // Ensure the folder exists
-	            Path uploadPath = Paths.get(uploadDir);
-	            if (!Files.exists(uploadPath)) {
-	                Files.createDirectories(uploadPath);
-	            }
-
-	            // Save the image file
-	            String filename = image.getOriginalFilename();
-	            Path filePath = uploadPath.resolve(filename);
-	            Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-	            // Public URL to access image (ensure your server serves this path)
-	            imageUrl = backendBaseUrl +"/uploads/" + filename;
-
+	            Map uploadResult = cloudinary.uploader().upload(image.getBytes(), ObjectUtils.emptyMap());
+	            imageUrl = uploadResult.get("secure_url").toString();
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	            return ResponseEntity.status(500).body(new ApiResponse("Image upload failed"));
 	        }
 	    }
+
 
 	    // Create DTO
 	    MenuItemDto dto = new MenuItemDto();

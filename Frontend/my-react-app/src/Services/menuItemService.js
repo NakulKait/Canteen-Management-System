@@ -1,7 +1,9 @@
 // src/services/menuItemService.js
 
-const BASE_URL =
-  "https://canteen-management-system-pidg.onrender.com/MenuItems";
+// const BASE_URL =
+//   "https://canteen-management-system-pidg.onrender.com/MenuItems";
+
+const BASE_URL = "http://localhost:8080/MenuItems";
 
 // 1. GET all menu items
 export const getAllMenuItems = async () => {
