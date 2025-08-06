@@ -5,8 +5,8 @@ const BASE_URL = "http://localhost:8080/admin";
 export async function fetchTotalUsers() {
   try {
     const response = await axios.get(`${BASE_URL}/users`);
-    debugger
-    console.log(response)
+    
+    
     return response.data.totalUsers; // expects { totalUsers: number }
 
   } catch (error) {

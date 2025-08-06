@@ -52,6 +52,17 @@ const MenuPage=()=>{
 
   
     return (
+    <div>
+      {/* Add Button */}
+    <div className="d-flex justify-content-end mb-3">
+      <Link
+        to="/AddMenuItem"
+        className="btn btn-warning d-flex align-items-center gap-2"
+      >
+        <Plus size={16} />
+        Add Menu Item
+      </Link>
+    </div>
       <div className="row g-4">
         {menuItems.map((item, idx) => (
           <div className="col-md-4" key={idx}>
@@ -97,7 +108,7 @@ const MenuPage=()=>{
           </div>
         ))}
       </div>
-
+  </div>
 
     );
 };

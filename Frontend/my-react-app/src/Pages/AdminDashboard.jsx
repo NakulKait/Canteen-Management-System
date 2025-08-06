@@ -26,22 +26,22 @@ function AdminDashboard() {
   const[activeTab,setActiveTab] =useState("Menu");
 
   useEffect(() => {
-    
+  
+    fetchUsers();
+    fetchOrders();
+  }, []);
 
-    const fetchUsers =async ()=>{
+
+  const fetchUsers =async ()=>{
       const count =await fetchTotalUsers();
       setUserCount(count);
     };
 
-    const fetchOrders=async()=>{
+
+     const fetchOrders=async()=>{
       const count=await fetchTotalOrders();
       setOrderCount(count);
     }
-
-    
-    fetchUsers();
-    fetchOrders();
-  }, []);
 
 
 const stats = [
@@ -114,7 +114,7 @@ const stats = [
   ))}
 </div>
    
-{activeTab === "Users" && <UsersPage />}
+{activeTab === "Users" && <UsersPage onUserDeleted={fetchUsers} />}
 {activeTab==="Menu" && <MenuPage/>}    
 
       <hr className="my-3" />
