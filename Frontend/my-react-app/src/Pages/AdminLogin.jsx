@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../Services/authService";
 
 const AdminLogin = () => {
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.role === "STUDENT") {
+      navigate("/student-dashboard");
+    }
+    if (user && user.role === "ADMIN") {
+      navigate("/admin-dashboard");
+    }
+  }, []);
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -101,42 +111,3 @@ const AdminLogin = () => {
 };
 
 export default AdminLogin;
-
-//  {/* Hero Section */}
-//       <div className="hero-section text-center text-white">
-//         <div className="container my-5 px-4 px-md-5">
-//           <div className="row align-items-center">
-//             <div className="col-md-6 text-center text-md-start">
-//               <h1 className="fw-bold mb-3 text-dark">
-//                 Smart Canteen Management
-//               </h1>
-//               <p className="lead text-muted">
-//                 Streamline your campus dining experience with digital ordering,
-//                 QR code validation, and real-time management.
-//               </p>
-//               <div className="mt-4 d-flex gap-3 justify-content-center justify-content-md-start">
-//                 <Link
-//                   to="/student-dashboard"
-//                   className="btn btn-warning text-white px-4"
-//                 >
-//                   Student Dashboard
-//                 </Link>
-//                 <Link
-//                   to="/admin-dashboard"
-//                   className="btn btn-outline-warning px-4"
-//                 >
-//                   Admin Dashboard
-//                 </Link>
-//               </div>
-//             </div>
-//             {/* <div className="col-md-6 text-center mt-4 mt-md-0">
-//               <img
-//                 src="/images/canteen-hero.jpg"
-//                 alt="Canteen Hero"
-//                 className="img-fluid"
-//                 style={{ maxWidth: "400px" }}
-//               />
-//             </div> */}
-//           </div>
-//         </div>
-//       </div>

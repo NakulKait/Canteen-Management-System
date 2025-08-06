@@ -3,10 +3,12 @@ import { FaShoppingCart } from "react-icons/fa";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import { UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { useCart } from "../Context/CartContext";
 
 function Navbar() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [user, setUser] = useState(null);
+  const { cartCount } = useCart();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -36,18 +38,27 @@ function Navbar() {
             href="/"
             style={{ color: "#f97316" }}
           >
-            <span role="img" aria-label="canteen">🍽️</span>
+            <span role="img" aria-label="canteen">
+              🍽️
+            </span>
             <span>Canteen Manager</span>
           </a>
 
           {/* Right Controls */}
           <div className="d-flex align-items-center gap-3">
-            <Link
-              to="/cart"
-              className="btn btn-warning d-flex align-items-center gap-2 text-white shadow-sm"
-            >
-              <FaShoppingCart />
-              <span>Cart</span>
+            <Link to="/cart">
+              <div className="relative inline-block">
+                <button className="bg-yellow-400 text-white px-4 py-2 rounded-md flex items-center gap-2">
+                  <FaShoppingCart className="text-white text-lg" />
+                  <span className="text-white">Cart</span>
+                </button>
+
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </div>
             </Link>
 
             {/* Only show user info if logged in */}
