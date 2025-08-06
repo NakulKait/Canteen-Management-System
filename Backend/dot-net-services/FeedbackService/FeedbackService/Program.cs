@@ -6,8 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
-
-
 namespace FeedbackService
 {
     public class Program
@@ -16,17 +14,17 @@ namespace FeedbackService
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Add services to the container
             builder.Services.AddControllers();
 
-            // Add DbContext with MySQL
-            builder.Services.AddDbContext<FeedbackDbContext>(options =>
-                options.UseMySql(
-                    builder.Configuration.GetConnectionString("DefaultConnection"),
-                    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
-                ));
+            // Get MySQL connection string from environment variable or fallback to appsettings.json
+            var connectionString = Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STRING")
+                                  ?? builder.Configuration.GetConnectionString("DefaultConnection");
 
-            // Add Swagger/OpenAPI
+            builder.Services.AddDbContext<FeedbackDbContext>(options =>
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+            // Swagger support
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -42,6 +40,11 @@ namespace FeedbackService
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
+
+            // Add support for dynamic port (required on Render)
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+            app.Urls.Add($"http://*:{port}");
+
             app.Run();
         }
     }
