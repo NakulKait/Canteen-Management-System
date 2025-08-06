@@ -26,22 +26,22 @@ public class UserService implements IUserService {
 //    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public User registerUser(User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Email already exists");
+        Optional<User> existingUserOpt = userRepository.findByEmail(user.getEmail());
+
+        if (existingUserOpt.isPresent()) {
+            User existingUser = existingUserOpt.get();
+            existingUser.setFullName(user.getFullName());
+            existingUser.setPassword(user.getPassword());
+            existingUser.setRole(user.getRole());
+            existingUser.setVerified(user.isVerified());
+            return userRepository.save(existingUser);
+        } else {
+            user.setId(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
+            return userRepository.save(user);
         }
-
-        User userTemp = new User();
-        userTemp.setId(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
-        userTemp.setFullName(user.getFullName());
-        userTemp.setEmail(user.getEmail());
-        userTemp.setRole(user.getRole());
-        userTemp.setPassword(user.getPassword());
-
-        // ✅ Fix: also copy verified flag
-        userTemp.setVerified(user.isVerified());
-
-        return userRepository.save(userTemp);
     }
+
+
 
 
     @Override
