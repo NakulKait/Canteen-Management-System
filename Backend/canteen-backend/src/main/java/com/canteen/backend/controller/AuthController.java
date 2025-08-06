@@ -19,15 +19,7 @@ import com.canteen.backend.service.OtpService;
 
 @RestController
 @RequestMapping("/")
-
-
-
-@CrossOrigin(origins = {
-
-	    "http://localhost:5173",
-	    "https://canteen-management-system-theta.vercel.app"
-	})
-
+@CrossOrigin(origins = "*")
 
 
 public class AuthController {
