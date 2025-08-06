@@ -30,17 +30,19 @@ public class UserService implements IUserService {
             throw new RuntimeException("Email already exists");
         }
 
-//        String encodedPassword = passwordEncoder.encode(user.getPassword());
-//        user.setPassword(encodedPassword);
-        User userTemp=new User();
+        User userTemp = new User();
         userTemp.setId(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
         userTemp.setFullName(user.getFullName());
         userTemp.setEmail(user.getEmail());
         userTemp.setRole(user.getRole());
         userTemp.setPassword(user.getPassword());
-    return userRepository.save(userTemp);
-        
+
+        // ✅ Fix: also copy verified flag
+        userTemp.setVerified(user.isVerified());
+
+        return userRepository.save(userTemp);
     }
+
 
     @Override
     public Optional<User> findByEmail(String email) {

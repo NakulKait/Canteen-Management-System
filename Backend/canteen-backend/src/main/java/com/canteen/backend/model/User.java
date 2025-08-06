@@ -8,6 +8,8 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -25,22 +27,15 @@ public class User {
     private String password;
     private boolean verified = false;
     
+    @JsonIgnore
     @DBRef(lazy=true)
     private List<Orders>orderList=new ArrayList<>();
     
     
     
     
-    public void addOrder(Orders order)
-    {
-    	orderList.add(order);
-    	order.setMyUser(this);
-    }
+   
     
-    public void deleteOrder(Orders order)
-    {
-    	orderList.remove(order);
-    	order.setMyUser(null);
-    }
+    
 
 }

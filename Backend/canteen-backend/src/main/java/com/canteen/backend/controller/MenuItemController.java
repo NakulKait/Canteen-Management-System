@@ -14,63 +14,70 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
 
+
+
 @RestController
 @RequestMapping("/MenuItems")
 @CrossOrigin(origins = "*")
 public class MenuItemController {
+	 @Autowired
+	    private MenuItemService menuItemService;
 
-    @Autowired
-    private MenuItemService menuItemService;
+	@PostMapping(value = "/add", consumes = "multipart/form-data")
+	public ResponseEntity<?> addFoodItem(
+	        @RequestParam("name") String name,
+	        @RequestParam("description") String description,
+	        @RequestParam("price") double price,
+	        @RequestParam("category") String category,
+	        @RequestParam("available") boolean available,
+	        @RequestParam("isSpecial") boolean isSpecial,
+	        @RequestParam(value = "image", required = false) MultipartFile image,
+	        @RequestParam("itemType") String itemType
+	) {
+		String backendBaseUrl = "https://canteen-management-system-pidg.onrender.com";
+	    String imageUrl = "";
+	    if (image != null && !image.isEmpty()) {
+	        try {
+	            // Use a deployment-safe path (uploads folder in project root)
+	            String uploadDir = System.getProperty("user.dir") + "/uploads";
 
-    @PostMapping(value = "/add", consumes = "multipart/form-data")
-    public ResponseEntity<?> addFoodItem(
-            @RequestParam("name") String name,
-            @RequestParam("description") String description,
-            @RequestParam("price") double price,
-            @RequestParam("category") String category,
-            @RequestParam("available") boolean available,
-            @RequestParam("isSpecial") boolean isSpecial,
-            @RequestParam(value = "image", required = false) MultipartFile image,
-            @RequestParam("itemType") String itemType
-    ) {
-        String imageUrl = "";
-        if (image != null && !image.isEmpty()) {
-            try {
+	            // Ensure the folder exists
+	            Path uploadPath = Paths.get(uploadDir);
+	            if (!Files.exists(uploadPath)) {
+	                Files.createDirectories(uploadPath);
+	            }
 
-            	String uploadDir = "C:\\Users\\devip\\OneDrive\\Desktop\\BackGroundImages";
+	            // Save the image file
+	            String filename = image.getOriginalFilename();
+	            Path filePath = uploadPath.resolve(filename);
+	            Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
+	            // Public URL to access image (ensure your server serves this path)
+	            imageUrl = backendBaseUrl +"/uploads/" + filename;
 
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            return ResponseEntity.status(500).body(new ApiResponse("Image upload failed"));
+	        }
+	    }
 
-                String filename = image.getOriginalFilename();
-                Path uploadPath = Paths.get(uploadDir);
-                if (!Files.exists(uploadPath)) {
-                    Files.createDirectories(uploadPath);
-                }
-                Path filePath = uploadPath.resolve(filename);
-                Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-                imageUrl = "/images/" + filename;
-            } catch (IOException e) {
-                return ResponseEntity.status(500).body(new ApiResponse("Image upload failed"));
-            }
-        }
+	    // Create DTO
+	    MenuItemDto dto = new MenuItemDto();
+	    dto.setName(name);
+	    dto.setDescription(description);
+	    dto.setPrice(price);
+	    dto.setCategory(category);
+	    dto.setImageUrl(imageUrl);
+	    dto.setSpecial(isSpecial);
+	    dto.setAvailable(available);
+	    dto.setItemType(itemType);
 
-        MenuItemDto dto = new MenuItemDto();
-        
-        dto.setName(name);
-        dto.setDescription(description);
-        dto.setPrice(price);
-        dto.setCategory(category);
-        dto.setImageUrl(imageUrl);
-        dto.setSpecial(isSpecial);
-        dto.setAvailable(available);
-        dto.setItemType(itemType);
-
-        return ResponseEntity.status(200).body(menuItemService.addFoodItem(dto));
-    }
+	    return ResponseEntity.status(200).body(menuItemService.addFoodItem(dto));
+	}
 
     @PutMapping("/update/{id}")
     public ResponseEntity<ApiResponse> updateMenuItem(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody MenuItemDto dto) {
         return ResponseEntity.ok(menuItemService.updateMenuItem(id, dto));
     }
@@ -81,12 +88,12 @@ public class MenuItemController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<MenuItem> getMenuItemById(@PathVariable Long id) {
+    public ResponseEntity<MenuItem> getMenuItemById(@PathVariable String id) {
         return ResponseEntity.ok(menuItemService.getMenuItemById(id));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResponse> deleteMenuItem(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse> deleteMenuItem(@PathVariable String id) {
         return ResponseEntity.ok(menuItemService.deleteMenuItem(id));
     }
 

@@ -1,4 +1,6 @@
 import { toast } from "react-toastify";
+const BASE_URL =
+  "https://canteen-management-system-pidg.onrender.com/MenuItems";
 
 export const addMenuItem = async (formData, onSuccess) => {
   const data = new FormData();
@@ -15,7 +17,7 @@ export const addMenuItem = async (formData, onSuccess) => {
   }
 
   try {
-    const response = await fetch("http://localhost:8080/MenuItems/add", {
+    const response = await fetch(`${BASE_URL}/add`, {
       method: "POST",
       body: data,
     });

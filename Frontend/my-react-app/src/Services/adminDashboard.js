@@ -1,11 +1,13 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/admin";
+const BASE_URL = "https://canteen-management-system-pidg.onrender.com/admin";
 
 export async function fetchTotalUsers() {
   try {
     const response = await axios.get(`${BASE_URL}/users`);
+
     return response.data.totalUsers; // expects { totalUsers: number }
+
   } catch (error) {
     console.error("Error in fetchTotalUsers:", error);
     return 0;
@@ -15,6 +17,7 @@ export async function fetchTotalUsers() {
 export async function fetchTotalOrders() {
   try {
     const response = await axios.get(`${BASE_URL}/orders`);
+
     return response.data.totalOrders; // expects { totalOrders: number }
   } catch (error) {
     console.error("Error in fetchTotalOrders:", error);
@@ -52,3 +55,4 @@ export async function updateUser(id, userData) {
     throw error;
   }
 }
+
