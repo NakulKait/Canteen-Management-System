@@ -1,5 +1,7 @@
 package com.canteen.backend.config;
 
+import java.nio.file.Paths;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -9,8 +11,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Serve files under /images/** from the Desktop folder
-        registry.addResourceHandler("/images/**")
-                .addResourceLocations("file:C:\\Users\\devip\\OneDrive\\Desktop\\BackGroundImages");
+    	// Serve files from the /uploads folder in your deployed backend
+        String uploadPath = Paths.get(System.getProperty("user.dir"), "uploads").toUri().toString();
+        registry.addResourceHandler("/uploads/**")
+                .addResourceLocations(uploadPath);
     }
 }

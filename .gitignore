@@ -2,14 +2,25 @@
 **/bin/
 **/obj/
 
-# Vite and frontend build/deps
+# Frontend build and dependencies
 **/.vite/
 **/.vercel/
 **/node_modules/
+Frontend/node_modules/
+node_modules/
 
-# General
+# Visual Studio & IDEs
+.vs/
+.idea/
+*.iml
+.project
+.classpath
+
+# General temporary files
 *.log
 *.tmp
 *.cache
 .DS_Store
-.vs/
+
+# Maven build artifacts
+**/target/

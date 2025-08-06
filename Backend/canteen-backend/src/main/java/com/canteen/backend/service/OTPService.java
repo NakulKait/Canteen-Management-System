@@ -1,27 +1,41 @@
 package com.canteen.backend.service;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import com.canteen.backend.model.OtpVerification;
+import com.canteen.backend.repository.OtpVerificationRepository;
 
 @Service
-public class OTPService {
-    private Map<String, String> otpStorage = new HashMap<>();
+public class OtpService {
 
-    public String generateOTP(String email) {
-        String otp = String.format("%06d", new Random().nextInt(999999));
-        otpStorage.put(email, otp);
-        return otp;
+    @Autowired
+    private OtpVerificationRepository otpRepo;
+
+    public void createOrUpdateOtp(String email, String otp, LocalDateTime expiry) {
+        Optional<OtpVerification> existing = otpRepo.findByEmail(email);
+
+        OtpVerification entity = existing.orElse(new OtpVerification());
+        entity.setEmail(email);
+        entity.setOtp(otp);
+        entity.setExpiryTime(expiry);
+
+        otpRepo.save(entity);
     }
 
-    public boolean verifyOTP(String email, String otp) {
-        String storedOtp = otpStorage.get(email);
-        return storedOtp != null && storedOtp.equals(otp);
+    public boolean isValidOtp(String email, String inputOtp) {
+        Optional<OtpVerification> optional = otpRepo.findByEmail(email);
+        if (optional.isEmpty()) return false;
+
+        OtpVerification otp = optional.get();
+
+        return otp.getOtp().equals(inputOtp) && otp.getExpiryTime().isAfter(LocalDateTime.now());
     }
 
-    public void clearOTP(String email) {
-        otpStorage.remove(email);
+    public void deleteOtp(String email) {
+        otpRepo.findByEmail(email).ifPresent(otpRepo::delete);
     }
 }
