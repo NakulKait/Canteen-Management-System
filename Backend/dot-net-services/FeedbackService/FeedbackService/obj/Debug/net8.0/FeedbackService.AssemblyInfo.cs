@@ -14,11 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FeedbackService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67718e5fbf5eaa62f7d48c1516c5a968cc3d011e")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+402b407a06cda6d2036741aae963fe0d5031f5c7")]
->>>>>>> 1dbdf9082b527ada736e765afde3491688c12677
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa67d461f3af7f54ac073785086760c87f7c010d")]
 [assembly: System.Reflection.AssemblyProductAttribute("FeedbackService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FeedbackService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

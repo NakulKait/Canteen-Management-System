@@ -19,7 +19,19 @@ import com.canteen.backend.service.OtpService;
 
 @RestController
 @RequestMapping("/")
-@CrossOrigin(origins = "*")
+
+
+
+
+@CrossOrigin(origins = {
+
+        "http://localhost:5173",
+        "https://canteen-management-system-theta.vercel.app"
+})
+
+
+//@CrossOrigin(origins = "*")
+
 public class AuthController {
 
     @Autowired
@@ -53,7 +65,7 @@ public class AuthController {
             LocalDateTime expiry = LocalDateTime.now().plusMinutes(5);
 
             user.setVerified(false);
-          
+
             userService.registerUser(user); // Save user without OTP
 
             otpService.createOrUpdateOtp(email, otp, expiry); // Save OTP

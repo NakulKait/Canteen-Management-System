@@ -1,11 +1,12 @@
 import axios from "axios";
 
-const BASE_URL = "https://canteen-management-system-pidg.onrender.com/admin";
+const BASE_URL = "http://localhost:8080/admin";
 
 export async function fetchTotalUsers() {
   try {
     const response = await axios.get(`${BASE_URL}/users`);
-
+    
+    
     return response.data.totalUsers; // expects { totalUsers: number }
 
   } catch (error) {
@@ -54,5 +55,10 @@ export async function updateUser(id, userData) {
   } catch (error) {
     throw error;
   }
+}
+
+export async function getAllOrders()
+{
+  
 }
 
