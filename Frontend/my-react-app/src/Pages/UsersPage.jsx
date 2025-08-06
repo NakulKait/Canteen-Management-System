@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { fetchAllUsers, deleteUser, updateUser } from "../Services/adminDashboard";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const UsersPage = () => {
+const UsersPage = ({onUserDeleted}) => {
   const [users, setUsers] = useState([]);
+  
   const [editingUser, setEditingUser] = useState(null);
   const [form, setForm] = useState({ fullName: "", email: "", role: "" });
 
   useEffect(() => {
     loadUsers();
+    
   }, []);
 
   const loadUsers = async () => {
@@ -20,6 +23,7 @@ const UsersPage = () => {
       toast.error("Failed to load users");
     }
   };
+ 
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
@@ -27,6 +31,7 @@ const UsersPage = () => {
         await deleteUser(id);
         toast.success("User deleted successfully");
         loadUsers();
+        onUserDeleted();
       } catch (err) {
         toast.error("Failed to delete user");
       }
