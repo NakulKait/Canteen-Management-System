@@ -20,9 +20,6 @@ import com.canteen.backend.service.OtpService;
 @RestController
 @RequestMapping("/")
 
-
-
-
 @CrossOrigin(origins = {
 
         "http://localhost:5173",
