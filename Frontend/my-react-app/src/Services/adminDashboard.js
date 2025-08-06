@@ -6,8 +6,8 @@ export async function fetchTotalUsers() {
   try {
     const response = await axios.get(`${BASE_URL}/users`);
 
-    //return data;
-    return response.data.totalUsers; // expects key: totalUsers
+    return response.data.totalUsers; // expects { totalUsers: number }
+
   } catch (error) {
     console.error("Error in fetchTotalUsers:", error);
     return 0;
@@ -17,9 +17,42 @@ export async function fetchTotalUsers() {
 export async function fetchTotalOrders() {
   try {
     const response = await axios.get(`${BASE_URL}/orders`);
-    return response.data.totalOrders;
+
+    return response.data.totalOrders; // expects { totalOrders: number }
   } catch (error) {
-    console.error("error in fetchToatalOrders", error);
+    console.error("Error in fetchTotalOrders:", error);
     return 0;
   }
 }
+
+export async function fetchAllUsers() {
+  try {
+    const response = await axios.get(`${BASE_URL}/users-list`);
+    console.log("Users list:", response.data);
+    return response.data; // expects Array<User>
+  } catch (error) {
+    console.error("Error in fetching users", error);
+    return [];
+  }
+}
+
+export async function deleteUser(id) {
+  try {
+    const response = await axios.delete(`${BASE_URL}/users/${id}`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateUser(id, userData) {
+  try {
+    console.log(userData)
+    const response = await axios.put(`${BASE_URL}/users/${id}`, userData);
+    console.log(response)
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+

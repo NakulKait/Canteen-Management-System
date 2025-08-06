@@ -1,16 +1,26 @@
-# Ignore frontend dependencies
+# .NET build artifacts
+**/bin/
+**/obj/
+
+# Frontend build and dependencies
+**/.vite/
+**/.vercel/
+**/node_modules/
 Frontend/node_modules/
 node_modules/
 
-# Ignore .vs directory from Visual Studio
+# Visual Studio & IDEs
 .vs/
-
-# Ignore all target directories (from Maven)
-**/target/
-
-# Optional: Ignore IntelliJ and Eclipse settings (if using)
 .idea/
 *.iml
 .project
 .classpath
-    
+
+# General temporary files
+*.log
+*.tmp
+*.cache
+.DS_Store
+
+# Maven build artifacts
+**/target/
