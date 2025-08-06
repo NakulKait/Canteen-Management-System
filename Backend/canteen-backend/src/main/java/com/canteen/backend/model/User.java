@@ -1,3 +1,4 @@
+
 package com.canteen.backend.model;
 
 import java.util.ArrayList;
@@ -38,4 +39,4 @@ public class User {
     
     
 
-}
+	}
