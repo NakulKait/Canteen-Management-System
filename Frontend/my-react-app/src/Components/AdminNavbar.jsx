@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import { UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from "lucide-react";
 
 function AdminNavbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -12,9 +13,11 @@ function AdminNavbar() {
   return (
     <>
       {/* Navbar */}
+      
       <nav className="navbar navbar-expand-lg bg-white shadow-sm py-3">
         <div className="container-fluid d-flex justify-content-between align-items-center">
           {/* Left: Logo */}
+          
           <a
             className="navbar-brand d-flex align-items-center gap-2 fw-bold fs-4"
             href="/"
@@ -23,6 +26,8 @@ function AdminNavbar() {
             <span role="img" aria-label="canteen">🍽</span>
             <span>Admin Dashboard</span>
           </a>
+
+          
 
           {/* Right Section */}
           <div className="d-flex align-items-center gap-3">
