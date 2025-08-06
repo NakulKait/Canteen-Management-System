@@ -1,2 +1,26 @@
-Frontend/node_modules
+# .NET build artifacts
+**/bin/
+**/obj/
+
+# Frontend build and dependencies
+**/.vite/
+**/.vercel/
+**/node_modules/
+Frontend/node_modules/
+node_modules/
+
+# Visual Studio & IDEs
 .vs/
+.idea/
+*.iml
+.project
+.classpath
+
+# General temporary files
+*.log
+*.tmp
+*.cache
+.DS_Store
+
+# Maven build artifacts
+**/target/

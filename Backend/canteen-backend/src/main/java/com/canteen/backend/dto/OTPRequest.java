@@ -4,7 +4,6 @@ public class OTPRequest {
     private String email;
     private String otp;
 
-    
     public OTPRequest() {}
 
     public OTPRequest(String email, String otp) {
@@ -12,7 +11,6 @@ public class OTPRequest {
         this.otp = otp;
     }
 
-    
     public String getEmail() {
         return email;
     }

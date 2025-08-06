@@ -1,9 +1,9 @@
 // src/services/menuItemService.js
 
-// const BASE_URL =
-//   "https://canteen-management-system-pidg.onrender.com/MenuItems";
+const BASE_URL =
+  "https://canteen-management-system-pidg.onrender.com/MenuItems";
 
-const BASE_URL = "http://localhost:8080/MenuItems";
+//const BASE_URL = "http://localhost:8080/MenuItems";
 
 // 1. GET all menu items
 export const getAllMenuItems = async () => {
@@ -20,8 +20,9 @@ export const getAllMenuItems = async () => {
 };
 
 // 2. DELETE menu item by ID
-export const deleteMenuItemById = async (id) => {
+export async function deleteMenuItemById(id) {
   try {
+    console.log(id);
     const response = await fetch(`${BASE_URL}/delete/${id}`, {
       method: "DELETE",
     });
@@ -32,7 +33,7 @@ export const deleteMenuItemById = async (id) => {
     console.error("Failed to delete menu item:", error);
     throw error;
   }
-};
+}
 
 // 3. UPDATE menu item by ID
 export const updateMenuItem = async (id, updatedData) => {
