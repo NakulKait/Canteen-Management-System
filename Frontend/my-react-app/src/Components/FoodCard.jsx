@@ -8,13 +8,12 @@ const FoodCard = ({
   isSpecial,
   onAddToCart,
 }) => {
-  console.log("Rendering:", name, "| isSpecial:", isSpecial);
-
+  console.log("Rendering:", name, "| Image URL:", imageUrl);
   // If the imageUrl is a relative path (like /images/...), it will work with Vite/public
   const fullImageUrl = imageUrl
     ? imageUrl.startsWith("http") || imageUrl.startsWith("/")
       ? imageUrl
-      : `/${imageUrl}`
+      : `https://${imageUrl}`
     : "https://via.placeholder.com/300x200?text=No+Image";
 
   return (

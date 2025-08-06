@@ -90,14 +90,11 @@ function Dashboard() {
                 QR code validation, and real-time management.
               </p>
               <div className="mt-4 d-flex gap-3 justify-content-center justify-content-md-start">
-                <Link
-                  to="/student-dashboard"
-                  className="btn btn-warning text-white px-4"
-                >
+                <Link to="/login" className="btn btn-warning text-white px-4">
                   Student Dashboard
                 </Link>
                 <Link
-                  to="/admin-dashboard"
+                  to="/admin-login"
                   className="btn btn-outline-warning px-4"
                 >
                   Admin Dashboard
