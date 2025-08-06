@@ -8,9 +8,13 @@ const CartList = () => {
   const { cartItems, increment, decrement, remove } = useCart();
 
   return (
+    
     <div className="cart-container">
       <div className="cart-items">
-        <h2>Cart Items ({cartItems.length})</h2>
+        <h2>
+          Cart Items ({cartItems.reduce((acc, item) => acc + item.quantity, 0)})
+        </h2>
+
         {cartItems.map((item) => (
           <CartItem
             key={item.id}

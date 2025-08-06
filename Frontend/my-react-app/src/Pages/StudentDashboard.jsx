@@ -223,6 +223,7 @@ function StudentDashboard() {
             {filteredItems.map((item) => (
               <div className="col-12 col-md-4" key={item.id}>
                 <FoodCard
+                  id={item.id}
                   name={item.name}
                   description={item.description}
                   price={item.price}
