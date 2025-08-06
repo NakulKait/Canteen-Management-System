@@ -22,7 +22,9 @@ import com.canteen.backend.service.IAdminService;
 
 @RestController
 @RequestMapping("/admin")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+		"http://localhost:5173",
+        "https://canteen-management-system-theta.vercel.app"})
 public class AdminController {
 	
 	
