@@ -53,7 +53,7 @@ public class AuthController {
             LocalDateTime expiry = LocalDateTime.now().plusMinutes(5);
 
             user.setVerified(false);
-          
+
             userService.registerUser(user); // Save user without OTP
 
             otpService.createOrUpdateOtp(email, otp, expiry); // Save OTP
