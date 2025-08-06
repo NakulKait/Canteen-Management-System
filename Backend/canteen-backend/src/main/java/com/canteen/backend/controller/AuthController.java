@@ -20,8 +20,6 @@ import com.canteen.backend.service.OtpService;
 @RestController
 @RequestMapping("/")
 @CrossOrigin(origins = "*")
-
-
 public class AuthController {
 
     @Autowired
@@ -29,10 +27,9 @@ public class AuthController {
 
     @Autowired
     private MailService mailService;
-    
+
     @Autowired
     private OtpService otpService;
-
 
     private final SecureRandom secureRandom = new SecureRandom();
 
@@ -56,10 +53,10 @@ public class AuthController {
             LocalDateTime expiry = LocalDateTime.now().plusMinutes(5);
 
             user.setVerified(false);
-            //user.setRole("user");
+
             userService.registerUser(user); // Save user without OTP
 
-            otpService.createOrUpdateOtp(email, otp, expiry); // Save OTP in otp_verifications collection
+            otpService.createOrUpdateOtp(email, otp, expiry); // Save OTP
 
             mailService.sendOTPEmail(email, otp); // Send OTP email
 
@@ -97,12 +94,23 @@ public class AuthController {
         return ResponseEntity.ok(Map.of("message", "User registered successfully"));
     }
 
-
+    // ✅ Merged admin + user login logic into one method
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> loginData) {
         String email = loginData.get("email");
         String password = loginData.get("password");
 
+        // ✅ Admin login hardcoded
+        if ("admin@gmail.com".equalsIgnoreCase(email) && "admin123".equals(password)) {
+            Map<String, Object> adminResponse = new HashMap<>();
+            adminResponse.put("fullName", "Admin");
+            adminResponse.put("email", "admin@gmail.com");
+            adminResponse.put("role", "ADMIN");
+            adminResponse.put("message", "Admin login successful");
+            return ResponseEntity.ok(adminResponse);
+        }
+
+        // ✅ Normal user login
         Optional<User> optionalUser = userService.findByEmail(email);
         if (optionalUser.isEmpty() ||
             !userService.checkPassword(password, optionalUser.get().getPassword())) {

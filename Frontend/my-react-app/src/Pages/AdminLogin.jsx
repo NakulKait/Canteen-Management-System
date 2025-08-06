@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../Services/authService";
 
 const AdminLogin = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({
@@ -16,10 +20,22 @@ const AdminLogin = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login submitted:", form);
-    // TODO: Add login logic (API call, auth, etc.)
+    setError("");
+    try {
+      const data = await loginUser(form); // Call API
+      console.log("Login success:", data);
+
+      if (data.role === "ADMIN") {
+        navigate("/admin-dashboard"); //  Redirect on success
+      } else {
+        setError("Not authorized as admin.");
+      }
+    } catch (err) {
+      console.error("Login failed:", err);
+      setError(err); //Show error on wrong credentials
+    }
   };
 
   return (
@@ -71,6 +87,8 @@ const AdminLogin = () => {
               required
             />
           </div>
+
+          {error && <p className="text-danger text-center">{error}</p>}
           <div className="d-grid">
             <button className="btn btn-warning text-white" type="submit">
               Sign In
@@ -83,7 +101,6 @@ const AdminLogin = () => {
 };
 
 export default AdminLogin;
-
 
 //  {/* Hero Section */}
 //       <div className="hero-section text-center text-white">
