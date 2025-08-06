@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import {Edit,Trash,Plus,User,ShoppingBag,DollarSign,TrendingUp} from "lucide-react";
+import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminNavbar from "../Components/AdminNavbar";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
 
-import UsersPage from "../Pages/UsersPage"
+import UsersPage from "../Components/UsersComponent"
 //import MenuPage from "../Pages/MenuPage";
 import { fetchTotalUsers } from "../Services/adminDashboard";
 import { fetchTotalOrders } from "../Services/adminDashboard";
 
+
+
 import "react-toastify/dist/ReactToastify.css";
-import MenuPage from "./MenuPage";
-import OrderPage from "./OrderPage";
+import MenuPage from "../Components/MenuComponent";
+import OrderPage from "../Components/OrderComponent";
 import FeedbackPage from "../Components/Feedback";
 
 
@@ -55,11 +58,11 @@ const stats = [
     color: "orange",
   },
   {
-    label: "Total Revenue",
-    value: "₹45,680",
-    icon: <DollarSign />,
-    color: "red",
-  },
+  label: "Total Revenue",
+  value: "₹45,680",
+  icon: <CurrencyRupeeRoundedIcon className="text-orange-500" />,
+  color: "red",
+},
   { label: "Growth", value: "+12.5%", icon: <TrendingUp />, color: "yellow" },
 ];
 
