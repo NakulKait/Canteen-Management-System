@@ -12,6 +12,8 @@ import { fetchTotalOrders } from "../Services/adminDashboard";
 
 import "react-toastify/dist/ReactToastify.css";
 import MenuPage from "./MenuPage";
+import OrderPage from "./OrderPage";
+import FeedbackPage from "../Components/Feedback";
 
 
 
@@ -116,6 +118,8 @@ const stats = [
    
 {activeTab === "Users" && <UsersPage onUserDeleted={fetchUsers} />}
 {activeTab==="Menu" && <MenuPage/>}    
+{activeTab==="Orders" && <OrderPage/>}
+{activeTab==="Feedback" && <FeedbackPage/>}
 
       <hr className="my-3" />
       <Footer />

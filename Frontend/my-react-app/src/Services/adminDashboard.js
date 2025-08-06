@@ -57,3 +57,8 @@ export async function updateUser(id, userData) {
   }
 }
 
+export async function getAllOrders()
+{
+  
+}
+
