@@ -24,3 +24,7 @@ node_modules/
 
 # Maven build artifacts
 **/target/
+
+
+Backend/dot-net-services/FeedbackService/FeedbackService/obj/
+Backend/dot-net-services/FeedbackService/FeedbackService/bin/
