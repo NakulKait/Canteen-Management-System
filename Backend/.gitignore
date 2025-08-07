@@ -23,3 +23,5 @@ obj/
 *.exe
 *.dll
 *.pdb
+
+Backend/canteen-backend/.metadata/
