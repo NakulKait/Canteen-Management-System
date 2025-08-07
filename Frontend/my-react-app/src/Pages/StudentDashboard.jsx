@@ -79,7 +79,7 @@ function StudentDashboard() {
       <div className="container py-5">
         <h2 className="display-5 fw-bold text-dark mb-2">
           Welcome back,{" "}
-          <span className="text-warning">{user?.name || "Guest"}</span>! 👋
+          <span className="text-warning">{user?.fullName || "Guest"}</span>! 👋
         </h2>
         <p className="text-secondary fs-5">
           Ready to order some delicious food today?
@@ -202,7 +202,7 @@ function StudentDashboard() {
                 name={item.name}
                 description={item.description}
                 price={item.price}
-                imageUrl={item.imageUrl}
+                image={item.imageUrl}
                 onAddToCart={() => {
                   addToCart({
                     id: item.id,
@@ -223,6 +223,7 @@ function StudentDashboard() {
             {filteredItems.map((item) => (
               <div className="col-12 col-md-4" key={item.id}>
                 <FoodCard
+                  id={item.id}
                   name={item.name}
                   description={item.description}
                   price={item.price}

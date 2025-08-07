@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
 const CartItem = ({ item, onIncrement, onDecrement, onRemove }) => {
   return (
     <div className="cart-item">
       <img src={item.image} alt={item.name} />
-      
+
       <div className="details">
         <h3>{item.name}</h3>
         <p>{item.description}</p>

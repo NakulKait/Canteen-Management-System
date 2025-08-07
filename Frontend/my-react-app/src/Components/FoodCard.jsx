@@ -1,6 +1,9 @@
 import React from "react";
+import { useCart } from "../Context/CartContext";
+import { toast } from "react-toastify";
 
 const FoodCard = ({
+  id,
   name,
   description,
   price,
@@ -8,13 +11,16 @@ const FoodCard = ({
   isSpecial,
   onAddToCart,
 }) => {
-  console.log("Rendering:", name, "| isSpecial:", isSpecial);
-
+  const { addToCart } = useCart();
+  const handleAddToCart = () => {
+    addToCart({ id, name, price, description, image: imageUrl });
+    toast.success("Item Added to cart");
+  };
   // If the imageUrl is a relative path (like /images/...), it will work with Vite/public
   const fullImageUrl = imageUrl
     ? imageUrl.startsWith("http") || imageUrl.startsWith("/")
       ? imageUrl
-      : `/${imageUrl}`
+      : `https://${imageUrl}`
     : "https://via.placeholder.com/300x200?text=No+Image";
 
   return (
@@ -58,7 +64,7 @@ const FoodCard = ({
           </span>
           <button
             className="btn btn-warning text-white fw-semibold shadow-sm"
-            onClick={onAddToCart}
+            onClick={handleAddToCart}
           >
             + Add to Cart
           </button>

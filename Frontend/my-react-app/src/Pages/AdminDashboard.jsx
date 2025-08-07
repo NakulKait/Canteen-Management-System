@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import {Edit,Trash,Plus,User,ShoppingBag,DollarSign,TrendingUp} from "lucide-react";
+import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminNavbar from "../Components/AdminNavbar";
 import Footer from "../Components/Footer";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
-import UsersPage from "../Pages/UsersPage"
+import UsersPage from "../Components/UsersComponent"
 //import MenuPage from "../Pages/MenuPage";
 import { fetchTotalUsers } from "../Services/adminDashboard";
 import { fetchTotalOrders } from "../Services/adminDashboard";
 
+
+
 import "react-toastify/dist/ReactToastify.css";
-import MenuPage from "./MenuPage";
+import MenuPage from "../Components/MenuComponent";
+import OrderPage from "../Components/OrderComponent";
+import FeedbackPage from "../Components/Feedback";
 
 
 
@@ -24,24 +29,27 @@ function AdminDashboard() {
   const[userCount,setUserCount]=useState(0);
   const[orderCount,setOrderCount]=useState(0);
   const[activeTab,setActiveTab] =useState("Menu");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    
+  
+    fetchUsers();
+    fetchOrders();
+  }, []);
 
-    const fetchUsers =async ()=>{
+
+  const fetchUsers =async ()=>{
       const count =await fetchTotalUsers();
       setUserCount(count);
     };
 
-    const fetchOrders=async()=>{
+
+     const fetchOrders=async()=>{
       const count=await fetchTotalOrders();
       setOrderCount(count);
     }
 
     
-    fetchUsers();
-    fetchOrders();
-  }, []);
 
 
 const stats = [
@@ -53,11 +61,11 @@ const stats = [
     color: "orange",
   },
   {
-    label: "Total Revenue",
-    value: "₹45,680",
-    icon: <DollarSign />,
-    color: "red",
-  },
+  label: "Total Revenue",
+  value: "₹45,680",
+  icon: <CurrencyRupeeRoundedIcon className="text-orange-500" />,
+  color: "red",
+},
   { label: "Growth", value: "+12.5%", icon: <TrendingUp />, color: "yellow" },
 ];
 
@@ -114,8 +122,10 @@ const stats = [
   ))}
 </div>
    
-{activeTab === "Users" && <UsersPage />}
+{activeTab === "Users" && <UsersPage onUserDeleted={fetchUsers} />}
 {activeTab==="Menu" && <MenuPage/>}    
+{activeTab==="Orders" && <OrderPage/>}
+{activeTab==="Feedback" && <FeedbackPage/>}
 
       <hr className="my-3" />
       <Footer />

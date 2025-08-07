@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Dashboard.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AOS from "aos";
@@ -7,13 +7,36 @@ import "aos/dist/aos.css";
 import { ShoppingCart, QrCode, Users, BarChart2 } from "lucide-react";
 
 import Footer from "../Components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Dashboard() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true }); // once:true means animation runs once on scroll
     AOS.refresh(); // optional refresh after init
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    setUser(storedUser);
   }, []);
+
+  // Conditional routing logic for student
+  const handleStudentClick = () => {
+    if (user?.role === "STUDENT") {
+      navigate("/student-dashboard");
+    } else {
+      navigate("/login");
+    }
+  };
+
+  // Conditional routing logic for admin
+  const handleAdminClick = () => {
+    if (user?.role === "ADMIN") {
+      navigate("/admin-dashboard");
+    } else {
+      navigate("/admin-login");
+    }
+  };
 
   const features = [
     {
@@ -90,18 +113,18 @@ function Dashboard() {
                 QR code validation, and real-time management.
               </p>
               <div className="mt-4 d-flex gap-3 justify-content-center justify-content-md-start">
-                <Link
-                  to="/student-dashboard"
+                <button
+                  onClick={handleStudentClick}
                   className="btn btn-warning text-white px-4"
                 >
                   Student Dashboard
-                </Link>
-                <Link
-                  to="/admin-dashboard"
+                </button>
+                <button
+                  onClick={handleAdminClick}
                   className="btn btn-outline-warning px-4"
                 >
                   Admin Dashboard
-                </Link>
+                </button>
               </div>
             </div>
             {/* <div className="col-md-6 text-center mt-4 mt-md-0">

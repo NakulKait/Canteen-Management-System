@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate, Link } from "react-router-dom";
@@ -6,12 +6,18 @@ import { loginUser } from "../Services/authService";
 import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.role === "Student") {
+      navigate("/student-dashboard");
+    }
+  }, []);
+
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({
@@ -30,6 +36,7 @@ const Login = () => {
       });
 
       toast.success("Login successful!");
+      localStorage.setItem("user", JSON.stringify(response));
 
       // Optionally save token or user info:
       // localStorage.setItem("token", response.token);

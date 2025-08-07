@@ -1,26 +1,41 @@
 import React, { useState } from "react";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import { UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 function AdminNavbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const handleLogout = () => {
+    console.log("I am clicked");
+    localStorage.removeItem("user");
+    toast.success("Logged out successfully");
+    navigate("/");
+  };
+
   return (
     <>
       {/* Navbar */}
+
       <nav className="navbar navbar-expand-lg bg-white shadow-sm py-3">
         <div className="container-fluid d-flex justify-content-between align-items-center">
           {/* Left: Logo */}
+
           <a
             className="navbar-brand d-flex align-items-center gap-2 fw-bold fs-4"
             href="/"
             style={{ color: "#f97316" }}
           >
-            <span role="img" aria-label="canteen">🍽</span>
+            <span role="img" aria-label="canteen">
+              🍽
+            </span>
             <span>Admin Dashboard</span>
           </a>
 
@@ -37,7 +52,11 @@ function AdminNavbar() {
             </div>
 
             {/* Logout Button */}
-            <button className="btn btn-link p-0 ms-2 text-dark" title="Logout">
+            <button
+              className="btn btn-link p-0 ms-2 text-dark"
+              title="Logout"
+              onClick={handleLogout}
+            >
               <HiOutlineArrowRightOnRectangle size={20} />
             </button>
           </div>
@@ -91,7 +110,9 @@ function AdminNavbar() {
           <h6 className="fw-bold mt-3">Admin User</h6>
           <p className="text-muted small">admin@canteen.com</p>
           <hr />
-          <p className="small text-muted">You are logged in as Administrator.</p>
+          <p className="small text-muted">
+            You are logged in as Administrator.
+          </p>
         </div>
       </div>
     </>

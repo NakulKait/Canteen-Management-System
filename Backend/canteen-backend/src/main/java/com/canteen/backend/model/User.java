@@ -20,13 +20,17 @@ public class User {
 	@Transient
 	public static final String SEQUENCE_NAME = "users_sequence";
 	
-    @Id
-    private Long id;  // MongoDB uses String ObjectId by default
-    private String fullName;
-    private String email;
-    private String role;
-    private String password;
-    private boolean verified = false;
+	    
+	    @Id
+	    private Long id;  // MongoDB uses String ObjectId by default
+	    private String fullName;
+	    private String email;
+	    private String role;
+	    private String password;
+	    private boolean verified = false;
+	
+
+
     
     @JsonIgnore
     @DBRef(lazy=true)
@@ -35,8 +39,4 @@ public class User {
     
     
     
-   
-    
-    
-
 	}
