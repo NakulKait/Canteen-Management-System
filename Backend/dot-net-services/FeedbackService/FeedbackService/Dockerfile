@@ -1,18 +1,21 @@
-# Stage 1: Build the application
+# Stage 1: Build
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /app
+WORKDIR /src
 
-# ✅ Copy everything first
-COPY . ./
-
-# ✅ Then restore, build, publish
+# Copy only .csproj and restore
+COPY FeedbackService.csproj .
 RUN dotnet restore
-RUN dotnet build -c Release -o /app/build
+
+# Copy everything else and build
+COPY . .
 RUN dotnet publish -c Release -o /app/publish
 
-# Stage 2: Run the application
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+# Stage 2: Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build /app/publish .
+
+ENV ASPNETCORE_URLS=http://+:8080
+EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "FeedbackService.dll"]
