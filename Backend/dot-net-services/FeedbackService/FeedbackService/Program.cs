@@ -64,11 +64,16 @@ namespace FeedbackService
                 }
             }
 
-            // ✅ Bind to Railway's dynamic port
+            // ✅ Bind to Railway's dynamic port and replace localhost binding
             var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+            app.Urls.Clear(); // remove default localhost binding
             app.Urls.Add($"http://0.0.0.0:{port}");
 
+            // ✅ Optional: redirect root to Swagger so base URL works
+            app.MapGet("/", () => Results.Redirect("/swagger"));
+
             app.Run();
+
         }
     }
 }
