@@ -19,8 +19,9 @@ namespace FeedbackService
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             // ✅ Bind to Railway's dynamic port
-            var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "4000";
             builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 
             // ✅ Add services
             builder.Services.AddControllers();
