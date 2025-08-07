@@ -1,10 +1,11 @@
-using FeedbackService.Data;
+﻿using FeedbackService.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Microsoft.OpenApi.Models;
+using System;
 
 namespace FeedbackService
 {
@@ -14,37 +15,59 @@ namespace FeedbackService
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container
+            // ✅ Use connection string from appsettings.json
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            // ✅ Add services
             builder.Services.AddControllers();
 
-            // Get MySQL connection string from environment variable or fallback to appsettings.json
-            var connectionString = Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STRING")
-                                  ?? builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
 
+            // ✅ Setup EF Core with MySQL
             builder.Services.AddDbContext<FeedbackDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-            // Swagger support
+            // ✅ Swagger
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Feedback API", Version = "v1" });
+                c.AddServer(new OpenApiServer { Url = $"http://localhost:5000" });
+            });
 
             var app = builder.Build();
 
-            // Configure middleware pipeline
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
-            app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
+           // app.UseHttpsRedirection(); // Optional — can comment out if not using HTTPS
             app.UseAuthorization();
             app.MapControllers();
 
-            // Add support for dynamic port (required on Render)
-            var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-            app.Urls.Add($"http://*:{port}");
+            // ✅ Apply migrations automatically and test connection
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<FeedbackDbContext>();
+                try
+                {
+                    db.Database.Migrate();
+                    Console.WriteLine("✅ Database connected and migrated successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("❌ Error connecting to database: " + ex.Message);
+                }
+            }
 
+            // ✅ Fixed port for local
+            app.Urls.Add("http://localhost:5000");
             app.Run();
         }
     }
