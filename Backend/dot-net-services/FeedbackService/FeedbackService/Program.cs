@@ -33,12 +33,11 @@ namespace FeedbackService
             builder.Services.AddDbContext<FeedbackDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-            // ✅ Swagger
+            // ✅ Swagger without hardcoding localhost
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Feedback API", Version = "v1" });
-                c.AddServer(new OpenApiServer { Url = $"http://localhost:5000" });
             });
 
             var app = builder.Build();
@@ -47,7 +46,6 @@ namespace FeedbackService
             app.UseSwaggerUI();
 
             app.UseCors("AllowAll");
-           // app.UseHttpsRedirection(); // Optional — can comment out if not using HTTPS
             app.UseAuthorization();
             app.MapControllers();
 
@@ -66,8 +64,10 @@ namespace FeedbackService
                 }
             }
 
-            // ✅ Fixed port for local
-            app.Urls.Add("http://localhost:5000");
+            // ✅ Bind to Railway's dynamic port
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+            app.Urls.Add($"http://0.0.0.0:{port}");
+
             app.Run();
         }
     }
