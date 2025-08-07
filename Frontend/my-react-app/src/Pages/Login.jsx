@@ -9,11 +9,8 @@ const Login = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (user && user.role === "STUDENT") {
+    if (user && user.role === "Student") {
       navigate("/student-dashboard");
-    }
-    if (user && user.role === "ADMIN") {
-      navigate("/admin-dashboard");
     }
   }, []);
 

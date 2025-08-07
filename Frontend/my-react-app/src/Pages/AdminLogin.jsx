@@ -5,11 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../Services/authService";
 
 const AdminLogin = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (user && user.role === "STUDENT") {
-      navigate("/student-dashboard");
-    }
     if (user && user.role === "ADMIN") {
       navigate("/admin-dashboard");
     }
@@ -21,7 +20,6 @@ const AdminLogin = () => {
   });
 
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({
@@ -38,6 +36,7 @@ const AdminLogin = () => {
       console.log("Login success:", data);
 
       if (data.role === "ADMIN") {
+        localStorage.setItem("user", JSON.stringify(data));
         navigate("/admin-dashboard"); //  Redirect on success
       } else {
         setError("Not authorized as admin.");
