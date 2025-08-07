@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FeedbackService.Migrations
 {
     [DbContext(typeof(FeedbackDbContext))]
-    [Migration("20250803181800_first")]
-    partial class first
+    [Migration("20250807175413_YourMigrationName")]
+    partial class YourMigrationName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
