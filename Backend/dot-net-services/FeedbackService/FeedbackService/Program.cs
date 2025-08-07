@@ -18,9 +18,12 @@ namespace FeedbackService
             // ✅ Use connection string from appsettings.json
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+            // ✅ Bind to Railway's dynamic port
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+            builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
             // ✅ Add services
             builder.Services.AddControllers();
-
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -33,7 +36,7 @@ namespace FeedbackService
             builder.Services.AddDbContext<FeedbackDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-            // ✅ Swagger without hardcoding localhost
+            // ✅ Swagger setup
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
@@ -42,14 +45,18 @@ namespace FeedbackService
 
             var app = builder.Build();
 
+            // ✅ Middleware
+            app.UseHttpsRedirection(); // <-- important for Railway HTTPS
             app.UseSwagger();
             app.UseSwaggerUI();
 
             app.UseCors("AllowAll");
             app.UseAuthorization();
+
+            // ✅ Map controllers
             app.MapControllers();
 
-            // ✅ Apply migrations automatically and test connection
+            // ✅ Apply migrations automatically
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<FeedbackDbContext>();
@@ -64,16 +71,10 @@ namespace FeedbackService
                 }
             }
 
-            // ✅ Bind to Railway's dynamic port and replace localhost binding
-            var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-            app.Urls.Clear(); // remove default localhost binding
-            app.Urls.Add($"http://0.0.0.0:{port}");
-
-            // ✅ Optional: redirect root to Swagger so base URL works
+            // ✅ Redirect root to Swagger
             app.MapGet("/", () => Results.Redirect("/swagger"));
 
             app.Run();
-
         }
     }
 }
