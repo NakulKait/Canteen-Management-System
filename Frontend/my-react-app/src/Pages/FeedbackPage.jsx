@@ -10,7 +10,14 @@ import { ArrowLeftIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 const FeedbackPage = () => {
   const [feedbacks, setFeedbacks] = useState([]);
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  const storedUser = JSON.parse(localStorage.getItem("user")) || {};
+  const storedEmail = storedUser.email || "";
+  const [form, setForm] = useState({
+    name: "",
+    email: storedEmail,
+    message: "",
+  });
 
   useEffect(() => {
     loadFeedbacks();
@@ -35,8 +42,9 @@ const FeedbackPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(form.email);
 
-    if (!form.name || !form.email || !form.message) {
+    if (!form.email || !form.message) {
       toast.warning("Please fill in all fields.");
       return;
     }
@@ -87,27 +95,16 @@ const FeedbackPage = () => {
         {/* Feedback Form */}
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label>Name</label>
-            <input
-              className="form-control"
-              name="name"
-              placeholder="Your name"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="mb-3">
             <label>Email</label>
             <input
               className="form-control"
               name="email"
               type="email"
-              placeholder="you@example.com"
-              value={form.email}
+              placeholder={storedEmail || "you@example.com"}
+              value={storedEmail}
               onChange={handleChange}
               required
+              readOnly
             />
           </div>
 
