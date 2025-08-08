@@ -29,6 +29,10 @@ const Registration = () => {
       toast.error("Passwords do not match!");
       return;
     }
+    setIsDisabled(true);
+    setTimeout(() => {
+      setIsDisabled(false); // Re-enable after 1 min
+    }, 60000);
 
     try {
       const response = await registerUser({
@@ -45,6 +49,7 @@ const Registration = () => {
     }
   };
 
+  const [isDisabled, setIsDisabled] = useState(false);
   return (
     <div className="fullscreen-wrapper">
       <div
@@ -133,7 +138,15 @@ const Registration = () => {
             />
           </div>
           <div className="d-grid">
-            <button className="btn btn-warning text-white" type="submit">
+            <button
+              className="btn btn-warning text-white"
+              type="submit"
+              disabled={isDisabled} // ✅ disable button
+              style={{
+                opacity: isDisabled ? 0.6 : 1, // ✅ faint effect
+                cursor: isDisabled ? "not-allowed" : "pointer",
+              }}
+            >
               Create Account
             </button>
           </div>
