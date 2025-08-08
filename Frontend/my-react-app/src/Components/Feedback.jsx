@@ -1,27 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { getAllFeedback } from "../Services/feedbackService"; // service file
+import { getAllFeedback, deleteFeedback } from "../Services/feedbackService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Trash } from "react-feather";
 
 const FeedbackPage = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchFeedbacks = async () => {
-      try {
-        const response = await getAllFeedback();
-        setFeedbacks(response || []);
-      } catch (error) {
-        console.error("Failed to fetch feedbacks", error);
-        toast.error("Failed to load feedbacks");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Fetch all feedback
+  const fetchFeedbacks = async () => {
+    try {
+      const response = await getAllFeedback();
+      console.log("Fetched feedback list:", response); // Check the structure
+      setFeedbacks(response || []);
+    } catch (error) {
+      console.error("Failed to fetch feedbacks", error);
+      toast.error("Failed to load feedbacks");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchFeedbacks();
   }, []);
+
+  // Handle delete feedback
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this feedback?"))
+      return;
+
+    try {
+      await deleteFeedback(id);
+      toast.success("Feedback deleted successfully");
+      // Remove from state after delete
+      setFeedbacks((prev) => prev.filter((f) => f.id !== id));
+    } catch (error) {
+      console.error("Delete failed", error);
+      toast.error("Failed to delete feedback");
+    }
+  };
 
   if (loading) return <p>Loading feedbacks...</p>;
 
@@ -33,10 +52,28 @@ const FeedbackPage = () => {
         <p>No feedbacks yet.</p>
       ) : (
         <div className="row">
-          {feedbacks.map((feedback, index) => (
-            <div className="col-md-6 mb-3" key={index}>
-              <div className="card shadow-sm p-3 rounded-3">
-                <h5 className="text-primary fw-semibold">{feedback.name}</h5>
+          {feedbacks.map((feedback) => (
+            <div className="col-md-6 mb-3" key={feedback.id}>
+              <div className="card shadow-sm p-3 rounded-3 position-relative">
+                {/* Delete Icon */}
+                <button
+                  onClick={() => handleDelete(feedback.id)}
+                  style={{
+                    position: "absolute",
+                    top: "8px",
+                    right: "8px",
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                  }}
+                >
+                  <Trash size={18} color="red" />
+                </button>
+
+                {/* Feedback content */}
+                <h5 className="text-primary fw-semibold">
+                  {feedback.name || feedback.email || "Unknown"}
+                </h5>
                 <p className="mb-0">{feedback.message}</p>
               </div>
             </div>
