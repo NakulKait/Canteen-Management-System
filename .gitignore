@@ -27,4 +27,4 @@ node_modules/
 
 
 Backend/dot-net-services/FeedbackService/FeedbackService/obj/
-Backend/dot-net-services/FeedbackService/FeedbackService/bin/
+Backend/dot-net-services/FeedbackService/FeedbackService/bin/target/
