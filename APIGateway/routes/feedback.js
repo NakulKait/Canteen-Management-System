@@ -21,9 +21,12 @@ router.get("/with-names", async (req, res) => {
     const merged = feedbacks.map((fb) => {
       const user = users.find((u) => u.email === fb.email);
       return {
+        id: fb.id, // ✅ Include feedback ID
         name: user ? user.fullName : "Unknown",
         email: fb.email,
-        message: fb.message, // add feedback message
+
+        message: fb.message, // Optional: keep feedback message too
+
       };
     });
 
