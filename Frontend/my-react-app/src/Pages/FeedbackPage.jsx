@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from "react";
-import {
-  submitFeedback,
-  getAllFeedback,
-  deleteFeedback,
-} from "../Services/feedbackService";
+import React, { useState } from "react";
+import { submitFeedback } from "../Services/feedbackService";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { ArrowLeftIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 const FeedbackPage = () => {
-  const [feedbacks, setFeedbacks] = useState([]);
-
   const storedUser = JSON.parse(localStorage.getItem("user")) || {};
   const storedEmail = storedUser.email || "";
   const [form, setForm] = useState({
@@ -18,23 +12,6 @@ const FeedbackPage = () => {
     email: storedEmail,
     message: "",
   });
-
-  useEffect(() => {
-    loadFeedbacks();
-  }, []);
-
-  const loadFeedbacks = async () => {
-    try {
-      const res = await getAllFeedback();
-      // Adjust to your API response shape
-      const data = Array.isArray(res) ? res : res.data ?? [];
-      setFeedbacks(data);
-    } catch (error) {
-      console.error("Load error:", error);
-      toast.error("Failed to load feedbacks.");
-      setFeedbacks([]);
-    }
-  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -57,17 +34,6 @@ const FeedbackPage = () => {
     } catch (error) {
       console.error("Submit error:", error);
       toast.error("Failed to submit feedback.");
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      await deleteFeedback(id);
-      toast.info("Feedback deleted.");
-      loadFeedbacks();
-    } catch (error) {
-      console.error("Delete error:", error);
-      toast.error("Failed to delete feedback.");
     }
   };
 
@@ -127,30 +93,6 @@ const FeedbackPage = () => {
             </button>
           </div>
         </form>
-
-        {/* Feedback List */}
-        <h5 className="mt-4">All Feedback</h5>
-        {feedbacks.length === 0 ? (
-          <p className="text-muted">No feedbacks yet.</p>
-        ) : (
-          <ul className="list-group">
-            {feedbacks.map((fb) => (
-              <li
-                key={fb.id}
-                className="list-group-item d-flex justify-content-between align-items-center"
-              >
-                <div>
-                  <strong>{fb.name}</strong> <br />
-                  <span className="text-muted">{fb.message}</span>
-                </div>
-                <TrashIcon
-                  style={{ height: "20px", cursor: "pointer", color: "red" }}
-                  onClick={() => handleDelete(fb.id)}
-                />
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
     </div>
   );

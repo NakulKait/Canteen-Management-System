@@ -13,6 +13,7 @@ const FeedbackPage = () => {
     try {
       const response = await getAllFeedback();
       console.log("Fetched feedback list:", response); // Check the structure
+      console.log(response);
       setFeedbacks(response || []);
     } catch (error) {
       console.error("Failed to fetch feedbacks", error);
