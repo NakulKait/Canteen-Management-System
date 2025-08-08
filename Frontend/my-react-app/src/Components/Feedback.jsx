@@ -33,6 +33,7 @@ const FeedbackPage = () => {
       return;
 
     try {
+      console.log(id);
       await deleteFeedback(id);
       toast.success("Feedback deleted successfully");
       // Remove from state after delete
