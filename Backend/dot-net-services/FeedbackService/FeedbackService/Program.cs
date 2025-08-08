@@ -18,9 +18,13 @@ namespace FeedbackService
             // ✅ Use connection string from appsettings.json
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+            // ✅ Bind to Railway's dynamic port
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "4000";
+            builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
+
             // ✅ Add services
             builder.Services.AddControllers();
-
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -33,25 +37,27 @@ namespace FeedbackService
             builder.Services.AddDbContext<FeedbackDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-            // ✅ Swagger
+            // ✅ Swagger setup
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Feedback API", Version = "v1" });
-                c.AddServer(new OpenApiServer { Url = $"http://localhost:5000" });
             });
 
             var app = builder.Build();
 
+            // ✅ Middleware
+            app.UseHttpsRedirection(); // <-- important for Railway HTTPS
             app.UseSwagger();
             app.UseSwaggerUI();
 
             app.UseCors("AllowAll");
-           // app.UseHttpsRedirection(); // Optional — can comment out if not using HTTPS
             app.UseAuthorization();
+
+            // ✅ Map controllers
             app.MapControllers();
 
-            // ✅ Apply migrations automatically and test connection
+            // ✅ Apply migrations automatically
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<FeedbackDbContext>();
@@ -66,8 +72,9 @@ namespace FeedbackService
                 }
             }
 
-            // ✅ Fixed port for local
-            app.Urls.Add("http://localhost:5000");
+            // ✅ Redirect root to Swagger
+            app.MapGet("/", () => Results.Redirect("/swagger"));
+
             app.Run();
         }
     }
