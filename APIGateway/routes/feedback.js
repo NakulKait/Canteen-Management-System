@@ -23,6 +23,7 @@ router.get("/with-names", async (req, res) => {
       return {
         name: user ? user.fullName : "Unknown",
         email: fb.email,
+        message: fb.message, // add feedback message
       };
     });
 
