@@ -3,7 +3,8 @@
 import axios from "axios";
 
 // ✅ Changed to HTTP instead of HTTPS
-const API_URL = "https://localhost:7281/api/feedback";
+const API_URL =
+  "https://api-gateway-production-c5b3.up.railway.app/feedback/with-names";
 
 /**
  * Submit new feedback

@@ -41,7 +41,7 @@ function Navbar() {
             <span role="img" aria-label="canteen">
               🍽️
             </span>
-            <span>Canteen Manager</span>
+            <span>CampusEat</span>
           </a>
 
           {/* Right Controls */}
