@@ -1,0 +1,38 @@
+/* src/Styles/AdminNavbar.css */
+
+.admin-sidebar {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 280px;
+    height: 300px;
+    background-color: white;
+    border-radius: 20px; /* Rounded on all sides */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    padding: 1.5rem;
+    z-index: 1050;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto;
+  }
+  
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .avatar-box {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  

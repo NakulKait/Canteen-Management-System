@@ -18,9 +18,6 @@ import java.util.Map;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
-
-
-
 @RestController
 @RequestMapping("/MenuItems")
 @CrossOrigin(origins = {

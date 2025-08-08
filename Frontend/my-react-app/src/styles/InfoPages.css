@@ -1,0 +1,29 @@
+/* InfoPages.css */
+.info-page {
+    margin-left: 70px; /* Align with sidebar collapsed */
+    padding: 2rem;
+    transition: margin-left 0.3s ease;
+    min-height: 100vh;
+    background-color: #fff8dc;
+  }
+  
+  .sidebar:hover ~ .info-page {
+    margin-left: 200px; /* Align with sidebar expanded */
+  }
+  
+  .info-header {
+    background-color: #FFD700;
+    color: #333;
+    padding: 1rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .info-content {
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
