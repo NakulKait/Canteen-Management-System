@@ -1,59 +1,62 @@
 // feedbackService.js
-
 import axios from "axios";
 
-// ✅ Changed to HTTP instead of HTTPS
-const API_URL =
+// ✅ Fetch endpoint (gateway)
+const FEEDBACK_WITH_NAMES_URL =
   "https://api-gateway-production-c5b3.up.railway.app/feedback/with-names";
 
+// ✅ Add & Delete endpoint (direct service)
+const FEEDBACK_SERVICE_URL =
+  "https://canteen-management-system-production-1b78.up.railway.app/api/Feedback";
+
 /**
- * Submit new feedback
- * @param {Object} feedbackData - Object with name, email, message, etc.
- * @returns {Promise} Axios Promise
+ * Get all feedback entries from backend
  */
-export const submitFeedback = async (feedbackData) => {
+export const getAllFeedback = async () => {
   try {
-    const response = await axios.post(API_URL, feedbackData);
-    console.log("Feedback submitted successfully:", response.data);
+    const response = await axios.get(FEEDBACK_WITH_NAMES_URL);
+    console.log("Fetched all feedbacks:", response.data);
     return response.data;
   } catch (error) {
     console.error(
-      "Error submitting feedback:",
-      error.response || error.message
+      "Error fetching feedbacks:",
+      error.response?.data || error.message
     );
     throw error;
   }
 };
 
 /**
- * Get all feedback entries from backend
- * @returns {Promise} Axios Promise
+ * Submit new feedback
+ * @param {Object} feedbackData - { name, email, message }
  */
-export const getAllFeedback = async () => {
+export const submitFeedback = async (feedbackData) => {
   try {
-    const response = await axios.get(API_URL);
-    console.log("Fetched all feedbacks:", response.data);
+    const response = await axios.post(FEEDBACK_SERVICE_URL, feedbackData);
+    console.log("Feedback submitted successfully:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Error fetching feedbacks:", error.response || error.message);
+    console.error(
+      "Error submitting feedback:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 };
 
 /**
  * Delete a feedback entry by ID
- * @param {number} id - Feedback ID to delete
- * @returns {Promise} Axios Promise
+ * @param {number} id
  */
 export const deleteFeedback = async (id) => {
   try {
-    const response = await axios.delete(`${API_URL}/${id}`);
+    const response = await axios.delete(`${FEEDBACK_SERVICE_URL}/${id}`);
     console.log(`Feedback with ID ${id} deleted successfully.`);
     return response.data;
   } catch (error) {
     console.error(
       `Error deleting feedback with ID ${id}:`,
-      error.response || error.message
+      error.response?.data || error.message
     );
     throw error;
   }

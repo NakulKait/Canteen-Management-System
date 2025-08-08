@@ -6,7 +6,7 @@ import {
 } from "../Services/feedbackService";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+import { ArrowLeftIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 const FeedbackPage = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -19,13 +19,13 @@ const FeedbackPage = () => {
   const loadFeedbacks = async () => {
     try {
       const res = await getAllFeedback();
-      const data = Array.isArray(res.data) ? res.data : res.data?.data ?? [];
-
+      // Adjust to your API response shape
+      const data = Array.isArray(res) ? res : res.data ?? [];
       setFeedbacks(data);
     } catch (error) {
       console.error("Load error:", error);
       toast.error("Failed to load feedbacks.");
-      setFeedbacks([]); // Prevent undefined
+      setFeedbacks([]);
     }
   };
 
@@ -84,6 +84,7 @@ const FeedbackPage = () => {
           </p>
         </div>
 
+        {/* Feedback Form */}
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label>Name</label>
@@ -129,6 +130,30 @@ const FeedbackPage = () => {
             </button>
           </div>
         </form>
+
+        {/* Feedback List */}
+        <h5 className="mt-4">All Feedback</h5>
+        {feedbacks.length === 0 ? (
+          <p className="text-muted">No feedbacks yet.</p>
+        ) : (
+          <ul className="list-group">
+            {feedbacks.map((fb) => (
+              <li
+                key={fb.id}
+                className="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <div>
+                  <strong>{fb.name}</strong> <br />
+                  <span className="text-muted">{fb.message}</span>
+                </div>
+                <TrashIcon
+                  style={{ height: "20px", cursor: "pointer", color: "red" }}
+                  onClick={() => handleDelete(fb.id)}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
