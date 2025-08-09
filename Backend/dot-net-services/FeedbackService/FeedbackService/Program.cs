@@ -1,10 +1,11 @@
-using FeedbackService.Data;
+﻿using FeedbackService.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Microsoft.OpenApi.Models;
+using System;
 
 namespace FeedbackService
 {
@@ -14,36 +15,65 @@ namespace FeedbackService
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container
+            // ✅ Use connection string from appsettings.json
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            // ✅ Bind to Railway's dynamic port
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "4000";
+            builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
+
+            // ✅ Add services
             builder.Services.AddControllers();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
 
-            // Get MySQL connection string from environment variable or fallback to appsettings.json
-            var connectionString = Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STRING")
-                                  ?? builder.Configuration.GetConnectionString("DefaultConnection");
-
+            // ✅ Setup EF Core with MySQL
             builder.Services.AddDbContext<FeedbackDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-            // Swagger support
+            // ✅ Swagger setup
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Feedback API", Version = "v1" });
+            });
 
             var app = builder.Build();
 
-            // Configure middleware pipeline
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            // ✅ Middleware
+            app.UseHttpsRedirection(); // <-- important for Railway HTTPS
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
-            app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
             app.UseAuthorization();
+
+            // ✅ Map controllers
             app.MapControllers();
 
-            // Add support for dynamic port (required on Render)
-            var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-            app.Urls.Add($"http://*:{port}");
+            // ✅ Apply migrations automatically
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<FeedbackDbContext>();
+                try
+                {
+                    db.Database.Migrate();
+                    Console.WriteLine("✅ Database connected and migrated successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("❌ Error connecting to database: " + ex.Message);
+                }
+            }
+
+            // ✅ Redirect root to Swagger
+            app.MapGet("/", () => Results.Redirect("/swagger"));
 
             app.Run();
         }

@@ -1,33 +1,17 @@
-import React, { useState, useEffect } from "react";
-import {
-  submitFeedback,
-  getAllFeedback,
-  deleteFeedback,
-} from "../Services/feedbackService";
+import React, { useState } from "react";
+import { submitFeedback } from "../Services/feedbackService";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 const FeedbackPage = () => {
-  const [feedbacks, setFeedbacks] = useState([]);
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-
-  useEffect(() => {
-    loadFeedbacks();
-  }, []);
-
-  const loadFeedbacks = async () => {
-    try {
-      const res = await getAllFeedback();
-      const data = Array.isArray(res.data) ? res.data : res.data?.data ?? [];
-
-      setFeedbacks(data);
-    } catch (error) {
-      console.error("Load error:", error);
-      toast.error("Failed to load feedbacks.");
-      setFeedbacks([]); // Prevent undefined
-    }
-  };
+  const storedUser = JSON.parse(localStorage.getItem("user")) || {};
+  const storedEmail = storedUser.email || "";
+  const [form, setForm] = useState({
+    name: "",
+    email: storedEmail,
+    message: "",
+  });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -35,8 +19,9 @@ const FeedbackPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(form.email);
 
-    if (!form.name || !form.email || !form.message) {
+    if (!form.email || !form.message) {
       toast.warning("Please fill in all fields.");
       return;
     }
@@ -49,17 +34,6 @@ const FeedbackPage = () => {
     } catch (error) {
       console.error("Submit error:", error);
       toast.error("Failed to submit feedback.");
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      await deleteFeedback(id);
-      toast.info("Feedback deleted.");
-      loadFeedbacks();
-    } catch (error) {
-      console.error("Delete error:", error);
-      toast.error("Failed to delete feedback.");
     }
   };
 
@@ -84,29 +58,19 @@ const FeedbackPage = () => {
           </p>
         </div>
 
+        {/* Feedback Form */}
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label>Name</label>
-            <input
-              className="form-control"
-              name="name"
-              placeholder="Your name"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
           <div className="mb-3">
             <label>Email</label>
             <input
               className="form-control"
               name="email"
               type="email"
-              placeholder="you@example.com"
-              value={form.email}
+              placeholder={storedEmail || "you@example.com"}
+              value={storedEmail}
               onChange={handleChange}
               required
+              readOnly
             />
           </div>
 

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using FeedbackService.Models;
 using FeedbackService.Data;
 
@@ -25,6 +24,11 @@ namespace FeedbackService.Controllers
         [HttpPost]
         public IActionResult Submit([FromBody] Feedback feedback)
         {
+            if (feedback == null || string.IsNullOrWhiteSpace(feedback.Email) || string.IsNullOrWhiteSpace(feedback.Message))
+            {
+                return BadRequest(new { message = "Email and message are required." });
+            }
+
             _context.Feedbacks.Add(feedback);
             _context.SaveChanges();
             return Ok(new { message = "Feedback submitted successfully!" });

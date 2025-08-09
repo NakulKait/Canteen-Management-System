@@ -21,11 +21,13 @@ public class Orders {
 	@Id
 	private Long id;
 	private Long userId;
+	
 	private String tokenNo;
-	private String status;
-	private String paymentStatus;
-	private LocalDateTime createdOn;
 	private double totalAmount;
+	private String status;  //"pending" , "confirmed" ,"delivered"
+	private String paymentStatus; // "pending" ,"success" , "failed"
+	private LocalDateTime createdOn;
+    private LocalDateTime updatedOn; 
 	
 	private List<OrderItems> items;
 	

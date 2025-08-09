@@ -4,7 +4,7 @@ import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminNavbar from "../Components/AdminNavbar";
 import Footer from "../Components/Footer";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 import UsersPage from "../Components/UsersComponent"
 //import MenuPage from "../Pages/MenuPage";
@@ -29,6 +29,7 @@ function AdminDashboard() {
   const[userCount,setUserCount]=useState(0);
   const[orderCount,setOrderCount]=useState(0);
   const[activeTab,setActiveTab] =useState("Menu");
+  const navigate = useNavigate();
 
   useEffect(() => {
   
@@ -47,6 +48,8 @@ function AdminDashboard() {
       const count=await fetchTotalOrders();
       setOrderCount(count);
     }
+
+    
 
 
 const stats = [

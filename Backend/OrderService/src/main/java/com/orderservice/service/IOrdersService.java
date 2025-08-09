@@ -11,7 +11,7 @@ import com.orderservice.dto.OrderUpdateRequest;
 
 public interface IOrdersService {
 	
-	ApiResponse placeOrder(OrderRequest order);
+	OrderResponse placeOrder(OrderRequest order);
 
 	List<OrderResponse> getAllOrders();
 

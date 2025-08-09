@@ -6,9 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +44,7 @@ public class OrderService implements IOrdersService{
 	
 	
 	@Override
-	public ApiResponse placeOrder(OrderRequest request) {
+	public OrderResponse placeOrder(OrderRequest request) {
 		
 //		Orders tempOrder=modelMapper.map(order, Orders.class);
 //		tempOrder.setId(sequenceGenerator.generateSequence(Orders.SEQUENCE_NAME));
@@ -58,8 +60,8 @@ public class OrderService implements IOrdersService{
 //		for(OrderItemRequest item:order.getItems())
 //		{
 //			OrderItems orderItem=modelMapper.map(item,OrderItems.class);
-////			OrderItems orderItem=modelMapper.typeMap(item, OrderItems.class)
-////		    .addMappings(mapper -> mapper.skip(Orders::setId));
+//			OrderItems orderItem=modelMapper.typeMap(item, OrderItems.class)
+//		    .addMappings(mapper -> mapper.skip(Orders::setId));
 //
 //			
 //			orderItem.setId(sequenceGenerator.generateSequence(OrderItems.SEQUENCE_NAME));
@@ -72,14 +74,16 @@ public class OrderService implements IOrdersService{
 		 Orders order = new Orders();
 	        long orderId=sequenceGenerator.generateSequence(Orders.SEQUENCE_NAME);
 	        order.setId(orderId);
+	 
 	        order.setUserId(request.getUserId());
 	        String orderToken = "ORD-" + LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE)
                     + "-" + String.format("%05d", orderId);
             order.setTokenNo(orderToken);
-	        order.setStatus(request.getStatus());
-	        order.setPaymentStatus(request.getPaymentStatus());
+	        order.setStatus("pending");
+	        order.setPaymentStatus("pending");
 	        order.setCreatedOn(LocalDateTime.now());
-	        order.setTotalAmount(request.getTotalAmount());
+	        order.setUpdatedOn(LocalDateTime.now());
+	        
 
 	        Orders savedOrder = orderRepository.save(order);
 
@@ -89,14 +93,38 @@ public class OrderService implements IOrdersService{
 	            orderItem.setId(sequenceGenerator.generateSequence(OrderItems.SEQUENCE_NAME));
 	            orderItem.setOrderId(savedOrder.getId());
 	            orderItem.setItemId(item.getItemId());
+	            orderItem.setItemName(item.getItemName());
 	            orderItem.setQuantity(item.getQuantity());
 	            orderItem.setUnitPrice(item.getUnitPrice());
 	            
 	            
 	            orderItemRepository.save(orderItem);
 	        }
+	        List<OrderItemRequest> items=request.getItems();
+	        double totalAmount = items.stream()
+	        		.mapToDouble(i->i.getQuantity()* i.getUnitPrice())
+	        		.sum();
+	        savedOrder.setTotalAmount(totalAmount);
+	        orderRepository.save(savedOrder);
+	        
+	        
+	        
+	        
+	     // Map to response DTO
+	        OrderResponse response = modelMapper.map(savedOrder, OrderResponse.class);
+
+	        // Map items to DTO
+	        List<OrderItemResponse> itemResponses = items.stream()
+	                .map(i -> modelMapper.map(i, OrderItemResponse.class))
+	                .collect(Collectors.toList());
+	        response.setItems(itemResponses);
+
+	        // Initially no payment details
+	        response.setPaymentStatus(null);
+
+	        return response;
 		
-		return new ApiResponse("Ordered successfully");
+		
 	}
 
 

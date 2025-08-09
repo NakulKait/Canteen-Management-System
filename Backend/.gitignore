@@ -23,3 +23,7 @@ obj/
 *.exe
 *.dll
 *.pdb
+
+Backend/canteen-backend/.metadata/
+Backend/dot-net-services/FeedbackService/FeedbackService/obj/
+Backend/dot-net-services/FeedbackService/FeedbackService/bin/
