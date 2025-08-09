@@ -21,6 +21,7 @@ import Cart from "./Pages/Cart";
 
 import "./App.css";
 import TodaysSpecial from "./Pages/TodaysSpecial";
+import AboutUs from "./Pages/AboutUs";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/verify-otp" element={<VerifyOtp />} />
           <Route path="/student/feedback" element={<Feedback />} />
           <Route path="/editMenuItem/:id" element={<EditMenuItem />} />
+          <Route path="/about-us" element={<AboutUs />} />
         </Routes>
       </Router>
     </CartProvider>
