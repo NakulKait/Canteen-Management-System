@@ -1,4 +1,4 @@
-package com.canteen.backend.model;
+package com.orderservice.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,11 +21,13 @@ public class Orders {
 	@Id
 	private Long id;
 	private Long userId;
-	private Long paymentId;
-	private String status;
-	private String paymentStatus;
-	private LocalDateTime createdOn;
+	
+	private String tokenNo;
 	private double totalAmount;
+	private String status;  //"pending" , "confirmed" ,"delivered"
+	private String paymentStatus; // "pending" ,"success" , "failed"
+	private LocalDateTime createdOn;
+    private LocalDateTime updatedOn; 
 	
 	private List<OrderItems> items;
 	

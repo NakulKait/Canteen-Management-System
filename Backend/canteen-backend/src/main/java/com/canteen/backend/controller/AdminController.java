@@ -45,13 +45,7 @@ public class AdminController {
 	  return ResponseEntity.ok(adminService.getAllUsers());
 	}
 	
-	@GetMapping("/orders")
-	public ResponseEntity<?> getTotalOrders()
-	{
-		Map<String,Integer> response=new HashMap<>();
-		response.put("totalOrders",adminService.getTotalOrders());
-		return ResponseEntity.ok(response);
-	}
+	
 	
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<?> deleteUserById(@PathVariable Long id)

@@ -72,7 +72,7 @@ public class MenuItemController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<ApiResponse> updateMenuItem(
-            @PathVariable String id,
+            @PathVariable Long id,
             @RequestBody MenuItemDto dto) {
         return ResponseEntity.ok(menuItemService.updateMenuItem(id, dto));
     }
@@ -83,12 +83,12 @@ public class MenuItemController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<MenuItem> getMenuItemById(@PathVariable String id) {
+    public ResponseEntity<MenuItem> getMenuItemById(@PathVariable Long id) {
         return ResponseEntity.ok(menuItemService.getMenuItemById(id));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResponse> deleteMenuItem(@PathVariable String id) {
+    public ResponseEntity<ApiResponse> deleteMenuItem(@PathVariable Long id) {
         return ResponseEntity.ok(menuItemService.deleteMenuItem(id));
     }
 

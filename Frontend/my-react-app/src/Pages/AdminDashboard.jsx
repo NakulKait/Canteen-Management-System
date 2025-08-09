@@ -62,7 +62,7 @@ const stats = [
   },
   {
   label: "Total Revenue",
-  value: "₹45,680",
+  value: "₹100",
   icon: <CurrencyRupeeRoundedIcon className="text-orange-500" />,
   color: "red",
 },
