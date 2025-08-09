@@ -13,7 +13,7 @@ import com.canteen.backend.dto.UserDetailsDto;
 import com.canteen.backend.dto.UserUpdateDto;
 import com.canteen.backend.model.User;
 import com.canteen.backend.repository.AdminRepository;
-import com.canteen.backend.repository.OrdersRepository;
+
 import com.canteen.backend.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ public class AdminService implements IAdminService{
 	
       private UserRepository userRepository;
       
-      private OrdersRepository orderRepository;
+     
       
       private ModelMapper modelMapper;
 	
@@ -39,11 +39,7 @@ public class AdminService implements IAdminService{
 	}
 
 
-	@Override
-	public Integer getTotalOrders() {
-		long totalOrders=orderRepository.count();
-		return (int) totalOrders;
-	}
+	
 
 
 	@Override
