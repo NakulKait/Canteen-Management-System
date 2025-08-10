@@ -30,7 +30,6 @@ const FeedbackPage = () => {
       await submitFeedback(form);
       toast.success("Feedback submitted!");
       setForm({ name: "", email: "", message: "" });
-      loadFeedbacks();
     } catch (error) {
       console.error("Submit error:", error);
       toast.error("Failed to submit feedback.");
