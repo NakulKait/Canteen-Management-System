@@ -6,6 +6,7 @@ import com.orderservice.dto.ApiResponse;
 import com.orderservice.dto.OrderRequest;
 import com.orderservice.dto.OrderResponse;
 import com.orderservice.dto.OrderUpdateRequest;
+import com.orderservice.model.Orders;
 
 
 
@@ -19,6 +20,8 @@ public interface IOrdersService {
 
 	ApiResponse deleteOrderById(Long id);
 
-	ApiResponse updateOrderStatus(OrderUpdateRequest updateOrder);
+	
+
+	 boolean updateOrderStatus(long orderId, String status);
 
 }

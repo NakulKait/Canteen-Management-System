@@ -16,7 +16,9 @@ import com.razorpay.RazorpayException;
 
 @RestController
 @RequestMapping("/payments")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {
+		"http://localhost:5173",
+		"https://canteen-management-system-theta.vercel.app"})
 public class PaymentController {
 	
 	
