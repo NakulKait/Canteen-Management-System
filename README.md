@@ -97,7 +97,7 @@ cd Backend/OrderService
 npm install
 mvn spring-boot:run
 ```
-**API Gateway**
+**API Gateway:**
 ```bash
 cd APIGateway
 node index.js
