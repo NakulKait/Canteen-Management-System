@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8085/payments";
+//const BASE_URL = "http://localhost:8085/payments";
+const BASE_URL="https://order-service-yjpu.onrender.com/payments"
 
 export const createPaymentOrder = async (payload) => {
   try {

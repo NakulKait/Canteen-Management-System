@@ -1,7 +1,7 @@
 import axios from "axios";
-//const BASE_URL = "https://canteen-management-system-pidg.onrender.com/admin";
+const BASE_URL = "https://canteen-management-system-pidg.onrender.com/admin";
 
-const BASE_URL = "http://localhost:8080";
+//const BASE_URL = "http://localhost:8080";
 
 
 export async function fetchTotalUsers() {

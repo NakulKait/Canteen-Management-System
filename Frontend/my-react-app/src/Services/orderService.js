@@ -1,7 +1,7 @@
 import axios from "axios"
 
-const BASE_URL = "http://localhost:8085/orders";
-//const BASE_URL  "https://canteen-management-system-pidg.onrender.com/orders"
+//const BASE_URL = "http://localhost:8085/orders";
+const BASE_URL=  "https://order-service-yjpu.onrender.com/orders"
 export const placeOrderAPI=(orderPayload)=>{
     return axios.post(`${BASE_URL}/add`,orderPayload)
 }
