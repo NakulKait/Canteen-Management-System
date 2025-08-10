@@ -239,5 +239,24 @@ public class OrderService implements IOrdersService{
 
 
 	
+	@Override
+	public Integer getTotalOrders() {
+		Integer totalOrders=(int) orderRepository.count();
+		return  totalOrders;
+	}
+
+
+	@Override
+	public Double getTotalRevenue() {
+	    double totalRevenue=orderRepository.findByPaymentStatus("PAID")
+	            .stream()
+	            .mapToDouble(Orders::getTotalAmount)
+	            .sum();
+	    
+	    return totalRevenue;
+	}
+
+
+	
 
 }

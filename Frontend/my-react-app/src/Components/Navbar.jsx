@@ -134,7 +134,11 @@ function Navbar() {
               <strong>Role:</strong> {user.role}
             </p>
             <p className="small">{user.email}</p>
+            <Link to="/my-orders" className="text-decoration-none fw-bold mb-3">
+              My Orders
+            </Link>
             <hr />
+
             <button className="btn btn-dark w-100 mt-3" onClick={handleLogout}>
               Logout
             </button>

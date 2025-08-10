@@ -24,4 +24,8 @@ public interface IOrdersService {
 
 	 boolean updateOrderStatus(long orderId, String status);
 
+	Integer getTotalOrders();
+
+	Double getTotalRevenue();
+
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8080";
 
+
 export async function fetchTotalUsers() {
   try {
     const response = await axios.get(`${BASE_URL}/admin/users`);
@@ -37,9 +38,16 @@ export async function deleteUser(id) {
   }
 }
 
-export async function fetchTotalOrders() {
-  
-}
+export const fetchTotalOrders = async () => {
+  const response = await axios.get(`${API_BASE_URL}/orders/total-orders`);
+  return response.data.totalOrders;
+};
+
+
+export const fetchTotalRevenue = async () => {
+  const response = await axios.get(`${API_BASE_URL}/orders/total-revenue`);
+  return response.data.totalRevenue;
+};
 
 export async function updateUser(id, userData) {
   try {
