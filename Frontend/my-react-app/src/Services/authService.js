@@ -1,7 +1,7 @@
 import { apiFetch } from "../api/api";
 
-const BASE_URL = "http://localhost:8080";
-// const BASE_URL = "https://canteen-management-system-pidg.onrender.com";
+//const BASE_URL = "http://localhost:8080";
+const BASE_URL = "https://canteen-management-system-pidg.onrender.com";
 
 // ✅ Use fetch directly for public (no-token) requests
 export const registerUser = async (userData) => {
