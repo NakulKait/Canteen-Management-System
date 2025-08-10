@@ -9,7 +9,7 @@ import com.canteen.backend.dto.UserUpdateDto;
 public interface IAdminService {
 	Integer getNoOfUsers();
 
-	Integer getTotalOrders();
+	
 
 	List<UserDetailsDto> getAllUsers();
 

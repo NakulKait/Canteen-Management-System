@@ -15,9 +15,12 @@ import Footer from "../Components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 
 import UsersPage from "../Components/UsersComponent";
-//import MenuPage from "../Pages/MenuPage";
-import { fetchTotalUsers } from "../Services/adminDashboard";
-//import { fetchTotalOrders } from "../Services/adminDashboard";
+
+import {
+  fetchTotalOrders,
+  fetchTotalRevenue,
+  fetchTotalUsers,
+} from "../Services/adminDashboard";
 
 import "react-toastify/dist/ReactToastify.css";
 import MenuPage from "../Components/MenuComponent";
@@ -28,11 +31,15 @@ function AdminDashboard() {
   const [userCount, setUserCount] = useState(0);
   const [orderCount, setOrderCount] = useState(0);
   const [activeTab, setActiveTab] = useState("Menu");
+  const [totalRevenue, setTotalRevenue] = useState(0);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers();
-    // fetchOrders();
+
+    fetchOrders();
+    fetchRevenue();
   }, []);
 
   const fetchUsers = async () => {
@@ -45,6 +52,11 @@ function AdminDashboard() {
     setOrderCount(count);
   };
 
+  const fetchRevenue = async () => {
+    const revenue = await fetchTotalRevenue();
+    setTotalRevenue(revenue);
+  };
+
   const stats = [
     { label: "Total Users", value: userCount, icon: <User />, color: "orange" },
     {
@@ -55,11 +67,10 @@ function AdminDashboard() {
     },
     {
       label: "Total Revenue",
-      value: "₹45,680",
+      value: totalRevenue,
       icon: <CurrencyRupeeRoundedIcon className="text-orange-500" />,
       color: "red",
     },
-    { label: "Growth", value: "+12.5%", icon: <TrendingUp />, color: "yellow" },
   ];
 
   return (
@@ -68,7 +79,7 @@ function AdminDashboard() {
       <br className="my-3" />
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {stats.map((item, idx) => (
           <div
             key={idx}
@@ -99,7 +110,7 @@ function AdminDashboard() {
 
       {/* Tabs */}
       <div className="flex gap-6 border rounded-xl mb-6 overflow-hidden text-sm text-gray-600">
-        {["Analytics", "Orders", "Menu", "Users", "Feedback"].map((tab) => (
+        {["Orders", "Menu", "Users", "Feedback"].map((tab) => (
           <button
             key={tab}
             className={`flex-1 py-2 text-center ${

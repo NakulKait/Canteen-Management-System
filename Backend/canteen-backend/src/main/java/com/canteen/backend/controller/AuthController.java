@@ -142,6 +142,7 @@ public class AuthController {
         String token = jwtService.generateToken(email);
 
         Map<String, Object> response = new HashMap<>();
+        response.put("id",user.getId());
         response.put("fullName", user.getFullName());
         response.put("email", user.getEmail());
         response.put("role", user.getRole());

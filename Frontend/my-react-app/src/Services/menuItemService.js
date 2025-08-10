@@ -2,20 +2,11 @@
 import axios from "axios";
 import { apiFetch } from "../api/api";
 
-const BASE_URL = "http://localhost:8080/MenuItems";
-// Change to production URL when deploying
+const BASE_URL =
+  "https://canteen-management-system-pidg.onrender.com/MenuItems";
 
-// 1. GET all menu items
-// export const getAllMenuItems = async () => {
-//   try {
-//     const response = await axios.get(`${BASE_URL}/getItems`);
-//     // Axios doesn't have 'ok', so just return data directly
-//     return response.data;
-//   } catch (error) {
-//     console.error("Failed to fetch menu items:", error);
-//     throw error;
-//   }
-// };
+//const BASE_URL = "http://localhost:8080/MenuItems";
+
 export const getAllMenuItems = async () => {
   try {
     const response = await apiFetch(`${BASE_URL}/getItems`);

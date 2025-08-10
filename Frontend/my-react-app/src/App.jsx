@@ -18,11 +18,16 @@ import CartList from "./Components/CartList";
 import Feedback from "./Pages/FeedbackPage";
 import EditMenuItem from "./Pages/EditMenuItem";
 import Cart from "./Pages/Cart";
+import ProceedToPayment from "./Pages/ProceedToPayment";
 
 import "./App.css";
 import TodaysSpecial from "./Pages/TodaysSpecial";
+import PaymentSuccess from "./Pages/PaymentSuccess";
 import AboutUs from "./Pages/AboutUs";
+
 import ProtectedRoute from "./Components/ProtectedRoute";
+
+import UserOrders from "./Pages/UserOrders";
 
 function App() {
   return (
@@ -46,6 +51,11 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/student-todaysSpecial" element={<TodaysSpecial />} />
             <Route path="/student/feedback" element={<Feedback />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/proceed-to-payment" element={<ProceedToPayment />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route path="/my-orders" element={<UserOrders />} />
+
             <Route path="/about-us" element={<AboutUs />} />
           </Route>
 

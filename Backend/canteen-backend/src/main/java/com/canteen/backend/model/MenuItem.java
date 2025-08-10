@@ -10,9 +10,11 @@ import lombok.Data;
 @Document(collection = "MenuItem")
 public class MenuItem {
 	
+
 	@Transient
 	public static final String SEQUENCE_NAME="MenuItem_sequence";
 	
+
     @Id
     private Long id; // ✅ Changed to String for MongoDB
 
