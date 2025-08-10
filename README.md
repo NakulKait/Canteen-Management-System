@@ -14,7 +14,7 @@ Frontend built with **React.js** & **Tailwind CSS**, connected to a **Spring Boo
 - ⚛️ React.js
 - 💨 Tailwind CSS
 - 🌐 React Router
-- 🔐 JWT Authentication 
+- 🔐 JWT Authentication *(planned)*
 - ⚙️ Axios for API calls
 
 ### **Backend (Microservices Architecture)**
@@ -31,6 +31,9 @@ Frontend built with **React.js** & **Tailwind CSS**, connected to a **Spring Boo
 **Tools & Extras:**
 - Maven (build automation)
 - Payment Gateway Integration (Razorpay)
+- Docker (Backend services containerization)
+- Railway (Backend deployment)
+- Render (Backend deployment)
 
 ---
 
@@ -41,8 +44,11 @@ Canteen-Management-System/
 ├── APIGateway/                # API Gateway for routing requests
 ├── Backend/                   # All backend services
 │   ├── canteen-backend/       # Spring Boot backend
+│   │   └── Dockerfile         # Docker config for Spring Boot
 │   ├── dot-net-services/      # ASP.NET Core backend
+│   │   └── Dockerfile         # Docker config for .NET
 │   └── OrderService/          # Node.js + Express backend
+│       └── Dockerfile         # Docker config for Node.js
 ├── Frontend/
 │   └── my-react-app/          # React + Tailwind frontend
 └── .gitignore
@@ -61,7 +67,7 @@ cd Canteen-Management-System
 
 ## 💻 Run Locally
 
-### 1️⃣ Run the **Frontend**
+#### 1️⃣ Run the **Frontend**
 
 ```bash
 cd Frontend/my-react-app
@@ -71,7 +77,7 @@ npm run dev
 
 **Visit:** http://localhost:5173
 
-### 2️⃣ Run Backend Services
+#### 2️⃣ Run Backend Services Manually
 
 **Spring Boot service:**
 ```bash
@@ -107,9 +113,22 @@ node server.js
 
 ## 🌐 Deployment
 
-**Frontend deployed on Vercel:**
+### **Frontend**
+🔗 **Live Demo:** [Canteen Management System](https://canteen-management-system-theta.vercel.app/)
+- **Platform:** Vercel
+- **Auto-deployment:** Connected to main branch
 
-🔗 [Canteen Management System Live](https://canteen-management-system-theta.vercel.app/)
+### **Backend Services**
+🚂 **Render Deployment:**
+- **Spring Boot API:** [https://your-dotnet-api.onrender.com](https://canteen-management-system-pidg.onrender.com/swagger-ui/index.html)
+- **Order Service:**
+
+🎭 **Railway Deployment:**
+- **ASP.NET Core API:** [https://your-app.railway.app](http://canteen-management-system-production-1b78.up.railway.app)
+
+### **Database**
+- **MySQL:** Hosted on Railway
+- **MongoDB:** MongoDB Atlas
 
 ---
 
@@ -127,6 +146,13 @@ node server.js
 We use a single `main` branch for development and deployment.
 
 Feature updates and fixes are committed directly or via pull requests.
+
+---
+
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
