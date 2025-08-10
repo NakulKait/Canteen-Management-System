@@ -31,7 +31,7 @@ export async function fetchAllUsers() {
 
 export async function deleteUser(id) {
   try {
-    const response = await axios.delete(`${BASE_URL}/admin/users/${id}`);
+    const response = await axios.delete(`${BASE_URL}/users/${id}`);
     return response;
   } catch (error) {
     throw error;
@@ -52,7 +52,7 @@ export const fetchTotalRevenue = async () => {
 export async function updateUser(id, userData) {
   try {
     console.log(userData);
-    const response = await axios.put(`${BASE_URL}/admin/users/${id}`, userData);
+    const response = await axios.put(`${BASE_URL}/users/${id}`, userData);
     console.log(response);
     return response.data;
   } catch (error) {
