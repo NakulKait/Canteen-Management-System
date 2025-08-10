@@ -87,23 +87,13 @@ mvn spring-boot:run
 
 **.NET Core service:**
 ```bash
-cd Backend/dot-net-services
+cd Backend/dot-net-services\FeedbackService
 dotnet run
 ```
 
-<<<<<<< HEAD
-**Node.js Order Service:**
+**Spring Boot Order Service:**
 ```bash
 cd Backend/OrderService
-npm install
-node server.js
-```
-
-=======
-**Order Service:**
-```bash
-cd Backend/OrderService
-npm install
 mvn spring-boot:run
 ```
 **API Gateway:**
@@ -111,7 +101,7 @@ mvn spring-boot:run
 cd APIGateway
 node index.js
 ```
->>>>>>> 3791461010f9435acb01d8dedf1a1b46038c2c1d
+
 ---
 
 ## ✨ Features
@@ -134,11 +124,12 @@ node index.js
 
 ### **Backend Services**
 🚂 **Render Deployment:**
-- **Spring Boot API:** [https://your-dotnet-api.onrender.com](https://canteen-management-system-pidg.onrender.com/swagger-ui/index.html)
-- **Order Service:**
+- **Spring Boot API:** [https://your-springboot-api.onrender.com](https://canteen-management-system-pidg.onrender.com/swagger-ui/index.html)
+- **Order Service:**  [https://your-dotnet-api.onrender.com](https://order-service-yjpu.onrender.com/swagger-ui/index.html)
 
 🎭 **Railway Deployment:**
 - **ASP.NET Core API:** [https://your-app.railway.app](http://canteen-management-system-production-1b78.up.railway.app)
+- **API Gateway** [https://your-app.railway.app](https://api-gateway-production-c5b3.up.railway.app/feedback/with-names)
 
 ### **Database**
 - **MySQL:** Hosted on Railway
