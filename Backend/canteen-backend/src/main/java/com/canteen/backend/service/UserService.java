@@ -3,7 +3,7 @@ package com.canteen.backend.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +21,11 @@ public class UserService implements IUserService {
 
     
     private UserRepository userRepository;
+    @Autowired
     private SequenceGeneratorService sequenceGenerator;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 //    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -29,17 +33,21 @@ public class UserService implements IUserService {
         Optional<User> existingUserOpt = userRepository.findByEmail(user.getEmail());
 
         if (existingUserOpt.isPresent()) {
+            // Update existing user
             User existingUser = existingUserOpt.get();
             existingUser.setFullName(user.getFullName());
-            existingUser.setPassword(user.getPassword());
+            existingUser.setPassword(passwordEncoder.encode(user.getPassword())); // ✅ encode here
             existingUser.setRole(user.getRole());
             existingUser.setVerified(user.isVerified());
             return userRepository.save(existingUser);
         } else {
+            // Register new user
             user.setId(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
+            //user.setPassword(passwordEncoder.encode(user.getPassword())); // ✅ encode here
             return userRepository.save(user);
         }
     }
+
 
 
 
@@ -51,8 +59,10 @@ public class UserService implements IUserService {
 
     @Override
     public boolean checkPassword(String rawPassword, String encodedPassword) {
-        // Just compare plain text passwords directly (NOT SECURE)
-        return rawPassword.equals(encodedPassword);
+    	System.out.println(rawPassword);
+    	
+    	System.out.println(encodedPassword);
+        return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
 

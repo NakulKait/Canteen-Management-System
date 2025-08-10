@@ -22,7 +22,11 @@ import ProceedToPayment from "./Pages/ProceedToPayment"
 
 import "./App.css";
 import TodaysSpecial from "./Pages/TodaysSpecial";
+
 import PaymentSuccess from "./Pages/PaymentSuccess";
+
+import AboutUs from "./Pages/AboutUs";
+
 
 function App() {
   return (
@@ -44,7 +48,7 @@ function App() {
           <Route path="/editMenuItem/:id" element={<EditMenuItem />} />
           <Route path="/proceed-to-payment" element={<ProceedToPayment />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
-
+          <Route path="/about-us" element={<AboutUs />} />
         </Routes>
       </Router>
     </CartProvider>
