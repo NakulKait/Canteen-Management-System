@@ -200,27 +200,44 @@ public class OrderService implements IOrdersService{
 	}
 
 
+//	@Override
+//	public ApiResponse updateOrderStatus(OrderUpdateRequest updateOrder) {
+//	    // 1. Find the existing order
+//	    Optional<Orders> optionalOrder = orderRepository.findById(updateOrder.getId());
+//
+//	    if (optionalOrder.isEmpty()) {
+//	        throw new ResourceNotFoundException("Order not found with ID: " + updateOrder.getId());
+//	    }
+//
+//	    Orders existingOrder = optionalOrder.get();
+//
+//	    // 2. Update only the required fields
+//	    existingOrder.setStatus(updateOrder.getStatus());
+//	    existingOrder.setPaymentStatus(updateOrder.getPaymentStatus());
+//	    // add more fields if needed
+//
+//	    // 3. Save the updated order
+//	    orderRepository.save(existingOrder);
+//
+//	    return new ApiResponse("Updated successfully");
+//	}
+     
+	
 	@Override
-	public ApiResponse updateOrderStatus(OrderUpdateRequest updateOrder) {
-	    // 1. Find the existing order
-	    Optional<Orders> optionalOrder = orderRepository.findById(updateOrder.getId());
+    public boolean updateOrderStatus(long orderId, String status) {
+        Optional<Orders> orderOptional = orderRepository.findById(orderId);
 
-	    if (optionalOrder.isEmpty()) {
-	        throw new ResourceNotFoundException("Order not found with ID: " + updateOrder.getId());
-	    }
+        if (orderOptional.isPresent()) {
+            Orders order = orderOptional.get();
+            order.setStatus(status);
+            order.setUpdatedOn(LocalDateTime.now());
+            orderRepository.save(order);
+            return true;
+        }
+        return false;
+    }
 
-	    Orders existingOrder = optionalOrder.get();
 
-	    // 2. Update only the required fields
-	    existingOrder.setStatus(updateOrder.getStatus());
-	    existingOrder.setPaymentStatus(updateOrder.getPaymentStatus());
-	    // add more fields if needed
-
-	    // 3. Save the updated order
-	    orderRepository.save(existingOrder);
-
-	    return new ApiResponse("Updated successfully");
-	}
-
+	
 
 }

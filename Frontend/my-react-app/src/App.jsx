@@ -18,10 +18,15 @@ import CartList from "./Components/CartList";
 import Feedback from "./Pages/FeedbackPage";
 import EditMenuItem from "./Pages/EditMenuItem";
 import Cart from "./Pages/Cart";
+import ProceedToPayment from "./Pages/ProceedToPayment"
 
 import "./App.css";
 import TodaysSpecial from "./Pages/TodaysSpecial";
+
+import PaymentSuccess from "./Pages/PaymentSuccess";
+
 import AboutUs from "./Pages/AboutUs";
+
 
 function App() {
   return (
@@ -41,6 +46,8 @@ function App() {
           <Route path="/verify-otp" element={<VerifyOtp />} />
           <Route path="/student/feedback" element={<Feedback />} />
           <Route path="/editMenuItem/:id" element={<EditMenuItem />} />
+          <Route path="/proceed-to-payment" element={<ProceedToPayment />} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/about-us" element={<AboutUs />} />
         </Routes>
       </Router>

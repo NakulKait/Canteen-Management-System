@@ -1,6 +1,7 @@
 package com.orderservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,17 +11,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.orderservice.dto.OrderRequest;
 import com.orderservice.dto.OrderUpdateRequest;
+import com.orderservice.model.Orders;
 import com.orderservice.service.IOrdersService;
 
 
 
 @RestController
 @RequestMapping("/orders")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {
+		"http://localhost:5173",
+		"https://canteen-management-system-theta.vercel.app"})
 public class OrdersController {
 	
 	@Autowired
@@ -54,13 +59,27 @@ public class OrdersController {
 	}
 	
 	
-	@PutMapping
+//	@PutMapping("{id}")
+//	
+//	public ResponseEntity<?> updateOrderStatus(@RequestBody OrderUpdateRequest updateOrder)
+//	{
+//		return ResponseEntity.ok(orderService.updateOrderStatus(updateOrder));
+//	}
 	
-	public ResponseEntity<?> updateOrderStatus(@RequestBody OrderUpdateRequest updateOrder)
-	{
-		return ResponseEntity.ok(orderService.updateOrderStatus(updateOrder));
+	@PutMapping("/{orderId}/status")
+	public ResponseEntity<String> updateOrderStatus(
+	        @PathVariable long orderId,
+	        @RequestParam String status) {
+
+	    boolean updated = orderService.updateOrderStatus(orderId, status);
+
+	    if (updated) {
+	        return ResponseEntity.ok("Order status updated successfully");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                             .body("Order not found");
+	    }
 	}
-	
 	
 
 }
