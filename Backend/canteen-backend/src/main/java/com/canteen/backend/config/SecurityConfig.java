@@ -54,7 +54,7 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ Enable global CORS
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, "/register", "/login", "/verify-otp").permitAll()
-                .requestMatchers(HttpMethod.GET, "/").permitAll()
+                .requestMatchers(HttpMethod.GET, "/","/admin/users-list").permitAll()
                 .requestMatchers(
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
