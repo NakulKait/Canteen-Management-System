@@ -1,17 +1,20 @@
 // src/services/menuItemService.js
+import axios from "axios";
+import { apiFetch } from "../api/api";
 
-const BASE_URL = "https://canteen-management-system-pidg.onrender.com/MenuItems";
+const BASE_URL =
+  "https://canteen-management-system-pidg.onrender.com/MenuItems";
 
 //const BASE_URL = "http://localhost:8080/MenuItems";
 
-// 1. GET all menu items
 export const getAllMenuItems = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/getItems`);
+    const response = await apiFetch(`${BASE_URL}/getItems`);
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`Failed to fetch menu items, status: ${response.status}`);
     }
-    return await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error("Failed to fetch menu items:", error);
     throw error;
@@ -19,10 +22,9 @@ export const getAllMenuItems = async () => {
 };
 
 // 2. DELETE menu item by ID
-export async function deleteMenuItemById(id) {
+export const deleteMenuItemById = async (id) => {
   try {
-    console.log(id);
-    const response = await fetch(`${BASE_URL}/delete/${id}`, {
+    const response = await apiFetch(`${BASE_URL}/delete/${id}`, {
       method: "DELETE",
     });
     if (!response.ok) {
@@ -32,17 +34,15 @@ export async function deleteMenuItemById(id) {
     console.error("Failed to delete menu item:", error);
     throw error;
   }
-}
+};
 
 // 3. UPDATE menu item by ID
 export const updateMenuItem = async (id, updatedData) => {
   try {
-    const response = await fetch(`${BASE_URL}/update/${id}`, {
+    const response = await apiFetch(`${BASE_URL}/update/${id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify(updatedData),
+      headers: { "Content-Type": "application/json" }, // merged with token in apiFetch
     });
 
     if (!response.ok) {
@@ -58,10 +58,9 @@ export const updateMenuItem = async (id, updatedData) => {
 };
 
 // 4. GET menu item by ID
-// ✅ Corrected
 export const getMenuItemById = async (id) => {
   try {
-    const response = await fetch(`${BASE_URL}/get/${id}`);
+    const response = await apiFetch(`${BASE_URL}/get/${id}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }

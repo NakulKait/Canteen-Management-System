@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import com.canteen.backend.dto.OTPRequest;
 import com.canteen.backend.model.User;
 import com.canteen.backend.service.IUserService;
+import com.canteen.backend.service.JwtService;
 import com.canteen.backend.service.MailService;
 import com.canteen.backend.service.OtpService;
 
@@ -39,6 +40,9 @@ public class AuthController {
 
     @Autowired
     private OtpService otpService;
+    
+    @Autowired
+    private JwtService jwtService;
 
     private final SecureRandom secureRandom = new SecureRandom();
 
@@ -111,10 +115,12 @@ public class AuthController {
 
         // ✅ Admin login hardcoded
         if ("admin@gmail.com".equalsIgnoreCase(email) && "admin123".equals(password)) {
+        	String token = jwtService.generateToken(email);
             Map<String, Object> adminResponse = new HashMap<>();
             adminResponse.put("fullName", "Admin");
             adminResponse.put("email", "admin@gmail.com");
             adminResponse.put("role", "ADMIN");
+            adminResponse.put("token", token);
             adminResponse.put("message", "Admin login successful");
             return ResponseEntity.ok(adminResponse);
         }
@@ -133,13 +139,16 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("message", "Please verify your email before logging in."));
         }
+        String token = jwtService.generateToken(email);
 
         Map<String, Object> response = new HashMap<>();
         response.put("id",user.getId());
         response.put("fullName", user.getFullName());
         response.put("email", user.getEmail());
         response.put("role", user.getRole());
+        response.put("token",token );
         response.put("message", "Login successful");
+        
 
         return ResponseEntity.ok(response);
     }
