@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "https://canteen-management-system-pidg.onrender.com/admin";
+const BASE_URL = "https://canteen-management-system-pidg.onrender.com";
 
 //const BASE_URL = "http://localhost:8080";
 
@@ -62,8 +62,8 @@ export async function updateUser(id, userData) {
 
 
 
-const API_BASE_URL = "http://localhost:8085";
-
+//const API_BASE_URL = "http://localhost:8085";
+const API_BASE_URL="https://order-service-yjpu.onrender.com"
 // Get all orders
 export const getAllOrders = async () => {
   try {
