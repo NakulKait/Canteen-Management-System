@@ -1,76 +1,66 @@
 import React, { useEffect, useState } from "react";
-import {Edit,Trash,Plus,User,ShoppingBag,DollarSign,TrendingUp} from "lucide-react";
-import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
+import {
+  Edit,
+  Trash,
+  Plus,
+  User,
+  ShoppingBag,
+  DollarSign,
+  TrendingUp,
+} from "lucide-react";
+import CurrencyRupeeRoundedIcon from "@mui/icons-material/CurrencyRupeeRounded";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminNavbar from "../Components/AdminNavbar";
 import Footer from "../Components/Footer";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import UsersPage from "../Components/UsersComponent"
+import UsersPage from "../Components/UsersComponent";
 //import MenuPage from "../Pages/MenuPage";
 import { fetchTotalUsers } from "../Services/adminDashboard";
-import { fetchTotalOrders } from "../Services/adminDashboard";
-
-
+//import { fetchTotalOrders } from "../Services/adminDashboard";
 
 import "react-toastify/dist/ReactToastify.css";
 import MenuPage from "../Components/MenuComponent";
 import OrderPage from "../Components/OrderComponent";
 import FeedbackPage from "../Components/Feedback";
 
-
-
-
-
-
-
 function AdminDashboard() {
-
-  const[userCount,setUserCount]=useState(0);
-  const[orderCount,setOrderCount]=useState(0);
-  const[activeTab,setActiveTab] =useState("Menu");
+  const [userCount, setUserCount] = useState(0);
+  const [orderCount, setOrderCount] = useState(0);
+  const [activeTab, setActiveTab] = useState("Menu");
   const navigate = useNavigate();
 
   useEffect(() => {
-  
     fetchUsers();
-    fetchOrders();
+    // fetchOrders();
   }, []);
 
+  const fetchUsers = async () => {
+    const count = await fetchTotalUsers();
+    setUserCount(count);
+  };
 
-  const fetchUsers =async ()=>{
-      const count =await fetchTotalUsers();
-      setUserCount(count);
-    };
+  const fetchOrders = async () => {
+    const count = await fetchTotalOrders();
+    setOrderCount(count);
+  };
 
-
-     const fetchOrders=async()=>{
-      const count=await fetchTotalOrders();
-      setOrderCount(count);
-    }
-
-    
-
-
-const stats = [
-  { label: "Total Users", value: userCount, icon: <User />, color: "orange" },
-  {
-    label: "Total Orders",
-    value: orderCount,
-    icon: <ShoppingBag />,
-    color: "orange",
-  },
-  {
-  label: "Total Revenue",
-  value: "₹45,680",
-  icon: <CurrencyRupeeRoundedIcon className="text-orange-500" />,
-  color: "red",
-},
-  { label: "Growth", value: "+12.5%", icon: <TrendingUp />, color: "yellow" },
-];
-
-
-  
+  const stats = [
+    { label: "Total Users", value: userCount, icon: <User />, color: "orange" },
+    {
+      label: "Total Orders",
+      value: orderCount,
+      icon: <ShoppingBag />,
+      color: "orange",
+    },
+    {
+      label: "Total Revenue",
+      value: "₹45,680",
+      icon: <CurrencyRupeeRoundedIcon className="text-orange-500" />,
+      color: "red",
+    },
+    { label: "Growth", value: "+12.5%", icon: <TrendingUp />, color: "yellow" },
+  ];
 
   return (
     <div className="bg-light min-vh-100">
@@ -109,23 +99,25 @@ const stats = [
 
       {/* Tabs */}
       <div className="flex gap-6 border rounded-xl mb-6 overflow-hidden text-sm text-gray-600">
-  {["Analytics", "Orders", "Menu", "Users", "Feedback"].map((tab) => (
-    <button
-      key={tab}
-      className={`flex-1 py-2 text-center ${
-        activeTab === tab ? "bg-white font-semibold border-x" : "hover:bg-gray-100"
-      }`}
-      onClick={() => setActiveTab(tab)}
-    >
-      {tab}
-    </button>
-  ))}
-</div>
-   
-{activeTab === "Users" && <UsersPage onUserDeleted={fetchUsers} />}
-{activeTab==="Menu" && <MenuPage/>}    
-{activeTab==="Orders" && <OrderPage/>}
-{activeTab==="Feedback" && <FeedbackPage/>}
+        {["Analytics", "Orders", "Menu", "Users", "Feedback"].map((tab) => (
+          <button
+            key={tab}
+            className={`flex-1 py-2 text-center ${
+              activeTab === tab
+                ? "bg-white font-semibold border-x"
+                : "hover:bg-gray-100"
+            }`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      {activeTab === "Users" && <UsersPage onUserDeleted={fetchUsers} />}
+      {activeTab === "Menu" && <MenuPage />}
+      {activeTab === "Orders" && <OrderPage />}
+      {activeTab === "Feedback" && <FeedbackPage />}
 
       <hr className="my-3" />
       <Footer />

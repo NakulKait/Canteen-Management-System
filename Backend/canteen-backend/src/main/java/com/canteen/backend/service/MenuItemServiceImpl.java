@@ -26,6 +26,7 @@ public class MenuItemServiceImpl implements MenuItemService {
     @Override
     public ApiResponse addFoodItem(MenuItemDto dto) {
         MenuItem item = new MenuItem();
+        item.setId(sequenceGenerator.generateSequence(MenuItem.SEQUENCE_NAME));
         item.setName(dto.getName());
         item.setDescription(dto.getDescription());
         item.setCategory(dto.getCategory());
@@ -48,13 +49,14 @@ public class MenuItemServiceImpl implements MenuItemService {
   
     
     @Override
-    public ApiResponse updateMenuItem(String id, MenuItemDto dto) {
+    public ApiResponse updateMenuItem(Long id, MenuItemDto dto) {
         Optional<MenuItem> optional = menuItemRepository.findById(id);
         if (!optional.isPresent()) {
             return new ApiResponse("Item not found!");
         }
 
         MenuItem item = optional.get();
+        item.setId(id);
         item.setName(dto.getName());
         item.setDescription(dto.getDescription());
         item.setPrice(dto.getPrice());
@@ -68,7 +70,7 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     @Override
-    public ApiResponse deleteMenuItem(String id) {
+    public ApiResponse deleteMenuItem(Long id) {
         if (!menuItemRepository.existsById(id)) {
             return new ApiResponse("Item not found!");
         }
@@ -80,7 +82,7 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     @Override
-    public MenuItem getMenuItemById(String id) {
+    public MenuItem getMenuItemById(Long id) {
         return menuItemRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Menu item not found with ID: " + id));
     }

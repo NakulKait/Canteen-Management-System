@@ -4,7 +4,6 @@ import { UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-
 function AdminNavbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
@@ -16,6 +15,9 @@ function AdminNavbar() {
   const handleLogout = () => {
     console.log("I am clicked");
     localStorage.removeItem("user");
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("role");
+
     toast.success("Logged out successfully");
     navigate("/");
   };
