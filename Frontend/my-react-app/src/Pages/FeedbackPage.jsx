@@ -44,7 +44,7 @@ const FeedbackPage = () => {
         style={{ width: "100%", maxWidth: "600px" }}
       >
         <Link
-          to="/student/dashboard"
+          to="/student-dashboard"
           className="mb-3 d-flex align-items-center text-decoration-none text-dark"
         >
           <ArrowLeftIcon style={{ height: "20px", marginRight: "8px" }} />
