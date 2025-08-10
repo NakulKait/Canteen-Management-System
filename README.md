@@ -150,12 +150,6 @@ Feature updates and fixes are committed directly or via pull requests.
 ---
 
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
 ## 📞 Support
 
 If you have any questions or need support, please reach out to the team members listed above.
