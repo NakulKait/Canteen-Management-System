@@ -1,5 +1,8 @@
 package com.orderservice.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -81,5 +84,19 @@ public class OrdersController {
 	    }
 	}
 	
-
+	
+	@GetMapping("/total-orders")
+	public ResponseEntity<?> getTotalOrders() {
+	    Map<String, Integer> response = new HashMap<>();
+	    response.put("totalOrders", orderService.getTotalOrders());
+	    return ResponseEntity.ok(response);
+	}
+	
+	@GetMapping("/total-revenue")
+	public ResponseEntity<?> getTotalRevenue()
+	{
+		Map<String,Double> response=new HashMap<>();
+		response.put("totalRevenue", orderService.getTotalRevenue());
+		return ResponseEntity.ok(response);
+	}
 }

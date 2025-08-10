@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllOrders, updateOrderStatus } from "../services/adminDashboard";
+import { getAllOrders, updateOrderStatus } from "../Services/adminDashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const OrderPage = () => {
@@ -31,7 +31,7 @@ const OrderPage = () => {
     <div className="container mt-4">
       <h3 className="mb-4">All Orders</h3>
       <table className="table table-bordered table-hover align-middle">
-        <thead className="table-dark text-center">
+        <thead className="table-light text-center">
           <tr>
             <th>Token No</th>
             <th>User ID</th>
