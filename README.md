@@ -91,7 +91,6 @@ cd Backend/dot-net-services\FeedbackService
 dotnet run
 ```
 
-=======
 **Spring Boot Order Service:**
 ```bash
 cd Backend/OrderService
@@ -125,11 +124,12 @@ node index.js
 
 ### **Backend Services**
 🚂 **Render Deployment:**
-- **Spring Boot API:** [https://your-dotnet-api.onrender.com](https://canteen-management-system-pidg.onrender.com/swagger-ui/index.html)
+- **Spring Boot API:** [https://your-springboot-api.onrender.com](https://canteen-management-system-pidg.onrender.com/swagger-ui/index.html)
 - **Order Service:**  [https://your-dotnet-api.onrender.com](https://order-service-yjpu.onrender.com/swagger-ui/index.html)
 
 🎭 **Railway Deployment:**
 - **ASP.NET Core API:** [https://your-app.railway.app](http://canteen-management-system-production-1b78.up.railway.app)
+- **API Gateway** [https://your-app.railway.app](https://api-gateway-production-c5b3.up.railway.app/feedback/with-names)
 
 ### **Database**
 - **MySQL:** Hosted on Railway
