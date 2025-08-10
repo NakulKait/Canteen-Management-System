@@ -91,6 +91,7 @@ cd Backend/dot-net-services
 dotnet run
 ```
 
+<<<<<<< HEAD
 **Node.js Order Service:**
 ```bash
 cd Backend/OrderService
@@ -98,6 +99,19 @@ npm install
 node server.js
 ```
 
+=======
+**Order Service:**
+```bash
+cd Backend/OrderService
+npm install
+mvn spring-boot:run
+```
+**API Gateway:**
+```bash
+cd APIGateway
+node index.js
+```
+>>>>>>> 3791461010f9435acb01d8dedf1a1b46038c2c1d
 ---
 
 ## ✨ Features
