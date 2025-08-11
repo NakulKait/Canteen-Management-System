@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Table, Container, Spinner, Alert } from "react-bootstrap";
+import { Table, Container, Spinner, Alert, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { getUserOrders } from "../Services/orderService";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -7,6 +8,7 @@ const UserOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const userId = storedUser?.id;
@@ -50,7 +52,13 @@ const UserOrders = () => {
 
   return (
     <Container className="mt-4">
-      <h3>Your Orders</h3>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h3>Your Orders</h3>
+        <Button variant="secondary" onClick={() => navigate("/student-dashboard")}>
+          Back
+        </Button>
+      </div>
+
       {orders.length === 0 ? (
         <Alert variant="info">No orders found.</Alert>
       ) : (
@@ -73,14 +81,11 @@ const UserOrders = () => {
                 <td>{order.status}</td>
                 <td>{order.paymentStatus ?? "N/A"}</td>
                 <td>{new Date(order.createdOn).toLocaleString()}</td>
-           <td>
-  {order.items && order.items.length > 0
-    ? order.items.map(item => `${item.itemName} (x${item.quantity})`).join(", ")
-    : "No items"}
-</td>
-
-
-
+                <td>
+                  {order.items && order.items.length > 0
+                    ? order.items.map(item => `${item.itemName} (x${item.quantity})`).join(", ")
+                    : "No items"}
+                </td>
               </tr>
             ))}
           </tbody>

@@ -28,15 +28,10 @@ public class User {
 	    private String role;
 	    private String password;
 	    private boolean verified = false;
-	
-
-
     
     @JsonIgnore
     @DBRef(lazy=true)
     private List<Orders>orderList=new ArrayList<>();
-    
-    
     
     
 	}
