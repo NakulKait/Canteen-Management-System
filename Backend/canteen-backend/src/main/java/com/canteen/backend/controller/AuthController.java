@@ -61,17 +61,19 @@ public class AuthController {
         }
 
         try {
-            // Generate OTP
+            // ✅ Generate OTP only once
             String otp = String.format("%06d", secureRandom.nextInt(1_000_000));
             LocalDateTime expiry = LocalDateTime.now().plusMinutes(5);
 
+            // Save user with verified=false
             user.setVerified(false);
+            userService.registerUser(user);
 
-            userService.registerUser(user); // Save user without OTP
+            // ✅ Save OTP in DB
+            otpService.createOrUpdateOtp(email, otp, expiry);
 
-            otpService.createOrUpdateOtp(email, otp, expiry); // Save OTP
-
-            mailService.sendOTPEmail(email, otp); // Send OTP email
+            // ✅ Send exact same OTP in email
+            mailService.sendOTPEmail(email, otp);
 
             return ResponseEntity.ok(Map.of("message", "OTP sent to email"));
         } catch (Exception e) {
@@ -79,6 +81,7 @@ public class AuthController {
                     .body(Map.of("message", "Failed to send OTP", "error", e.getMessage()));
         }
     }
+
 
     @PostMapping("/verify-otp")
     public ResponseEntity<?> verifyOtp(@RequestBody OTPRequest payload) {
