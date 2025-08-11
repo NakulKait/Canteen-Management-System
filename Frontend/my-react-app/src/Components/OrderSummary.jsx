@@ -34,13 +34,13 @@
 
 // export default OrderSummary;
 
-
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { placeOrderAPI } from "../Services/orderService";
 
 const OrderSummary = ({ items }) => {
   const navigate = useNavigate();
+  const [isDisabled, setIsDisabled] = useState(false);
 
   // ✅ Fetch userId from localStorage
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -51,6 +51,11 @@ const OrderSummary = ({ items }) => {
   const total = subtotal + serviceFee;
 
   const handleProceedToPayment = async () => {
+    setIsDisabled(true);
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 120000);
+
     try {
       const orderPayload = {
         userId,
@@ -78,7 +83,8 @@ const OrderSummary = ({ items }) => {
       <h2>Order Summary</h2>
       {items.map((item) => (
         <p key={item.id}>
-          {item.name} × {item.quantity} <span>₹{item.price * item.quantity}</span>
+          {item.name} × {item.quantity}{" "}
+          <span>₹{item.price * item.quantity}</span>
         </p>
       ))}
       <hr />
@@ -92,7 +98,15 @@ const OrderSummary = ({ items }) => {
       <h3>
         Total <span>₹{total}</span>
       </h3>
-      <button className="pay-btn" onClick={handleProceedToPayment}>
+      <button
+        className="pay-btn"
+        onClick={handleProceedToPayment}
+        disabled={isDisabled}
+        style={{
+          opacity: isDisabled ? 0.6 : 1,
+          cursor: isDisabled ? "not-allowed" : "pointer",
+        }}
+      >
         Proceed to Payment
       </button>
     </div>

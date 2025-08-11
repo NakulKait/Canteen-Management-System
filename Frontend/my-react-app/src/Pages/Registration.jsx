@@ -32,7 +32,7 @@ const Registration = () => {
     setIsDisabled(true);
     setTimeout(() => {
       setIsDisabled(false); // Re-enable after 1 min
-    }, 60000);
+    }, 120000);
 
     try {
       const response = await registerUser({
