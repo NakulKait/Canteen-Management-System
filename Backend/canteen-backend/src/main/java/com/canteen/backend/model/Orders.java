@@ -29,9 +29,6 @@ public class Orders {
 	
 	private List<OrderItems> items;
 	
-	
-	
-	
 
 
 }

@@ -27,19 +27,9 @@ public class Payment {
 	private double amount;
 	
 	private String currency;
-	
-	//private String paymentMethod;  //upi,card, netBaking
-	
+
 	private String paymentStatus;  //success, failed, pending
 	
 	private String razorpayOrderId;
-	
-	//private LocalDateTime paymentDate;
-	
-	
-	
-	
-	
-	
-	
+			
 }

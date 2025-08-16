@@ -24,9 +24,9 @@ const PaymentSuccess = () => {
         <p className="mb-4 text-muted">Thank you for your purchase.</p>
         <button
           className="btn btn-success"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/student-dashboard")}
         >
-          Go to Home
+          Go to StudentDashboard
         </button>
       </div>
     </div>
