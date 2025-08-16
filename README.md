@@ -139,10 +139,10 @@ node index.js
 
 ## 👥 Team
 
-- **Om Bongulwar**
-- **Nakul Kait**
-- **Deviprasad Nallaboina**
-- **Piyusha Desai**
+- **Om Bongulwar - ombongulwar@gmail.com**
+- **Nakul Kait - nakulkait@gmail.com**
+- **Deviprasad Nallaboina - deviprasad8464@gmail.com**
+- **Piyusha Desai - piyushaadesai@gmail.com**
 
 ---
 

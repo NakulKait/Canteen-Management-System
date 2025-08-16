@@ -1,34 +1,43 @@
-import React,{useEffect,useState} from "react"
-import { getAllMenuItems,deleteMenuItemById } from "../Services/menuItemService";
+import React, { useEffect, useState } from "react";
+import {
+  getAllMenuItems,
+  deleteMenuItemById,
+} from "../Services/menuItemService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
-import {Edit,Trash,Plus,User,ShoppingBag,DollarSign,TrendingUp} from "lucide-react";
+import {
+  Edit,
+  Trash,
+  Plus,
+  User,
+  ShoppingBag,
+  DollarSign,
+  TrendingUp,
+} from "lucide-react";
 
-
-const MenuPage=()=>{
-    const [menuItems, setMenuItems]=useState([]);
-     const [loading, setLoading] = useState(true);
-      const [error, setError] = useState(null);
-    useEffect(() => {
-        const fetchMenu = async () => {
-          try {
-            const response = await getAllMenuItems();
-            console.log("Menu API Response:", response); 
-            setMenuItems(response);
-          } catch (err) {
-            console.error("Failed to fetch menu items", err);
-            setError("Unable to fetch menu items.");
-          } finally {
-            setLoading(false);
-          }
-        };
+const MenuPage = () => {
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const response = await getAllMenuItems();
+        console.log("Menu API Response:", response);
+        setMenuItems(response);
+      } catch (err) {
+        console.error("Failed to fetch menu items", err);
+        setError("Unable to fetch menu items.");
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchMenu();
-    },[]);
+  }, []);
 
-  
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleDelete = async (id) => {
     const confirm = window.confirm(
       "Are you sure you want to delete this item?"
@@ -36,33 +45,31 @@ const MenuPage=()=>{
     if (!confirm) return;
 
     try {
-      console.log("user id",id)
+      console.log("user id", id);
       await deleteMenuItemById(id);
       toast.success("Item deleted successfully");
 
       // Refresh menu after deletion
       const updatedItems = await getAllMenuItems();
-      
-    
+
       setMenuItems(updatedItems);
     } catch (error) {
       toast.error("Failed to delete item");
     }
   };
 
-  
-    return (
+  return (
     <div>
       {/* Add Button */}
-    <div className="d-flex justify-content-end mb-3">
-      <Link
-        to="/AddMenuItem"
-        className="btn btn-warning d-flex align-items-center gap-2"
-      >
-        <Plus size={16} />
-        Add Menu Item
-      </Link>
-    </div>
+      <div className="d-flex justify-content-end mb-3">
+        <Link
+          to="/admin-AddMenuItem"
+          className="btn btn-warning d-flex align-items-center gap-2"
+        >
+          <Plus size={16} />
+          Add Menu Item
+        </Link>
+      </div>
       <div className="row g-4">
         {menuItems.map((item, idx) => (
           <div className="col-md-4" key={idx}>
@@ -76,7 +83,7 @@ const MenuPage=()=>{
                       size={16}
                       className="me-2 text-muted"
                       role="button"
-                      onClick={() => navigate(`/editMenuItem/${item.id}`)}
+                      onClick={() => navigate(`/admin-editMenuItem/${item.id}`)}
                     />
                     <Trash
                       size={16}
@@ -108,9 +115,8 @@ const MenuPage=()=>{
           </div>
         ))}
       </div>
-  </div>
-
-    );
+    </div>
+  );
 };
 
 export default MenuPage;

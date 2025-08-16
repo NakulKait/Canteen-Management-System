@@ -20,7 +20,11 @@ const VerifyOtp = () => {
     }
 
     try {
-      await axios.post("https://canteen-management-system-pidg.onrender.com/verify-otp", { email, otp });
+      await axios.post(
+        "https://canteen-management-system-pidg.onrender.com/verify-otp",
+        { email, otp }
+      );
+      //await axios.post("http://localhost:8080/verify-otp", { email, otp });
       toast.success("Registration complete!");
       navigate("/login");
     } catch (err) {

@@ -18,15 +18,16 @@ import CartList from "./Components/CartList";
 import Feedback from "./Pages/FeedbackPage";
 import EditMenuItem from "./Pages/EditMenuItem";
 import Cart from "./Pages/Cart";
-import ProceedToPayment from "./Pages/ProceedToPayment"
+import ProceedToPayment from "./Pages/ProceedToPayment";
 
 import "./App.css";
 import TodaysSpecial from "./Pages/TodaysSpecial";
 import PaymentSuccess from "./Pages/PaymentSuccess";
 import AboutUs from "./Pages/AboutUs";
+
+import ProtectedRoute from "./Components/ProtectedRoute";
+
 import UserOrders from "./Pages/UserOrders";
-
-
 
 function App() {
   return (
@@ -34,24 +35,36 @@ function App() {
       <Router>
         <ToastContainer />
         <Routes>
+          {/*  Public Routes */}
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/admin-login" element={<AdminLogin />} />
-          <Route path="/student-dashboard" element={<StudentDashboard />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/addMenuItem" element={<AddMenuItem />} />
-          <Route path="/student-todaysSpecial" element={<TodaysSpecial />} />
           <Route path="/verify-otp" element={<VerifyOtp />} />
-          <Route path="/student/feedback" element={<Feedback />} />
-          <Route path="/editMenuItem/:id" element={<EditMenuItem />} />
-          <Route path="/proceed-to-payment" element={<ProceedToPayment />} />
-          <Route path="/payment-success" element={<PaymentSuccess />} />
-          <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/my-orders" element={<UserOrders />} />
-          <Route path="/about-us" element={<AboutUs />} />
 
+          {/* Protected Routes */}
+          {/* Protected Routes - Student */}
+          <Route
+            element={<ProtectedRoute allowedRoles={["Student", "Teacher"]} />}
+          >
+            <Route path="/student-dashboard" element={<StudentDashboard />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/student-todaysSpecial" element={<TodaysSpecial />} />
+            <Route path="/student/feedback" element={<Feedback />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/proceed-to-payment" element={<ProceedToPayment />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route path="/my-orders" element={<UserOrders />} />
+
+            <Route path="/about-us" element={<AboutUs />} />
+          </Route>
+
+          {/* Protected Routes - Admin */}
+          <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/admin-editMenuItem/:id" element={<EditMenuItem />} />
+            <Route path="/admin-addMenuItem" element={<AddMenuItem />} />
+          </Route>
         </Routes>
       </Router>
     </CartProvider>

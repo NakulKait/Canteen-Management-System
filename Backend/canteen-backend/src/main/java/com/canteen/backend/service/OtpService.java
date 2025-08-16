@@ -26,6 +26,7 @@ public class OtpService {
         otpRepo.save(entity);
     }
 
+
     public boolean isValidOtp(String email, String inputOtp) {
         Optional<OtpVerification> optional = otpRepo.findByEmail(email);
         if (optional.isEmpty()) return false;
